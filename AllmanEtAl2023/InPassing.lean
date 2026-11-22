@@ -497,7 +497,7 @@ theorem displays_displayedSides_of_splitOffAt (hN : N.IsPhylogenetic) (c : N.Par
     · exact fun hx => ⟨mem_displayedCluster.2 (hbelow x hx).2, s.subset_taxa hP hx⟩
   obtain ⟨a, ha⟩ : P.Nonempty := Finset.card_pos.1 (by rw [s.card_of_mem hP]; omega)
   obtain ⟨y, hy⟩ : (s.taxa \ P).Nonempty := Finset.card_pos.1 (by rw [s.card_of_mem (s.sdiff_mem hP)]; omega)
-  have hAne : A ≠ ∅ := Finset.nonempty_iff_ne_empty.1 ⟨a, mem_displayedCluster.2 (hbelow a ha).2⟩
+  have hAne : A ≠ ∅ := Finset.ne_empty_iff_nonempty.symm.1 ⟨a, mem_displayedCluster.2 (hbelow a ha).2⟩
   have hAu : A ≠ Finset.univ := fun h' => by
     have hyA : y ∈ A := h' ▸ Finset.mem_univ y
     have hyq := Finset.mem_sdiff.mp hy

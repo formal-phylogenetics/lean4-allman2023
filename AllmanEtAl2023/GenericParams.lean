@@ -29,7 +29,7 @@ theorem isMetric_coordMetric {d : V → E} (hd : ∀ v, 2 ≤ N.graph.indegree v
     by_cases hT : T = ∅
     · simp [hT]
     · have hlt : ∑ f ∈ T, x.2 f < ∑ _f ∈ T, ((Fintype.card E : ℝ) + 1)⁻¹ :=
-        Finset.sum_lt_sum_of_nonempty (Finset.nonempty_iff_ne_empty.mpr hT) fun f _ => (hx.2 f).2
+        Finset.sum_lt_sum_of_nonempty (Finset.ne_empty_iff_nonempty.symm.mpr hT) fun f _ => (hx.2 f).2
       refine hlt.trans_le ?_
       rw [Finset.sum_const, nsmul_eq_mul, ← div_eq_mul_inv, div_le_one hcard]
       have : (T.card : ℝ) ≤ Fintype.card E := by exact_mod_cast Finset.card_le_univ T
