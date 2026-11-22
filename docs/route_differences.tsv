@@ -1,0 +1,25 @@
+# Differences between the routes of the formal proofs and the paper's proofs, each with its reason.
+# Format: label<TAB>±other<TAB>reason. See Section 7 of each paper's report, papers/<Paper>/REPORT.md. The routes of the papers are in docs/paper_routes.tsv.
+# A row with the label `*` records a result used without citation throughout. Each paper has a section below.
+# Split from lean4-tob's docs/route_differences.tsv at before-split (6e7bc49): the rows of this repository.
+# ==== Allman, Baños, Mitchell, Rhodes 2023 ====
+# The definitions, which statements use throughout, those of the later papers included when they reach results of this paper. The routes list a definition only where a statement of the proof needs it by name.
+*	+a:def::network	Every statement is on a network of Definition 1 (`IsBinaryNetwork`).
+*	+a:def::undirected	`T_rd(𝒩⁻)` is built on the semidirected network of Definition 5 (`semidirected`, `lsaPlus`), so every statement on it reaches them.
+*	+a:def:blob	Definition 7, through `cutDegree` and `blobDegree`, in what the proofs say about blobs.
+*	+a:def:cf	Definition 14 (`cfTriple`, `quartetCF`), in the statements on `CF`s.
+*	+a:def:cutCF	Definition 15, in the statements on `CF`s.
+*	+a:def:determined	Definition 8 (`IsDeterminedBy`), in the statements on B-quartets, by Definition 12.
+*	+a:def:induced	Definition 6 (`induced`), in the statements on induced networks.
+*	+a:def:tob	Definition 10, through Definition 11.
+*	+a:def:trd	Definition 11 (`Trd`), in the statements on the reduced tree.
+*	+a:def:Bquartet	Definition 12 (`IsBlobQuartet`), in the statements on B-quartets.
+*	+a:def:Tquartet	Definition 13 (`IsTreeQuartet`), in the statements on T-quartets.
+# A basic property of the objects, used without citation.
+*	+a:claim:trd-tree	The paper calls `T_rd(𝒩⁻)` a tree when it defines it, and uses that throughout. Here it is `Bridges.isTree_Trd`, which what is said about the topology of `T_rd` goes through.
+# Section 4.
+a:thm:infrule	-a:claim:b-unresolved	The paper reads "B-quartet" as: paths in the tree of blobs from the fourth taxon first meet the other three at `v`. `rule_core` has this directly, from `IsBQuartet`, by `determines_of_isBQuartet`, with no use of the displayed unresolved quartet, the form of `isBlobQuartet_iff_displaysUnresolved`.
+a:thm:infrule	-a:claim:t-induced	The last step of the paper says that a cut edge separating `a, e` from `b, c, d` leaves `a, e` not separated in the 4-taxon tree of blobs. `not_separating` gets this from `inducedCutSplit_of_hasCutSplit`, on cut-edge splits, not from `isTreeQuartet_induced`, the same fact on T-quartets.
+a:claim:part-a	+a:cor:largeCFdetect	The label is on two theorems. `theorem3_core_partA`, the induction, doesn't use Corollary 1. `theorem3_partA` is all of Theorem 3 with the rule's part (a), which detects through Corollary 1, as `theorem3` does. The paper's sentence gives no route.
+# Section 5.
+a:thm:ToBident	+a:claim:splits-tree	`theorem4_iso` goes beyond the paper's comparison through the displayed quartets, to an isomorphism of labelled trees, by the splits-equivalence theorem, which the paper doesn't cite.
