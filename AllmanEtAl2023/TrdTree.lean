@@ -2,6 +2,7 @@ module
 
 public import AllmanEtAl2023.TreeSuppression
 public import Phylogenetics.Tree.Splits
+public import Phylogenetics.Network.CutHierarchy
 public import Mathlib.Combinatorics.SimpleGraph.DegreeSum
 public import Mathlib.Combinatorics.SimpleGraph.Acyclic
 

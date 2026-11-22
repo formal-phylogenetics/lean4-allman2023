@@ -3,6 +3,7 @@ module
 public import AllmanEtAl2023.Theorem1a
 public import AllmanEtAl2023.Reduction
 public import Phylogenetics.NMSC.Witness
+public import Phylogenetics.Network.CutHierarchy
 public import Phylogenetics.Network.DeletedArcs
 
 /-!

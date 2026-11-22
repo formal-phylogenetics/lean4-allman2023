@@ -26,6 +26,7 @@ public import Phylogenetics.Network.Defs
 public import Phylogenetics.Network.Quartets
 public import Phylogenetics.Tree.Defs
 public import Phylogenetics.Tree.Metric
+public import Phylogenetics.Network.CutHierarchy
 public import Phylogenetics.Tree.Splits
 
 /-!

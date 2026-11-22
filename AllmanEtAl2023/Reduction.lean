@@ -2,6 +2,7 @@ module
 
 public import Phylogenetics.Network.DeletedArcs
 public import Phylogenetics.Tree.Metric
+public import Phylogenetics.Network.CutHierarchy
 public import AllmanEtAl2023.CycleLemma
 
 /-!

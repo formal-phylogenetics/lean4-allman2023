@@ -4,6 +4,7 @@ public import TreeOfBlobs.ForMathlib.Analysis.AnalyticZeroSet
 public import TreeOfBlobs.General
 public import Phylogenetics.NMSC.Analytic
 public import Phylogenetics.NMSC.Exchangeability
+public import Phylogenetics.Network.CutHierarchy
 public import Phylogenetics.NMSC.Witness
 public import AllmanEtAl2023.Basic
 public import Phylogenetics.Network.DeletedArcs

@@ -3,6 +3,7 @@ module
 public import Phylogenetics.Network.Cuts
 public import Phylogenetics.Network.DeletedArcs
 public import Phylogenetics.Tree.Metric
+public import Phylogenetics.Network.CutHierarchy
 
 /-!
 # Cut edges of induced subgraphs, by the arcs that are their top

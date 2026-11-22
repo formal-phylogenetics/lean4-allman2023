@@ -1,6 +1,7 @@
 module
 
 public import Phylogenetics.NMSC.Witness
+public import Phylogenetics.Network.CutHierarchy
 public import Phylogenetics.NMSC.InducedSuppress
 
 /-!

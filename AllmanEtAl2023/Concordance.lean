@@ -3,6 +3,7 @@ module
 public import AllmanEtAl2023.Basic
 public import AllmanEtAl2023.BlobDefinitions
 public import Phylogenetics.Tree.Splits
+public import Phylogenetics.Network.CutHierarchy
 public import Phylogenetics.Tree.Splice
 
 /-!

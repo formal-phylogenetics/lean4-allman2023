@@ -2,6 +2,7 @@ module
 
 public import AllmanEtAl2023.InducedNetwork
 public import Phylogenetics.NMSC.Glue
+public import Phylogenetics.Network.CutHierarchy
 public import Phylogenetics.NMSC.Induced
 public import Phylogenetics.Coalescent.PMF
 
