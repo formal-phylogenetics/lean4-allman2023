@@ -4,7 +4,7 @@
 
 A Lean 4 formalization of E. S. Allman, H. Baños, J. D. Mitchell, J. A. Rhodes, *The tree of blobs of a species network: identifiability under the coalescent*, [J. Math. Biol. 86 (2023), 10](https://doi.org/10.1007/s00285-022-01838-9), read in the PMC author manuscript and the [arXiv TeX](https://arxiv.org/abs/2205.03466). The tree of blobs of a phylogenetic network is what remains when its reticulate parts, the blobs, are contracted. The paper proves that under the network multispecies coalescent, for generic parameters, the reduced unrooted tree of blobs of a binary species network is identifiable from the distribution of gene quartet topologies, with no assumption on the level of the network. On four taxa, the concordance factor detects a 4-blob (Theorem 1). On more taxa, the B-quartet Inference Rule (Theorem 2) finds all B-quartets from the concordance factors (Theorem 3), and from these the tree is recovered (Theorem 4). The formalization is unconditional: no result of the literature is assumed, and there is no `sorry` or `axiom`. No person has reviewed the proofs.
 
-This paper is part of the collection of four formalizations described in [lean4-tob](https://github.com/vltanh/lean4-tob), the hub of these papers. Its audit is [`REPORT.md`](REPORT.md).
+This paper is one of the four of the hub [lean4-tob](https://github.com/vltanh/lean4-tob), which presents them. Its audit is [`REPORT.md`](REPORT.md).
 
 ## What is proved
 
@@ -12,7 +12,7 @@ This paper is part of the collection of four formalizations described in [lean4-
 - What the paper says in passing, where it is mathematics and true: the remarks listed in the [README of `AllmanEtAl2023/`](AllmanEtAl2023/README.md), including the outline of an algorithm in Section 5 and the examples of Figures 1, 2, 3 and 9. [Section 9 of the report](REPORT.md#9-not-formalized) lists what remains: two statements that are false, each with its counterexample, and Baños's bound on all level-1 networks, which nothing uses.
 - The cited results that the proofs use: the Splits Equivalence Theorem (Semple, Steel 2003), in the library lean4-phylogenetics ([`Phylogenetics.SplitsEquivalence.xTree_unique`](https://github.com/vltanh/lean4-phylogenetics/blob/f1a3592dee6e3f7d5e7a68a0695ac457de23d2de/Phylogenetics/Tree/SplitsEquivalence.lean#L604), the uniqueness half); Theorem 2 of Rhodes 2020, in [`lean4-tob/TreeOfBlobs/External/Rhodes2020/`](https://github.com/vltanh/lean4-tob/tree/main/TreeOfBlobs/External/Rhodes2020); and what the paper quotes from Baños 2019, Sayyari and Mirarab 2016 and Semple and Steel 2005 ([the report's Section 2](REPORT.md#2-results-from-prior-work-and-how-the-paper-uses-them)). Nothing is assumed.
 - The forms of the results that TINNiK, TOB-QMC and ECToBlob use, stated on subgraphs of a fixed network and by domination.
-- `lake build` passes with no warnings, and there is no `sorry`, `axiom`, `native_decide` or `implemented_by`. [`scripts/Audit.lean`](scripts/Audit.lean) checks every declaration of the project and of the library it uses, including private and generated ones, against [`propext`](https://leanprover-community.github.io/mathlib4_docs/Init/Core.html#propext), [`Classical.choice`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Classical.choice) and [`Quot.sound`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Quot.sound). [Building](#building) says how to run it.
+- `lake build` passes with no warnings, and there is no `sorry`, `axiom`, `native_decide` or `implemented_by`. [`scripts/Audit.lean`](scripts/Audit.lean) checks every declaration of this repository and of the libraries it requires, including private and generated ones, against [`propext`](https://leanprover-community.github.io/mathlib4_docs/Init/Core.html#propext), [`Classical.choice`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Classical.choice) and [`Quot.sound`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Quot.sound). [Building](#building) says how to run it.
 
 ## The main results
 
@@ -32,10 +32,10 @@ This paper is part of the collection of four formalizations described in [lean4-
 
 ## Palomar
 
-No submission to Palomar is planned. The files in [`palomar/`](.) are kept in case that changes, and the Comparator configuration is useful on its own.
+No submission to Palomar is planned. The files [`comparator.json`](comparator.json) and [`formalization.yaml`](formalization.yaml) are kept in case that changes, and the Comparator configuration is useful on its own.
 
-- [`palomar/comparator.json`](comparator.json) runs Comparator on the 12 main theorems, with [`AllmanEtAl2023.MainResults`](AllmanEtAl2023/MainResults.lean) as both the challenge and the solution module, permitting only [`propext`](https://leanprover-community.github.io/mathlib4_docs/Init/Core.html#propext), [`Quot.sound`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Quot.sound) and [`Classical.choice`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Classical.choice), with NanoDa enabled.
-- [`palomar/formalization.yaml`](formalization.yaml) is the entry's metadata, valid against the schema it names: the paper, the sources it cites, the statements aligned to the `TreeOfBlobs.*` theorems, and its fidelity section, which lists every divergence from the paper. [`REPORT.md`](REPORT.md) has the details.
+- [`comparator.json`](comparator.json) runs Comparator on the 12 main theorems, with [`AllmanEtAl2023.MainResults`](AllmanEtAl2023/MainResults.lean) as both the challenge and the solution module, permitting only [`propext`](https://leanprover-community.github.io/mathlib4_docs/Init/Core.html#propext), [`Quot.sound`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Quot.sound) and [`Classical.choice`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Classical.choice), with NanoDa enabled.
+- [`formalization.yaml`](formalization.yaml) is the entry's metadata, valid against the schema it names: the paper, the sources it cites, the statements aligned to the `TreeOfBlobs.*` theorems, and its fidelity section, which lists every divergence from the paper. [`REPORT.md`](REPORT.md) has the details.
 
 From the repository root, after `lake build`:
 
@@ -49,7 +49,7 @@ A submission would still need:
 
 1. A Challenge that imports only Mathlib, with the definitions that its statements use in a block of its own, and the bridges from them to the library's definitions.
 2. A Solution that restates those theorems and proves them from the libraries, and a `comparator.json` that names the two modules.
-3. These files at the root of the repository that holds the paper, with `formalization.yaml` pointing at the new modules.
+3. `formalization.yaml` pointing at the new modules.
 
 ## Audit summary
 
@@ -67,15 +67,15 @@ A submission would still need:
 
 - Requested and supervised by The-Anh Vu-Le, who chose the papers, decided the library's boundary and the project's layout, and published the repository. **No person has reviewed the proofs.** Independent agents reviewed the statements and compared the proofs with the paper.
 - Codex made the source audit and first foundations of the collection, on 2026-10-27. Claude (Opus 5.5) in Claude Code, with sub-agents, wrote the statements, proofs, audit and documents, following the [formalize-math-paper](https://github.com/vltanh/formalize-math-paper) procedure.
-- Made from 2026-10-31 to 2026-11-01, with the rest of the collection: first the results that TINNiK cites, then the paper as a primary one, from the evening of 2026-10-31. The collection used 85 sub-agents in all, to commit `282215c`. [`docs/CREDITS.md`](https://github.com/vltanh/lean4-tob/blob/main/docs/CREDITS.md) has the details.
+- Made in lean4-tob from 2026-10-31 to 2026-11-01, with the rest of the collection: first the results that TINNiK cites, then the paper as a primary one, from the evening of 2026-10-31. The collection used 85 sub-agents in all, to commit `282215c` of lean4-tob. Moved to this repository on 2026-11-21. [`CREDITS.md`](CREDITS.md) and lean4-tob's [`docs/CREDITS.md`](https://github.com/vltanh/lean4-tob/blob/main/docs/CREDITS.md) have the details.
 
 ## Related work
 
 From [the report's Section 10](REPORT.md#10-the-paper-in-the-literature).
 
-- No other formalization of this paper was found. This project imports the public [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics). [lean4-adr11](https://github.com/vltanh/lean4-adr11), by the same owner, formalizes Allman, Degnan, Rhodes 2011, which the paper cites, and isn't used here.
+- No other formalization of this paper was found. This repository imports the public [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics). [lean4-adr11](https://github.com/vltanh/lean4-adr11), by the same owner, formalizes Allman, Degnan, Rhodes 2011, which the paper cites, and isn't used here.
 - Before: the paper's own account cites level-1 work (SNaQ, Baños 2019, NANUQ) and takes the tree of blobs from Gusfield et al. 2007, which is formalized separately, in [lean4-gusfield2007](https://github.com/vltanh/lean4-gusfield2007).
-- Since: TINNiK (2024) made the outline of Section 5 an algorithm with a consistency theorem, and TOB-QMC and ECToBlob build on the paper's results; all three are in this collection. "Beyond level-1" (2025) extends tree of blobs identifiability to common inheritance and the displayed tree model. Huber et al. 2025 and Frohn et al. 2025 give the tree of blobs from exact quarnets. Allman et al. 2024 settle the identifiability of edge lengths at level 1.
+- Since: TINNiK (2024) made the outline of Section 5 an algorithm with a consistency theorem, and TOB-QMC and ECToBlob build on the paper's results; all three are papers of the hub lean4-tob. "Beyond level-1" (2025) extends tree of blobs identifiability to common inheritance and the displayed tree model. Huber et al. 2025 and Frohn et al. 2025 give the tree of blobs from exact quarnets. Allman et al. 2024 settle the identifiability of edge lengths at level 1.
 - We found no erratum, correction or counterexample to the paper, and no later work that restates Lemma 2.
 
 ## What's next
@@ -105,7 +105,7 @@ scripts/check_kernels.sh                                                        
 
 - [`AllmanEtAl2023/`](AllmanEtAl2023), in the namespace [`AllmanEtAl2023`](AllmanEtAl2023). [Its README](AllmanEtAl2023/README.md) lists the results, every module and the departures that remain. Its modules fall into these groups:
   - the paper's definitions, on its objects (`Definitions`, `InducedNetwork`, `BlobDefinitions`, `Concordance`, `NetworkNk`);
-  - the language of subgraphs of a fixed network and cuts by domination, where Lemma 2, the cycle of Lemma 3 and the rule live and which the later papers use (`SubgraphBlobs`, `CutOrder`, `CycleLemma`, `Reduction`, [`Basic`](https://github.com/vltanh/lean4-tob/tree/main/TreeOfBlobs)), with bridges to it from the paper's objects (`Bridges`, `InducedTransfer`, `BlobsPass`) and trees and `T_rd` on four taxa (`TreeSuppression`, `TrdTree`, `TreeIso`, `TrdFour`);
+  - the language of subgraphs of a fixed network and cuts by domination, where Lemma 2, the cycle of Lemma 3 and the rule live and which the later papers use (`SubgraphBlobs`, `CutOrder`, `CycleLemma`, `Reduction`, [`Basic`](AllmanEtAl2023/Basic.lean)), with bridges to it from the paper's objects (`Bridges`, `InducedTransfer`, `BlobsPass`) and trees and `T_rd` on four taxa (`TreeSuppression`, `TrdTree`, `TreeIso`, `TrdFour`);
   - Theorem 1: statement (a) and the concordance factors through Definition 6, then statement (b) with the deleted networks, the 2-blob step and generic parameters (`Theorem1a`, `Theorem1b` and the modules they use);
   - the numbered results and the claims their proofs use (`Theorem1` to `Theorem4`, `Lemma1` to `Lemma3`, `Corollary1`, `Corollary2`, `Proposition1`, `Lemma2Counterexample`, `Claims`);
   - what the paper says in passing, with its figures (`InPassing`, `BlobDistance`, `Figures` and others); the outline of Section 5 (`Algorithm`); and [`CFDetectable`](AllmanEtAl2023/Basic.lean#L55), for the later papers.
@@ -113,8 +113,8 @@ scripts/check_kernels.sh                                                        
 - The sources in [`lean4-tob/TreeOfBlobs/External/`](https://github.com/vltanh/lean4-tob/tree/main/TreeOfBlobs/External), each with a README: [`Rhodes2020/`](https://github.com/vltanh/lean4-tob/tree/main/TreeOfBlobs/External/Rhodes2020), the quartet metrization (Theorem 2), for the outline of Section 5. The Splits Equivalence Theorem, for [`AllmanEtAl2023.theorem4_iso`](AllmanEtAl2023/Theorem4.lean#L134), is in the library, in [`Phylogenetics.Tree.SplitsEquivalence`](https://github.com/vltanh/lean4-phylogenetics/blob/f1a3592dee6e3f7d5e7a68a0695ac457de23d2de/Phylogenetics/Tree/SplitsEquivalence.lean).
 - From [`lean4-tob/TreeOfBlobs/`](https://github.com/vltanh/lean4-tob/tree/main/TreeOfBlobs), whose [README](https://github.com/vltanh/lean4-tob/blob/main/TreeOfBlobs/README.md) lists its modules: [`TreeOfBlobs.Defs`](https://github.com/vltanh/lean4-tob/blob/main/TreeOfBlobs/Defs.lean) (with [`TreeOfBlobs.Testing.Defs`](https://github.com/vltanh/lean4-tob/blob/main/TreeOfBlobs/Testing/Defs.lean) and [`TreeOfBlobs.Testing.Combining`](https://github.com/vltanh/lean4-tob/blob/main/TreeOfBlobs/Testing/Combining.lean), which it imports), [`TreeOfBlobs.Testing.IID`](https://github.com/vltanh/lean4-tob/blob/main/TreeOfBlobs/Testing/IID.lean), [`TreeOfBlobs.General`](https://github.com/vltanh/lean4-tob/blob/main/TreeOfBlobs/General.lean), [`TreeOfBlobs.NMSCChain`](https://github.com/vltanh/lean4-tob/blob/main/TreeOfBlobs/NMSCChain.lean) and [`TreeOfBlobs.ForMathlib.Analysis.AnalyticZeroSet`](https://github.com/vltanh/lean4-tob/blob/main/TreeOfBlobs/ForMathlib/Analysis/AnalyticZeroSet.lean).
 - The library [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics), for networks, trees, quartets, the coalescent and the network multispecies coalescent.
-- [`scripts/layers.toml`](https://github.com/vltanh/lean4-tob/blob/main/scripts/layers.toml) lists what this unit may import: [`Basic`](https://github.com/vltanh/lean4-tob/tree/main/TreeOfBlobs) and `Rhodes2020`, besides Mathlib and the library. [`scripts/check_layers.py`](https://github.com/vltanh/lean4-tob/blob/main/scripts/check_layers.py) checks every import against it.
-- [`palomar/`](.), the files for a possible Palomar entry, and [`REPORT.md`](REPORT.md), the audit.
+- What this repository may import is what [`lakefile.toml`](lakefile.toml) requires: [`TreeOfBlobs`](https://github.com/vltanh/lean4-tob/tree/main/TreeOfBlobs), with `Rhodes2020`, besides Mathlib and the library.
+- [`comparator.json`](comparator.json) and [`formalization.yaml`](formalization.yaml), the files for a possible Palomar entry, [`REPORT.md`](REPORT.md), the audit, and [`CREDITS.md`](CREDITS.md).
 
 ## License
 

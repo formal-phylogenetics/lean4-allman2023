@@ -40,7 +40,7 @@ All names are in the namespace `AllmanEtAl2023`. No module here imports `ECToBlo
 | `Algorithm` | the outline of an algorithm in Section 5: its steps, its consistency for a test right on four taxa, and the estimate of edge lengths it cites. The bridge to TINNiK is `TINNiK.AllmanOutline` |
 | `CFDetectable` | for the later papers: `cfDetectable_generic`, `isGenericNull_not_isNonCut` on `CFDetectable`. TINNiK's Theorem 1 is `cfDetectable_generic` |
 
-For the later papers, besides `CFDetectable`: `closure_complete`, `closure_sound` (`Basic`), the closure at any degree, which `ECToBlob.remark83_tinnik` needs; `exists_reduction_aux`, `exists_reduction`, `exists_reduction_of_blobDegree` (`Reduction`), which ECToBlob's Section 5, TOB-QMC's Lemma 1 and `InPassing.isTreelike_iff_forall_displays` use, on non-binary networks too. `TreeOfBlobs.NMSCChain`, outside this directory, has the chain of the NMSC on a concrete network, which `FourCycle` and `TrivialEdges` use.
+For the later papers, besides `CFDetectable`: `closure_complete`, `closure_sound` (`Basic`), the closure at any degree, which `ECToBlob.remark83_tinnik` needs; `exists_reduction_aux`, `exists_reduction`, `exists_reduction_of_blobDegree` (`Reduction`), which ECToBlob's Section 5, TOB-QMC's Lemma 1 and `InPassing.isTreelike_iff_forall_displays` use, on non-binary networks too. `TreeOfBlobs.NMSCChain`, in lean4-tob, has the chain of the NMSC on a concrete network, which `FourCycle` and `TrivialEdges` use.
 
 ## Departures that remain
 
