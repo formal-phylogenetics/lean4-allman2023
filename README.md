@@ -6,7 +6,7 @@ A Lean 4 formalization of Elizabeth S. Allman, Hector Baños, Jonathan D. Mitche
 
 Every numbered result is proved, by the paper's arguments except the departures that [Section 7 of the report](docs/Allman2023/REPORT.md#7-departures-from-the-papers-proofs) lists. The formalization is unconditional: no result of the literature is assumed, and there is no `sorry` or `axiom` outside the Challenge's statements. Lemma 2 is proved for a connected subnetwork, which its proof and all its uses assume (E55). No person has reviewed the proofs.
 
-This paper is one of the hub [lean4-phylo-tree-of-blobs](https://github.com/vltanh/lean4-phylo-tree-of-blobs), on the tree of blobs of a phylogenetic network, a sub-hub of [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), in the collection rooted at [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics). TINNiK, TOB-QMC and ECToBlob build on it.
+This paper belongs to the hub [lean4-phylo-tree-of-blobs](https://github.com/vltanh/lean4-phylo-tree-of-blobs), on the tree of blobs of a phylogenetic network, a sub-hub of [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), in the collection rooted at [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics). TINNiK, TOB-QMC and ECToBlob build on it.
 
 ## Status
 
