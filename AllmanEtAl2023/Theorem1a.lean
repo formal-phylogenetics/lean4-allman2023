@@ -472,8 +472,8 @@ theorem exists_edge_first [Fintype X] [DecidableEq X] {x y z w : X} (h4 : ({x, y
     have h₁ := (reaches_of_entry hS ((hbg₀ x).mpr (Or.inl rfl)) htg ((hSx x).mpr ((hbe x).mpr (Or.inl rfl)))).1
     rw [hroot] at h₁
     rcases Relation.ReflTransGen.cases_tail h₁ with h | ⟨c, -, k, -, hk⟩
-    · exact target_ne_root hR g₀ h.symm
-    · exact target_ne_root hR k hk
+    · exact hR.target_ne_root g₀ h.symm
+    · exact hR.target_ne_root k hk
   -- the edge above it has the cluster `x, y, z`
   obtain ⟨g, hgt, hsub, t, htg, hte⟩ := exists_parent_cluster hQ hT e hne
   have hclg : {u | (reducedRootedTree hN hX).IsBelow g u} ∈ rootedClusters (reducedRootedTree hN hX) := by

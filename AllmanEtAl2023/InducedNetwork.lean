@@ -54,9 +54,9 @@ def removeStem (hM : M.IsPhylogenetic) :
     RootedNetwork {v // ¬ (HasStem M ∧ v = M.root)} {e // ¬ (HasStem M ∧ M.graph.source e = M.root)} X where
   graph :=
     { source := fun e => ⟨M.graph.source e.1, e.2⟩
-      target := fun e => ⟨M.graph.target e.1, fun h => target_ne_root hM e.1 h.2⟩ }
+      target := fun e => ⟨M.graph.target e.1, fun h => hM.target_ne_root e.1 h.2⟩ }
   root :=
-    if h : HasStem M then ⟨M.graph.target (stemArc M h), fun h' => target_ne_root hM _ h'.2⟩
+    if h : HasStem M then ⟨M.graph.target (stemArc M h), fun h' => hM.target_ne_root _ h'.2⟩
     else ⟨M.root, fun h' => h h'.1⟩
   leaf x := ⟨M.leaf x, fun h => M.leaf_ne_root hM x h.2⟩
 
@@ -143,13 +143,13 @@ theorem removeStem_isPhylogenetic [Nontrivial X] : (removeStem M hM).IsPhylogene
       | @tail a b _ hab ih =>
         obtain ⟨ha, hr⟩ := ih
         obtain ⟨f, hfs, hft⟩ := hab
-        refine ⟨fun h => target_ne_root hM f (hft.trans h.2), hr.tail ?_⟩
+        refine ⟨fun h => hM.target_ne_root f (hft.trans h.2), hr.tail ?_⟩
         exact ⟨⟨f, fun h => ha ⟨h.1, hfs ▸ h.2⟩⟩, Subtype.ext hfs, Subtype.ext hft⟩
     intro v
     by_cases h : HasStem M
     · have hr := target_stemArc_reaches hM h (hne v h)
-      obtain ⟨_, hreach⟩ := hlift (fun h' => target_ne_root hM _ h'.2) hr
-      have hroot : (removeStem M hM).root = ⟨M.graph.target (stemArc M h), fun h' => target_ne_root hM _ h'.2⟩ :=
+      obtain ⟨_, hreach⟩ := hlift (fun h' => hM.target_ne_root _ h'.2) hr
+      have hroot : (removeStem M hM).root = ⟨M.graph.target (stemArc M h), fun h' => hM.target_ne_root _ h'.2⟩ :=
         Subtype.ext (hrootstem h)
       rw [hroot]
       exact hreach
@@ -164,7 +164,7 @@ theorem removeStem_isPhylogenetic [Nontrivial X] : (removeStem M hM).IsPhylogene
     · rw [hrootstem h] at hval
       exact e.2 ⟨h, (stemArc_spec M h e.1).mpr (eq_stemArc_of_target hM h hval)⟩
     · rw [hrootval h] at hval
-      exact target_ne_root hM e.1 hval
+      exact hM.target_ne_root e.1 hval
   · intro v hv
     rw [DirectedMultigraph.one_le_indegree_iff]
     have hv1 : v.1 ≠ M.root := by
@@ -211,7 +211,7 @@ theorem removeStem_isBinary [Nontrivial X] (hroot : M.graph.outdegree M.root = 1
     · have hval : ((removeStem M hM).root).1 = M.graph.target (stemArc M h) := by
         simp only [removeStem, dite_eq_left h]
       rw [hval]
-      have hne := target_ne_root hM (stemArc M h)
+      have hne := hM.target_ne_root (stemArc M h)
       have h0 : M.graph.outdegree (M.graph.target (stemArc M h)) ≠ 0 := fun h0 => by
         obtain ⟨x, hx⟩ := (hM.leaves _).mp h0
         exact target_stemArc_ne_leaf hM h x hx.symm

@@ -38,7 +38,7 @@ theorem not_isBridge_of_source_eq_root (hP : P.IsPhylogenetic) (hout : P.graph.o
   have hsrc : ∀ {g}, g ∈ TreeSuppression.edgesAt P.graph P.root → P.graph.source g = P.root := by
     rintro g (h | h)
     · exact h
-    · exact absurd h (target_ne_root hP g)
+    · exact absurd h (hP.target_ne_root g)
   obtain ⟨p, q', hpq, hset⟩ := Set.ncard_eq_two.mp hout
   have hmem : ∀ g, P.graph.source g = P.root ↔ g = p ∨ g = q' := fun g => by
     have := Set.ext_iff.mp hset g
@@ -60,7 +60,7 @@ theorem source_unrootAt_of_ne {g : {e // e ≠ e₀}} (h : P.graph.source g.1 �
   simp only [unrootAt, dite_eq_right h]
 
 omit hout in
-theorem source_unrootAt_of_eq {g : {e // e ≠ e₀}} (h : P.graph.source g.1 = P.root) : (unrootAt P hP e₀).graph.source g = ⟨P.graph.target e₀, target_ne_root hP e₀⟩ := by
+theorem source_unrootAt_of_eq {g : {e // e ≠ e₀}} (h : P.graph.source g.1 = P.root) : (unrootAt P hP e₀).graph.source g = ⟨P.graph.target e₀, hP.target_ne_root e₀⟩ := by
   simp only [unrootAt, dite_eq_left h]
 
 include he₀ hout in
@@ -76,7 +76,7 @@ theorem blobOf_unrootAt_iff (u w : {v // v ≠ P.root}) : blobOf (unrootAt P hP 
         have hstep : blobOf P.graph (P.graph.source g.1) = blobOf P.graph (P.graph.target g.1) := Quotient.sound (Relation.ReflTransGen.single ⟨g.1, hg', Or.inl ⟨rfl, rfl⟩⟩)
         by_cases hs : P.graph.source g.1 = P.root
         · rw [source_unrootAt_of_eq hP hs]
-          have hne : P.graph.target g.1 ≠ P.root := target_ne_root hP g.1
+          have hne : P.graph.target g.1 ≠ P.root := hP.target_ne_root g.1
           have hb₀ : blobOf P.graph (P.graph.target g.1) = blobOf P.graph P.root := by rw [← hstep, hs]
           have hn₀ := not_isBridge_of_source_eq_root hP hout hne hb₀ he₀
           have h₀ : blobOf P.graph P.root = blobOf P.graph (P.graph.target e₀) := by
@@ -93,14 +93,14 @@ theorem blobOf_unrootAt_iff (u w : {v // v ≠ P.root}) : blobOf (unrootAt P hP 
     | refl => rfl
     | tail _ hstep ih => exact (ih (Quotient.sound ‹_›)).trans (key hstep)
   · intro h
-    let π : V → {v // v ≠ P.root} := fun v => if hv : v = P.root then ⟨P.graph.target e₀, target_ne_root hP e₀⟩ else ⟨v, hv⟩
+    let π : V → {v // v ≠ P.root} := fun v => if hv : v = P.root then ⟨P.graph.target e₀, hP.target_ne_root e₀⟩ else ⟨v, hv⟩
     have hπ : ∀ a : {v // v ≠ P.root}, π a.1 = a := fun a => by simp only [π, dite_eq_right a.2]
     have key : ∀ {a b : V}, P.graph.AdjOn {e | ¬ P.graph.underlying.IsBridge e} a b → blobOf (unrootAt P hP e₀).graph (π a) = blobOf (unrootAt P hP e₀).graph (π b) := by
       have hone : ∀ g : E, ¬ P.graph.underlying.IsBridge g → blobOf (unrootAt P hP e₀).graph (π (P.graph.source g)) = blobOf (unrootAt P hP e₀).graph (π (P.graph.target g)) := by
         intro g hg
         by_cases hge : g = e₀
         · subst hge
-          rw [he₀, hπ ⟨P.graph.target g, target_ne_root hP g⟩]
+          rw [he₀, hπ ⟨P.graph.target g, hP.target_ne_root g⟩]
           simp only [π, dite_eq_left]
         · have hg' : ¬ (unrootAt P hP e₀).graph.underlying.IsBridge (⟨g, hge⟩ : {e // e ≠ e₀}) := fun hc => hg ((hbr ⟨g, hge⟩).mp hc)
           have hstep := Quotient.sound (s := (unrootAt P hP e₀).graph.blobSetoid) (Relation.ReflTransGen.single ⟨(⟨g, hge⟩ : {e // e ≠ e₀}), hg', Or.inl ⟨rfl, rfl⟩⟩)
@@ -110,7 +110,7 @@ theorem blobOf_unrootAt_iff (u w : {v // v ≠ P.root}) : blobOf (unrootAt P hP 
               simp only [π, dite_eq_left hs]
             · rw [source_unrootAt_of_ne hP (g := ⟨g, hge⟩) hs]
               simp only [π, dite_eq_right hs]
-          have htgt : π (P.graph.target g) = (unrootAt P hP e₀).graph.target ⟨g, hge⟩ := hπ ⟨P.graph.target g, target_ne_root hP g⟩
+          have htgt : π (P.graph.target g) = (unrootAt P hP e₀).graph.target ⟨g, hge⟩ := hπ ⟨P.graph.target g, hP.target_ne_root g⟩
           rw [hsrc, htgt]
           exact hstep
       rintro a b ⟨g, hg, (⟨rfl, rfl⟩ | ⟨rfl, rfl⟩)⟩
@@ -272,7 +272,7 @@ theorem blobDegree_lsaPlus :
   have h := cutDegree_lsaPlus hN hX
   simp only [blobDegree, ↓reduceIte, h]
   by_cases hr : lsaNode hN hX = N.root
-  · have hC : {e | N.graph.target e = lsaNode hN hX} = ∅ := Set.eq_empty_of_forall_notMem fun e he => target_ne_root hP e (Eq.trans he hr)
+  · have hC : {e | N.graph.target e = lsaNode hN hX} = ∅ := Set.eq_empty_of_forall_notMem fun e he => hP.target_ne_root e (Eq.trans he hr)
     rw [hC, Set.sdiff_empty, hr]
     simp only [↓reduceIte, cutDegree]
   · rcases Relation.ReflTransGen.cases_tail (hP.root_reaches (lsaNode hN hX)) with hr' | ⟨b, -, i, -, hi⟩
@@ -352,7 +352,7 @@ theorem exists_ne_of_four (hm : 4 ≤ blobDegree N (blobOf N.graph (lsaNode hN h
       constructor
       · rintro (h | h)
         · exact h.trans hroot.symm
-        · exact absurd (h.trans hroot.symm) (target_ne_root hP e)
+        · exact absurd (h.trans hroot.symm) (hP.target_ne_root e)
       · exact fun h => Or.inl (h.trans hroot)
     have h2 := hN.isBinary.1
     rw [hat] at hle

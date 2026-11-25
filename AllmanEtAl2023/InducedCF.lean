@@ -186,7 +186,7 @@ theorem nmscCF_retained (hN : N.IsPhylogenetic) (hθ : N.IsNormalized θ) (hρ :
     rw [Finset.compl_eq_empty_iff]
     refine Finset.filter_true_of_mem fun e _ => ?_
     rw [hstrict]
-    exact mem_erase.2 ⟨target_ne_root hN e, mem_univ _⟩
+    exact mem_erase.2 ⟨hN.target_ne_root e, mem_univ _⟩
   have hB := sum_sum_strictBelow_eq (θ := θ) (ρ := ρ) (hl := hl) (hleaf := hleaf) hN hst hNL (displayValue (s.map Subtype.val_injective))
   rw [hcompl, hstrict, hstrict'] at hB
   simp only [card_empty, pow_zero, mul_one, one_mul] at hB
@@ -370,7 +370,7 @@ omit [Fintype E] [Fintype X] [DecidableEq X] [Fintype {e // ¬ (HasStem M ∧ M.
 /-- The non-root vertices, with a stem: the child of the stem, which is the new root, and the non-root vertices of the network without the stem. -/
 theorem prod_erase_root_glueStem (hM : M.IsPhylogenetic) (h : HasStem M) (f : V → ℝ) :
     ∏ v ∈ univ.erase M.root, f v = f (M.graph.target (stemArc M h)) * ∏ v ∈ univ.erase (removeStem M hM).root, f v.1 := by
-  have hc : M.graph.target (stemArc M h) ∈ univ.erase M.root := mem_erase.2 ⟨target_ne_root hM _, mem_univ _⟩
+  have hc : M.graph.target (stemArc M h) ∈ univ.erase M.root := mem_erase.2 ⟨hM.target_ne_root _, mem_univ _⟩
   have hrv : ((removeStem M hM).root).1 = M.graph.target (stemArc M h) := by
     simp only [removeStem, dite_eq_left h]
   rw [← Finset.mul_prod_erase _ f hc]
@@ -389,7 +389,7 @@ theorem geneTreeDist_removeStem [Nontrivial X] (hM : M.IsPhylogenetic) (hθ : M.
   have : Finite E := hM.finite_arcs
   have hP : (removeStem M hM).IsPhylogenetic := removeStem_isPhylogenetic hM
   by_cases h : HasStem M
-  · have hrv : (removeStem M hM).root = ⟨M.graph.target (stemArc M h), fun h' => target_ne_root hM _ h'.2⟩ :=
+  · have hrv : (removeStem M hM).root = ⟨M.graph.target (stemArc M h), fun h' => hM.target_ne_root _ h'.2⟩ :=
       Subtype.ext (by simp only [removeStem, dite_eq_left h])
     -- a history
     have hstep : ∀ (b t : {e // ¬ (HasStem M ∧ M.graph.source e = M.root)} → Finset (Finset X)) (x y : Finset (Finset X)),
@@ -400,7 +400,7 @@ theorem geneTreeDist_removeStem [Nontrivial X] (hM : M.IsPhylogenetic) (hθ : M.
       intro b t x y
       have hF : arrivingForest M (glueStem M t y) (M.graph.target (stemArc M h)) = arrivingForest (removeStem M hM) t (removeStem M hM).root := by
         rw [hrv]
-        exact arrivingForest_glueStem hM t y ⟨M.graph.target (stemArc M h), fun h' => target_ne_root hM _ h'.2⟩
+        exact arrivingForest_glueStem hM t y ⟨M.graph.target (stemArc M h), fun h' => hM.target_ne_root _ h'.2⟩
       have hW : (∏ v ∈ univ.erase (removeStem M hM).root, allocationFactor M θ ρ (arrivingForest M (glueStem M t y) v.1) v.1 (glueStem M b x)) *
           (∏ e : {e // ¬ (HasStem M ∧ M.graph.source e = M.root)}, kingmanTransition (θ.length e.1) (glueStem M b x e.1) (glueStem M t y e.1)) =
           historyWeight (removeStem M hM) (stemMetric M θ) ρ b t := by
@@ -479,7 +479,7 @@ omit [Fintype V] [Fintype E] [Fintype X] [DecidableEq X] [Fintype {v // ¬ (HasS
 /-- The target of an arc keeps its parents. -/
 theorem removeStem_indegree_target [Nontrivial X] (hM : M.IsPhylogenetic) (e : {e // ¬ (HasStem M ∧ M.graph.source e = M.root)}) :
     (removeStem M hM).graph.indegree ((removeStem M hM).graph.target e) = M.graph.indegree (M.graph.target e.1) :=
-  removeStem_indegree hM (target_ne_root (removeStem_isPhylogenetic hM) e)
+  removeStem_indegree hM ((removeStem_isPhylogenetic hM).target_ne_root e)
 
 omit [Fintype V] [Fintype X] [DecidableEq X] [Fintype {v // ¬ (HasStem M ∧ v = M.root)}] in
 /-- Inheritances sum as before, off the new root. -/

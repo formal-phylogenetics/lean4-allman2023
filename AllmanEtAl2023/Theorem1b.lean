@@ -500,7 +500,7 @@ theorem exists_child_eq_leaf (hN : IsBinaryNetwork N) (hcard : Fintype.card X = 
   obtain ⟨m, ⟨hvm, hml⟩, hmin⟩ := hwf.has_min _ ⟨_, hmemT⟩
   have hmr : m ≠ N.root := by
     obtain ⟨c, -, k, -, hk⟩ := Relation.TransGen.tail'_iff.mp hvm
-    exact fun h => target_ne_root hP k (hk.trans h)
+    exact fun h => hP.target_ne_root k (hk.trans h)
   have hmv : m ≠ v := fun h => hP.acyclic v (h ▸ hvm)
   have hin : N.graph.indegree m = 1 := by
     by_contra hne

@@ -826,7 +826,7 @@ def blobSet (b : (semidirected hN hX).graph.BlobVertex) : Set V :=
   {v | ∃ w : SemiV hN hX, w.1.1 = v ∧ blobOf (semidirected hN hX).graph w = b}
 
 /-- The node of `𝒩⁻` that the chosen edge at the root of `𝒩⊕` leads to: edges at the root have it as their end in `𝒩⁻`. -/
-def topNode : SemiV hN hX := ⟨(lsaPlus hN hX).graph.target (rootTreeArc hN hX), target_ne_root (lsaPlus_isPhylogenetic hN hX) _⟩
+def topNode : SemiV hN hX := ⟨(lsaPlus hN hX).graph.target (rootTreeArc hN hX), (lsaPlus_isPhylogenetic hN hX).target_ne_root _⟩
 
 variable {hN hX}
 
@@ -881,7 +881,7 @@ theorem root_notMem_blobSet {b : (semidirected hN hX).graph.BlobVertex} : N.root
   obtain ⟨hr, hne⟩ := reaches_of_mem_blobSet h
   rcases Relation.ReflTransGen.cases_tail hr with h | ⟨c, -, f, -, hf⟩
   · exact hne h
-  · exact target_ne_root hN.isPhylogenetic f hf
+  · exact hN.isPhylogenetic.target_ne_root f hf
 
 /-- From the end `topNode`, directed paths of `𝒩⊕` are walks of `𝒩⁻`, off an edge not on them. -/
 theorem walks_topNode (f : SemiE hN hX) {q : V} (hq : N.graph.Reaches (lsaNode hN hX) q) (hnr : ¬ N.graph.Reaches (N.graph.target f.1.1) q) (hne : q ≠ lsaNode hN hX) (w : SemiV hN hX) (hw : w.1.1 = q) :

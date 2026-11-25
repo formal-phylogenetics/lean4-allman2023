@@ -16,12 +16,12 @@ Networks as the paper defines them, tied to the representation of the library:
 * `IsMetricParams` is Definition 3; `isMetric_iff`: `RootedNetwork.IsMetric` is that, with the convention that
   a tree edge has inheritance `1`, a coordinate that Definition 3 does not have.
 * `IsLSA` is Definition 4 (Steel 2016), for any nonempty set of nodes; `existsUnique_isLSA`, `isLSA_image_leaf_iff`.
-* `lsaPlus` is the LSA network `𝒩⊕` of Definition 5 (`mem_belowVertices_univ_iff`,
-  `mem_belowArcs_univ_iff`: what is kept is what is not above the LSA). `semidirected` is the semidirected
-  unrooted network `𝒩⁻` of Definition 5, of type `SemidirectedNetwork`, with its lengths `semidirectedMetric`.
+* `lsaPlus` is the LSA network `𝒩⊕` of Definition 5 (`mem_belowVertices_univ_iff`, `mem_belowArcs_univ_iff`: what
+  is kept is what is not above the LSA), `semidirected` the semidirected unrooted network `𝒩⁻`, of type
+  `SemidirectedNetwork`, and `semidirectedMetric` its lengths: the library's, in `Phylogenetics.Network.Semidirected`.
 
 Suppressing the root of `𝒩⊕` needs an edge out of the root that is not hybrid, because the paper's list of
-suppressions has no case of two directed out-edges. `exists_isTreeArc_root` proves that this case does not arise.
+suppressions has no case of two directed out-edges. `RootedNetwork.exists_isTreeArc_root` proves that it does not arise.
 -/
 
 @[expose] public noncomputable section
@@ -351,31 +351,9 @@ section LSANetwork
 
 variable {N : RootedNetwork V E X}
 
-/-- The same network, with its taxa renamed. -/
-def renameTaxa {X' : Type*} (M : RootedNetwork V E X) (f : X' ≃ X) : RootedNetwork V E X' where
-  graph := M.graph
-  root := M.root
-  leaf x := M.leaf (f x)
+@[deprecated (since := "2026-11-24")] alias renameTaxa := RootedNetwork.renameTaxa
 
-theorem renameTaxa_isPhylogenetic {X' : Type*} {M : RootedNetwork V E X} (hM : M.IsPhylogenetic)
-    (f : X' ≃ X) : (renameTaxa M f).IsPhylogenetic where
-  finite_vertices := hM.finite_vertices
-  finite_arcs := hM.finite_arcs
-  finite_taxa :=
-    have := hM.finite_taxa
-    Finite.of_equiv _ f.symm
-  acyclic := hM.acyclic
-  root_reaches := hM.root_reaches
-  root_indegree := hM.root_indegree
-  nonroot_indegree := hM.nonroot_indegree
-  leaf_injective := hM.leaf_injective.comp f.injective
-  leaf_indegree x := hM.leaf_indegree (f x)
-  leaves v := by
-    refine (hM.leaves v).trans ⟨?_, ?_⟩
-    · rintro ⟨x, hx⟩
-      exact ⟨f.symm x, by simpa [renameTaxa] using hx⟩
-    · rintro ⟨x, hx⟩
-      exact ⟨f x, hx⟩
+@[deprecated (since := "2026-11-24")] alias renameTaxa_isPhylogenetic := RootedNetwork.renameTaxa_isPhylogenetic
 
 /-- `LSA(𝒩⁺)`: the LSA of the leaves (Definition 4). -/
 def lsaNode (hN : IsBinaryNetwork N) (hX : Nontrivial X) : V :=
@@ -388,22 +366,21 @@ theorem isLSA_lsaNode (hN : IsBinaryNetwork N) (hX : Nontrivial X) :
   exact lsa_spec hN.isPhylogenetic Set.univ Set.univ_nonempty
 
 /-- **Definition 5, part 1** (`a:def::undirected`). The *LSA network* `𝒩⊕`: "deleting all edges and nodes above
-`LSA(𝒩⁺)`, and designating `LSA(𝒩⁺)` as the root node". The library's `lsaNetwork` on all the taxa, on the
-taxa `X` itself. `mem_belowVertices_univ_iff` and `mem_belowArcs_univ_iff` say that it keeps what is not above the
-LSA. -/
+`LSA(𝒩⁺)`, and designating `LSA(𝒩⁺)` as the root node". The library's `RootedNetwork.lsaPlus`: its `lsaNetwork`
+on all the taxa, on the taxa `X` itself. `mem_belowVertices_univ_iff` and `mem_belowArcs_univ_iff` say that it keeps
+what is not above the LSA. -/
 def lsaPlus (hN : IsBinaryNetwork N) (hX : Nontrivial X) :
     RootedNetwork (N.belowVertices (lsaNode hN hX) Set.univ) (N.belowArcs (lsaNode hN hX) Set.univ) X :=
-  renameTaxa (lsaNetwork hN.isPhylogenetic Set.univ Set.univ_nonempty) (Equiv.Set.univ X).symm
+  RootedNetwork.lsaPlus hN.isPhylogenetic hX
 
 theorem lsaPlus_isPhylogenetic (hN : IsBinaryNetwork N) (hX : Nontrivial X) :
     (lsaPlus hN hX).IsPhylogenetic :=
-  renameTaxa_isPhylogenetic (lsaNetwork_isPhylogenetic hN.isPhylogenetic Set.nontrivial_univ) _
+  RootedNetwork.lsaPlus_isPhylogenetic hN.isPhylogenetic hX
 
 /-- Every node is above a taxon, so what lies below a node is ancestral to the taxa. -/
 theorem mem_ancestralVertices_univ (hN : IsBinaryNetwork N) (v : V) :
-    v ∈ N.ancestralVertices Set.univ := by
-  obtain ⟨x, hx⟩ := exists_reaches_leaf hN.isPhylogenetic v
-  exact ⟨x, Set.mem_univ x, hx⟩
+    v ∈ N.ancestralVertices Set.univ :=
+  RootedNetwork.mem_ancestralVertices_univ hN.isPhylogenetic v
 
 /-- A node is kept in `𝒩⊕` exactly when it is not strictly above the LSA. -/
 theorem mem_belowVertices_univ_iff (hN : IsBinaryNetwork N) (hX : Nontrivial X) (v : V) :
@@ -451,155 +428,69 @@ end LSANetwork
 
 /-! ### Definition 5: the semidirected unrooted network -/
 
-/-- A *semidirected unrooted network*. Every edge has two ends, given in some order. For the edges with
-`IsDirected`, the hybrid edges, that order is the direction retained; for the others it has no meaning: walks,
-cut edges and blobs of `graph` forget it. -/
-structure SemidirectedNetwork (V E X : Type*) where
-  graph : DirectedMultigraph V E
-  IsDirected : E → Prop
-  leaf : X → V
+/-- A *semidirected unrooted network*: the library's `Phylogenetics.SemidirectedNetwork`. Every edge has two ends,
+given in some order. For the edges with `IsDirected`, the hybrid edges, that order is the direction retained; for
+the others it has no meaning: walks, cut edges and blobs of `graph` forget it. -/
+abbrev SemidirectedNetwork (V E X : Type*) := Phylogenetics.SemidirectedNetwork V E X
 
 section Semidirected
 
 variable {N : RootedNetwork V E X}
 
-theorem target_ne_root {M : RootedNetwork V E X} (hM : M.IsPhylogenetic) (e : E) :
-    M.graph.target e ≠ M.root :=
-  have := hM.finite_arcs
-  (M.graph.indegree_eq_zero_iff _).mp hM.root_indegree e
+@[deprecated (since := "2026-11-24")] alias target_ne_root := RootedNetwork.IsPhylogenetic.target_ne_root
 
-/-- Suppressing the root of a rooted network, undirecting its tree edges and retaining the directions of
-its hybrid edges. The root's edge `e₀` and its other edge become one edge, from the child of `e₀` to the child of
-the other edge. If `e₀` is a tree edge, this is the paper's "single edge with the out-edge direction" when the
-other edge is hybrid; if both are tree edges, the order has no meaning. -/
-def unrootAt (M : RootedNetwork V E X) (hM : M.IsPhylogenetic) (e₀ : E) :
-    SemidirectedNetwork {v // v ≠ M.root} {e // e ≠ e₀} X where
-  graph :=
-    { source := fun e =>
-        if h : M.graph.source e.1 = M.root then ⟨M.graph.target e₀, target_ne_root hM e₀⟩
-        else ⟨M.graph.source e.1, h⟩
-      target := fun e => ⟨M.graph.target e.1, target_ne_root hM e.1⟩ }
-  IsDirected e := M.IsHybridArc e.1
-  leaf x := ⟨M.leaf x, M.leaf_ne_root hM x⟩
-
-/-- **The two out-edges of the root of `𝒩⊕` are not both hybrid**, so the paper's list of suppressions covers the
-root. A highest node other than the root has all its parents at the root, so if it were hybrid, it would take both
-edges of the root, and would be a stable ancestor below the LSA. -/
-theorem exists_isTreeArc_root {M : RootedNetwork V E X} (hM : M.IsPhylogenetic) [Nonempty X]
-    (hout : M.graph.outdegree M.root = 2)
-    (hlsa : ∀ w, M.IsStableAncestor Set.univ w → M.graph.Reaches w M.root) :
-    ∃ e, M.graph.source e = M.root ∧ M.IsTreeArc e := by
-  have := hM.finite_vertices
-  have := hM.finite_arcs
-  let r : V → V → Prop := fun a b => Relation.TransGen M.graph.Adj a b
-  have : IsTrans V r := ⟨fun _ _ _ h h' => h.trans h'⟩
-  have : Std.Irrefl r := ⟨fun a h => hM.acyclic a h⟩
-  have hwf : WellFounded r := Finite.wellFounded_of_trans_of_irrefl r
-  obtain ⟨x₀⟩ := ‹Nonempty X›
-  obtain ⟨w, hw, hmin⟩ := hwf.has_min {v | v ≠ M.root} ⟨M.leaf x₀, M.leaf_ne_root hM x₀⟩
-  have hparent : ∀ f, M.graph.target f = w → M.graph.source f = M.root := fun f hf => by
-    by_contra hs
-    exact hmin _ hs (.single ⟨f, rfl, hf⟩)
-  obtain ⟨e, he⟩ := (M.graph.one_le_indegree_iff w).mp (hM.nonroot_indegree w hw)
-  by_cases h1 : M.graph.indegree w = 1
-  · exact ⟨e, hparent e he, by unfold IsTreeArc; rwa [he]⟩
-  exfalso
-  have h2 : 2 ≤ M.graph.indegree w := by
-    have := hM.nonroot_indegree w hw
-    omega
-  have hsub : {f | M.graph.target f = w} ⊆ {f | M.graph.source f = M.root} := fun f hf => hparent f hf
-  have heq : {f | M.graph.target f = w} = {f | M.graph.source f = M.root} := by
-    refine Set.eq_of_subset_of_ncard_le hsub ?_ (Set.toFinite _)
-    change M.graph.outdegree M.root ≤ M.graph.indegree w
-    omega
-  have hall : ∀ f, M.graph.source f = M.root → M.graph.target f = w := fun f hf =>
-    (Set.ext_iff.mp heq f).mpr hf
-  have hst : M.IsStableAncestor Set.univ w := by
-    rintro x - ⟨-, -, hp⟩
-    rcases Relation.ReflTransGen.cases_head hp with h | ⟨a, ⟨⟨f, hfs, hft⟩, -, ha⟩, -⟩
-    · exact M.leaf_ne_root hM x h.symm
-    · exact ha (hft ▸ hall f hfs)
-  exact hw (eq_of_reaches_of_reaches hM.acyclic (hlsa w hst) (hM.root_reaches w))
+@[deprecated (since := "2026-11-24")] alias exists_isTreeArc_root := RootedNetwork.exists_isTreeArc_root
 
 /-- A stable ancestor of `𝒩⊕` is one of `𝒩⁺`: so the root of `𝒩⊕` is its own LSA. -/
 theorem lsaPlus_reaches_root_of_isStableAncestor (hN : IsBinaryNetwork N) (hX : Nontrivial X)
     {w : N.belowVertices (lsaNode hN hX) Set.univ}
     (hw : (lsaPlus hN hX).IsStableAncestor Set.univ w) :
-    (lsaPlus hN hX).graph.Reaches w (lsaPlus hN hX).root := by
-  have hP := hN.isPhylogenetic
-  obtain ⟨hst, hleast⟩ := lsa_spec hP Set.univ Set.univ_nonempty
-  by_cases hwl : w.1 = lsaNode hN hX
-  · have : w = (lsaPlus hN hX).root := Subtype.ext hwl
-    rw [this]
-    exact .refl
-  exfalso
-  -- a path of `𝒩⁺` below the LSA avoiding `w` is a path of `𝒩⊕`
-  have hlift : ∀ t, Relation.ReflTransGen (fun a b => N.graph.Adj a b ∧ a ≠ w.1 ∧ b ≠ w.1)
-      (lsaNode hN hX) t → ∀ ht : t ∈ N.belowVertices (lsaNode hN hX) Set.univ,
-      Relation.ReflTransGen (fun a b => (lsaPlus hN hX).graph.Adj a b ∧ a ≠ w ∧ b ≠ w)
-        (lsaPlus hN hX).root ⟨t, ht⟩ := by
-    intro t ht
-    induction ht with
-    | refl => exact fun _ => .refl
-    | @tail a b hab hs ih =>
-      intro hb
-      have ha : a ∈ N.belowVertices (lsaNode hN hX) Set.univ :=
-        ⟨Relation.ReflTransGen.mono (fun _ _ h => h.1) _ _ hab, mem_ancestralVertices_univ hN a⟩
-      obtain ⟨⟨f, hfs, hft⟩, hsa, hsb⟩ := hs
-      refine (ih ha).tail ⟨⟨⟨f, hfs ▸ ha.1, mem_ancestralVertices_univ hN _⟩, Subtype.ext hfs, Subtype.ext hft⟩,
-        fun h => hsa (congrArg Subtype.val h), fun h => hsb (congrArg Subtype.val h)⟩
-  have hreach : ∀ x, ¬ N.HasPathAvoiding N.root (N.leaf x) w.1 := by
-    intro x hp
-    have hs := hp.suffix_of_not_hasPathAvoiding (hst x (Set.mem_univ x))
-    have hxb : N.leaf x ∈ N.belowVertices (lsaNode hN hX) Set.univ :=
-      ⟨hst.reaches_leaf hP (Set.mem_univ x), mem_ancestralVertices_univ hN _⟩
-    refine hw x (Set.mem_univ x) ⟨fun h => hwl (congrArg Subtype.val h).symm,
-      fun h => hs.2.1 (congrArg Subtype.val h), ?_⟩
-    exact hlift _ hs.2.2 hxb
-  exact hwl (eq_of_reaches_of_reaches hP.acyclic (hleast w.1 fun x _ => hreach x) w.2.1)
+    (lsaPlus hN hX).graph.Reaches w (lsaPlus hN hX).root :=
+  RootedNetwork.lsaPlus_reaches_root_of_isStableAncestor hN.isPhylogenetic hX hw
 
 /-- The root of `𝒩⊕` has out-degree 2. -/
 theorem lsaPlus_outdegree_root (hN : IsBinaryNetwork N) (hX : Nontrivial X) :
     (lsaPlus hN hX).graph.outdegree (lsaPlus hN hX).root = 2 :=
-  lsaNetwork_outdegree_root hN.isPhylogenetic hN.isBinary Set.nontrivial_univ
+  RootedNetwork.lsaPlus_outdegree_root hN.isPhylogenetic hN.isBinary hX
 
-/-- The edge out of the root of `𝒩⊕` chosen to be merged into the other: a tree edge. -/
+/-- The edge out of the root of `𝒩⊕` chosen to be merged into the other: a tree edge. Its choice is the library's
+`RootedNetwork.exists_isTreeArc_root`: the two out-edges of the root of `𝒩⊕` are not both hybrid, so the paper's list
+of suppressions covers the root. -/
 def rootTreeArc (hN : IsBinaryNetwork N) (hX : Nontrivial X) :
     N.belowArcs (lsaNode hN hX) Set.univ :=
-  Classical.choose (exists_isTreeArc_root (M := lsaPlus hN hX) (lsaPlus_isPhylogenetic hN hX)
-    (lsaPlus_outdegree_root hN hX) fun _ hw => lsaPlus_reaches_root_of_isStableAncestor hN hX hw)
+  RootedNetwork.rootTreeArc hN.isPhylogenetic hN.isBinary hX
 
 theorem rootTreeArc_spec (hN : IsBinaryNetwork N) (hX : Nontrivial X) :
     (lsaPlus hN hX).graph.source (rootTreeArc hN hX) = (lsaPlus hN hX).root ∧
       (lsaPlus hN hX).IsTreeArc (rootTreeArc hN hX) :=
-  Classical.choose_spec (exists_isTreeArc_root (M := lsaPlus hN hX) (lsaPlus_isPhylogenetic hN hX)
-    (lsaPlus_outdegree_root hN hX) fun _ hw => lsaPlus_reaches_root_of_isStableAncestor hN hX hw)
+  RootedNetwork.rootTreeArc_spec hN.isPhylogenetic hN.isBinary hX
 
-/-- The nodes of `𝒩⁻`. -/
+/-- The nodes of `𝒩⁻`: the library's `RootedNetwork.SemidirectedVertex`, written with `lsaNode` and `lsaPlus`, which
+instance search does not unfold, so that it finds the instances on the nodes of `lsaPlus`. -/
 abbrev SemiV (hN : IsBinaryNetwork N) (hX : Nontrivial X) :=
   {v : N.belowVertices (lsaNode hN hX) Set.univ // v ≠ (lsaPlus hN hX).root}
 
-/-- The edges of `𝒩⁻`. -/
+/-- The edges of `𝒩⁻`: the library's `RootedNetwork.SemidirectedArc`, written with `lsaNode` and `rootTreeArc`, as
+`SemiV`. -/
 abbrev SemiE (hN : IsBinaryNetwork N) (hX : Nontrivial X) :=
   {e : N.belowArcs (lsaNode hN hX) Set.univ // e ≠ rootTreeArc hN hX}
 
 /-- **Definition 5, part 2** (`a:def::undirected`). The *semidirected unrooted network* `𝒩⁻`: "the unrooted
 network obtained from the LSA network `𝒩⊕` by undirecting all tree edges and suppressing the root, but retaining
-directions of hybrid edges". -/
+directions of hybrid edges". The library's `RootedNetwork.semidirected`, which suppresses the root with
+`RootedNetwork.unrootAt`. If the edge `rootTreeArc` is merged into a hybrid edge, the merged edge is the paper's
+"single edge with the out-edge direction". -/
 def semidirected (hN : IsBinaryNetwork N) (hX : Nontrivial X) :
     SemidirectedNetwork (SemiV hN hX) (SemiE hN hX) X :=
-  unrootAt (lsaPlus hN hX) (lsaPlus_isPhylogenetic hN hX) (rootTreeArc hN hX)
+  RootedNetwork.semidirected hN.isPhylogenetic hN.isBinary hX
 
 /-- The lengths and hybridization parameters of `𝒩⁻`: "for a metric graph the new edge is assigned a length equal
 to the sum of lengths of the two replaced. If the out-edge was hybrid, the new edge is also hybrid and retains the
-hybridization parameter". The other edge of the root keeps its parameter, and the chosen one is a tree edge. -/
+hybridization parameter". The other edge of the root keeps its parameter, and the chosen one is a tree edge. The
+library's `RootedNetwork.semidirectedMetric`. -/
 def semidirectedMetric (hN : IsBinaryNetwork N) (hX : Nontrivial X) (θ : MetricData E) :
-    MetricData (SemiE hN hX) where
-  length e :=
-    if (lsaPlus hN hX).graph.source e.1 = (lsaPlus hN hX).root then
-      θ.length e.1.1 + θ.length (rootTreeArc hN hX).1
-    else θ.length e.1.1
-  inheritance e := θ.inheritance e.1.1
+    MetricData (SemiE hN hX) :=
+  RootedNetwork.semidirectedMetric hN.isPhylogenetic hN.isBinary hX θ
 
 end Semidirected
 

@@ -114,7 +114,7 @@ theorem offNetwork_isPhylogenetic (hN : N.IsPhylogenetic) (hD : N.IsDeletion D) 
     exact hr
   · rw [DirectedMultigraph.indegree_eq_zero_iff]
     intro e he
-    exact target_ne_root hN e.1 (congrArg Subtype.val he)
+    exact hN.target_ne_root e.1 (congrArg Subtype.val he)
   · intro v hv
     rw [DirectedMultigraph.one_le_indegree_iff]
     have hv1 : v.1 ≠ N.root := fun h => hv (Subtype.ext h)
@@ -299,7 +299,7 @@ theorem support_off [Fintype V] (hN : N.IsPhylogenetic) (hD0 : ∀ f ∈ D, θ.i
   rw [historyWeight_eq_injWeight hN] at h
   unfold injWeight at h
   have hDn := downClosed_erase_root (N := N) hN
-  have hfm : N.graph.target f ∈ univ.erase N.root := mem_erase.2 ⟨target_ne_root hN f, mem_univ _⟩
+  have hfm : N.graph.target f ∈ univ.erase N.root := mem_erase.2 ⟨hN.target_ne_root f, mem_univ _⟩
   have hF := frontier_of_prod_ne_zero hN (validInj_taxaInj univ) hDn h
   have hgt := hF.good_top f hfm
   have hgb := hF.good_bot f hfm
@@ -446,7 +446,7 @@ theorem isNormalized_offParams {hroot : N.root ∈ offVertices N D} (hN : N.IsPh
   · exact hθ.1 _ htree
   · -- the other parents are in `D`
     have hhyb : 2 ≤ N.graph.indegree (N.graph.target e.1) := by
-      have h1 := hN.nonroot_indegree _ (target_ne_root hN e.1)
+      have h1 := hN.nonroot_indegree _ (hN.target_ne_root e.1)
       unfold IsTreeArc at htree
       omega
     have hsum := hθ.2 _ hhyb
@@ -690,7 +690,7 @@ theorem exists_off_lift [Fintype E] {N : RootedNetwork V E X} {D : Set E} [Finty
       · rw [hinhA ⟨e, hm⟩]
         refine hθ'.2.2.1 ⟨e, hm⟩ ?_
         have hle : (offNetwork N D hroot).graph.indegree ((offNetwork N D hroot).graph.target ⟨e, hm⟩) ≤ N.graph.indegree (N.graph.target e) := offNetwork_indegree_le _
-        have hge := hR.nonroot_indegree ((offNetwork N D hroot).graph.target ⟨e, hm⟩) (fun h => target_ne_root hN e (congrArg Subtype.val h))
+        have hge := hR.nonroot_indegree ((offNetwork N D hroot).graph.target ⟨e, hm⟩) (fun h => hN.target_ne_root e (congrArg Subtype.val h))
         unfold IsTreeArc at he ⊢
         omega
       · rw [hinhO e heD hm]
@@ -759,7 +759,7 @@ theorem exists_off_lift [Fintype E] {N : RootedNetwork V E X} {D : Set E} [Finty
       by_cases h2 : (offNetwork N D hroot).IsHybridArc ⟨e, hm⟩
       · exact hθ'.2.1 _ h2
       · have htree : (offNetwork N D hroot).IsTreeArc ⟨e, hm⟩ := by
-          have hge := hR.nonroot_indegree ((offNetwork N D hroot).graph.target ⟨e, hm⟩) (fun h => target_ne_root hN e (congrArg Subtype.val h))
+          have hge := hR.nonroot_indegree ((offNetwork N D hroot).graph.target ⟨e, hm⟩) (fun h => hN.target_ne_root e (congrArg Subtype.val h))
           unfold IsHybridArc at h2
           unfold IsTreeArc
           omega

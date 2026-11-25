@@ -217,7 +217,7 @@ theorem removeStem_avoidingReach_iff (e : {e // ¬ (HasStem M ∧ M.graph.source
       | @tail a b _ hab ih =>
         obtain ⟨ha, hr⟩ := ih
         obtain ⟨f, hfe, hs, ht⟩ := hab
-        refine ⟨fun h => target_ne_root hM f (ht.trans h.2), hr.tail ?_⟩
+        refine ⟨fun h => hM.target_ne_root f (ht.trans h.2), hr.tail ?_⟩
         exact ⟨⟨f, fun h => ha ⟨h.1, hs ▸ h.2⟩⟩, fun h => hfe (congrArg Subtype.val h), Subtype.ext hs, Subtype.ext ht⟩
     exact (key _ h).2
 
@@ -259,7 +259,7 @@ theorem removeStem_reaches_iff (u v : {v // ¬ (HasStem M ∧ v = M.root)}) :
       | @tail a b _ hab ih =>
         obtain ⟨ha, hr⟩ := ih
         obtain ⟨f, hs, ht⟩ := hab
-        refine ⟨fun h => target_ne_root hM f (ht.trans h.2), hr.tail ?_⟩
+        refine ⟨fun h => hM.target_ne_root f (ht.trans h.2), hr.tail ?_⟩
         exact ⟨⟨f, fun h => ha ⟨h.1, hs ▸ h.2⟩⟩, Subtype.ext hs, Subtype.ext ht⟩
     exact (key _ h).2
 

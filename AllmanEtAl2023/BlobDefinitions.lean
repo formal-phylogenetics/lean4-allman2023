@@ -315,7 +315,7 @@ include he₀ hout in
 theorem unrootAt_isConnected : (unrootAt M hM e₀).graph.IsConnected := by
   have : Finite E := hM.finite_arcs
   obtain ⟨e₁, hne₁, hroot⟩ := exists_other_root_arc hout he₀
-  let c₀ : {v // v ≠ M.root} := ⟨M.graph.target e₀, target_ne_root hM e₀⟩
+  let c₀ : {v // v ≠ M.root} := ⟨M.graph.target e₀, hM.target_ne_root e₀⟩
   have hsrc : ∀ (f : {e // e ≠ e₀}) (hf : M.graph.source f.1 ≠ M.root),
       (unrootAt M hM e₀).graph.source f = ⟨M.graph.source f.1, hf⟩ := by
     intro f hf
@@ -345,10 +345,10 @@ theorem unrootAt_isConnected : (unrootAt M hM e₀).graph.IsConnected := by
     · exact absurd h.symm v.2
     · rcases (hroot f).mp hfs with rfl | rfl
       · exact hpath c₀ (t := v.1) hav v.2
-      · have hedge : (unrootAt M hM e₀).graph.Walks Set.univ c₀ ⟨M.graph.target f, target_ne_root hM f⟩ := by
+      · have hedge : (unrootAt M hM e₀).graph.Walks Set.univ c₀ ⟨M.graph.target f, hM.target_ne_root f⟩ := by
           refine Relation.ReflTransGen.single ⟨⟨f, hne₁⟩, Set.mem_univ _, Or.inl ⟨?_, rfl⟩⟩
           simp only [unrootAt, c₀, dite_eq_left hfs]
-        exact hedge.trans (hpath ⟨M.graph.target f, target_ne_root hM f⟩ hav v.2)
+        exact hedge.trans (hpath ⟨M.graph.target f, hM.target_ne_root f⟩ hav v.2)
   exact fun u v => ((unrootAt M hM e₀).graph.walks_symm (hc u)).trans (hc v)
 
 end Unroot
@@ -376,7 +376,7 @@ def reducedRootedTree (hN : IsBinaryNetwork N) (hX : Nontrivial X) :=
 /-- `T(𝒩⁻)` is a tree. -/
 theorem treeOfBlobs_semidirected_isTree (hN : IsBinaryNetwork N) (hX : Nontrivial X) :
     (semidirected hN hX).treeOfBlobs.IsTree :=
-  DirectedMultigraph.bridgeQuotient_isTree _ (unrootAt_isConnected _ (rootTreeArc_spec hN hX).1
+  DirectedMultigraph.bridgeQuotient_isTree _ (unrootAt_isConnected (lsaPlus_isPhylogenetic hN hX) (rootTreeArc_spec hN hX).1
     (lsaPlus_outdegree_root hN hX))
 
 end Reduced

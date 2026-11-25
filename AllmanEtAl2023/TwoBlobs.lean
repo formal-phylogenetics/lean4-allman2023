@@ -43,29 +43,29 @@ theorem isBridge_unrootAt_iff (hM : M.IsPhylogenetic) {e₀ : E} (he₀ : M.grap
   · rintro ⟨T', hT'⟩
     -- the root goes with the child of `e₀`
     let T : Set V := {v | if h : v = M.root then
-      (⟨M.graph.target e₀, target_ne_root hM e₀⟩ : {v // v ≠ M.root}) ∈ T' else (⟨v, h⟩ : {v // v ≠ M.root}) ∈ T'}
+      (⟨M.graph.target e₀, hM.target_ne_root e₀⟩ : {v // v ≠ M.root}) ∈ T' else (⟨v, h⟩ : {v // v ≠ M.root}) ∈ T'}
     have hmem : ∀ v (hv : v ≠ M.root), v ∈ T ↔ (⟨v, hv⟩ : {v // v ≠ M.root}) ∈ T' := fun v hv => by
       simp only [T, Set.mem_ofPred_eq, dite_eq_right hv]
-    have hroot : M.root ∈ T ↔ (⟨M.graph.target e₀, target_ne_root hM e₀⟩ : {v // v ≠ M.root}) ∈ T' := by
+    have hroot : M.root ∈ T ↔ (⟨M.graph.target e₀, hM.target_ne_root e₀⟩ : {v // v ≠ M.root}) ∈ T' := by
       change (if h : M.root = M.root then _ else _) ↔ _
       rw [dite_eq_left rfl]
     have hsrc : ∀ g : {e // e ≠ e₀}, M.graph.source g.1 ∈ T ↔ (unrootAt M hM e₀).graph.source g ∈ T' := by
       intro g
       by_cases hg : M.graph.source g.1 = M.root
       · rw [hg, hroot]
-        have : (unrootAt M hM e₀).graph.source g = (⟨M.graph.target e₀, target_ne_root hM e₀⟩ : {v // v ≠ M.root}) := Subtype.ext (hsrc₁ g hg)
+        have : (unrootAt M hM e₀).graph.source g = (⟨M.graph.target e₀, hM.target_ne_root e₀⟩ : {v // v ≠ M.root}) := Subtype.ext (hsrc₁ g hg)
         rw [this]
       · rw [hmem _ hg]
         have : (unrootAt M hM e₀).graph.source g = (⟨M.graph.source g.1, hg⟩ : {v // v ≠ M.root}) := Subtype.ext (hsrc₂ g hg)
         rw [this]
     have htg : ∀ g : {e // e ≠ e₀}, M.graph.target g.1 ∈ T ↔ (unrootAt M hM e₀).graph.target g ∈ T' := fun g =>
-      hmem _ (target_ne_root hM g.1)
+      hmem _ (hM.target_ne_root g.1)
     refine ⟨T, fun g => ?_⟩
     by_cases hg : g = e₀
     · subst hg
       have hne : g ≠ f.1 := fun h => f.2 h.symm
       have hs : M.graph.source g ∈ T ↔ M.graph.target g ∈ T := by
-        rw [he₀, hroot, hmem _ (target_ne_root hM g)]
+        rw [he₀, hroot, hmem _ (hM.target_ne_root g)]
       simp only [DirectedMultigraph.Crosses, hne, iff_false]
       tauto
     · have hc := hT' ⟨g, hg⟩
@@ -475,7 +475,7 @@ theorem isBinaryNetwork_insertCycle (hN : IsBinaryNetwork N) : IsBinaryNetwork (
   have : Finite E := hP.finite_arcs
   have hg : N.graph.target g₀ = N.leaf a := (hg₀ g₀).mpr rfl
   have hno : ∀ x (e : E), N.graph.source e ≠ N.leaf x := fun x => (N.graph.outdegree_eq_zero_iff _).mp ((hP.leaves _).mpr ⟨x, rfl⟩)
-  have hnoT : ∀ e : E, N.graph.target e ≠ N.root := target_ne_root hP
+  have hnoT : ∀ e : E, N.graph.target e ≠ N.root := hP.target_ne_root
   -- degrees
   have hout : ∀ v : V, (insertCycle N a g₀).graph.outdegree (.inl v) = N.graph.outdegree v := fun v => by
     have hset : {f | (insertCycle N a g₀).graph.source f = .inl v} = Sum.inl '' {e | N.graph.source e = v} := by

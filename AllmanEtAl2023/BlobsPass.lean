@@ -162,8 +162,8 @@ theorem noTwoInSide_removeStem {v : V} {S : Finset X} (h : NoTwoInSide M.graph S
     simp only [stemMap, dite_eq_right hne]
     rfl
   refine h e'.1 (stemMap M hM ⁻¹' T') (fun f _ hc => ?_) hv s hs t ht (by simpa only [Set.mem_preimage, hleaf] using hsT) (by simpa only [Set.mem_preimage, hleaf] using htT)
-  have htgt : ∀ g : E, stemMap M hM (M.graph.target g) = ⟨M.graph.target g, fun h' => target_ne_root hM g h'.2⟩ := fun g => by
-    have hne : ¬ (HasStem M ∧ M.graph.target g = M.root) := fun h' => target_ne_root hM g h'.2
+  have htgt : ∀ g : E, stemMap M hM (M.graph.target g) = ⟨M.graph.target g, fun h' => hM.target_ne_root g h'.2⟩ := fun g => by
+    have hne : ¬ (HasStem M ∧ M.graph.target g = M.root) := fun h' => hM.target_ne_root g h'.2
     simp only [stemMap, dite_eq_right hne]
   by_cases hf : HasStem M ∧ M.graph.source f = M.root
   · exfalso

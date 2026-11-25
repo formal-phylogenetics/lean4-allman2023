@@ -95,7 +95,7 @@ theorem removeStem_hasCutSplit_iff (hM : M.IsPhylogenetic) {A : Set X} (h₁ : A
     by_cases hst : HasStem M
     · -- the root goes with its child
       let c := M.graph.target (stemArc M hst)
-      have hcne : ¬ (HasStem M ∧ c = M.root) := fun h => target_ne_root hM _ h.2
+      have hcne : ¬ (HasStem M ∧ c = M.root) := fun h => hM.target_ne_root _ h.2
       let T : Set V := {v | (v = M.root ∧ (⟨c, hcne⟩ : {v // ¬ (HasStem M ∧ v = M.root)}) ∈ S) ∨
         ∃ h' : ¬ (HasStem M ∧ v = M.root), (⟨v, h'⟩ : {v // ¬ (HasStem M ∧ v = M.root)}) ∈ S}
       have hmem : ∀ v (hv : ¬ (HasStem M ∧ v = M.root)), v ∈ T ↔ (⟨v, hv⟩ : {v // ¬ (HasStem M ∧ v = M.root)}) ∈ S := by
@@ -120,7 +120,7 @@ theorem removeStem_hasCutSplit_iff (hM : M.IsPhylogenetic) {A : Set X} (h₁ : A
           simp only [hmem _ hcne, c, hne, iff_false]
           tauto
         · have hc := hS ⟨f, hf⟩
-          have ht : ¬ (HasStem M ∧ M.graph.target f = M.root) := fun h => target_ne_root hM f h.2
+          have ht : ¬ (HasStem M ∧ M.graph.target f = M.root) := fun h => hM.target_ne_root f h.2
           simp only [DirectedMultigraph.Crosses] at hc ⊢
           rw [hmem _ hf, hmem _ ht]
           exact hc.trans ⟨fun h => congrArg Subtype.val h, fun h => Subtype.ext h⟩
@@ -242,11 +242,11 @@ theorem unrootAt_cut_iff (hM : M.IsPhylogenetic) {e₀ : E} (he₀ : M.graph.sou
   · rintro ⟨g, T', hT', rfl⟩
     -- the root goes with the child of `e₀`
     let T : Set V := {v | if h : v = M.root then
-      (⟨M.graph.target e₀, target_ne_root hM e₀⟩ : {v // v ≠ M.root}) ∈ T' else (⟨v, h⟩ : {v // v ≠ M.root}) ∈ T'}
+      (⟨M.graph.target e₀, hM.target_ne_root e₀⟩ : {v // v ≠ M.root}) ∈ T' else (⟨v, h⟩ : {v // v ≠ M.root}) ∈ T'}
     have hmem : ∀ v (hv : v ≠ M.root), v ∈ T ↔ (⟨v, hv⟩ : {v // v ≠ M.root}) ∈ T' := fun v hv => by
       simp only [T, Set.mem_ofPred_eq, dite_eq_right hv]
     have hroot : M.root ∈ T ↔
-        (⟨M.graph.target e₀, target_ne_root hM e₀⟩ : {v // v ≠ M.root}) ∈ T' := by
+        (⟨M.graph.target e₀, hM.target_ne_root e₀⟩ : {v // v ≠ M.root}) ∈ T' := by
       change (if h : M.root = M.root then _ else _) ↔ _
       rw [dite_eq_left rfl]
     have hsrc : ∀ f : {e // e ≠ e₀}, M.graph.source f.1 ∈ T ↔ (unrootAt M hM e₀).graph.source f ∈ T' := by
@@ -254,20 +254,20 @@ theorem unrootAt_cut_iff (hM : M.IsPhylogenetic) {e₀ : E} (he₀ : M.graph.sou
       by_cases hf : M.graph.source f.1 = M.root
       · rw [hf, hroot]
         have : (unrootAt M hM e₀).graph.source f =
-            (⟨M.graph.target e₀, target_ne_root hM e₀⟩ : {v // v ≠ M.root}) := Subtype.ext (hsrc₁ f hf)
+            (⟨M.graph.target e₀, hM.target_ne_root e₀⟩ : {v // v ≠ M.root}) := Subtype.ext (hsrc₁ f hf)
         rw [this]
       · rw [hmem _ hf]
         have : (unrootAt M hM e₀).graph.source f = (⟨M.graph.source f.1, hf⟩ : {v // v ≠ M.root}) :=
           Subtype.ext (hsrc₂ f hf)
         rw [this]
     have htg : ∀ f : {e // e ≠ e₀}, M.graph.target f.1 ∈ T ↔ (unrootAt M hM e₀).graph.target f ∈ T' := fun f =>
-      hmem _ (target_ne_root hM f.1)
+      hmem _ (hM.target_ne_root f.1)
     refine ⟨g.1, T, fun f => ?_, ?_⟩
     · by_cases hf : f = e₀
       · subst hf
         have hne : f ≠ g.1 := fun h => g.2 h.symm
         have hs : M.graph.source f ∈ T ↔ M.graph.target f ∈ T := by
-          rw [he₀, hroot, hmem _ (target_ne_root hM f)]
+          rw [he₀, hroot, hmem _ (hM.target_ne_root f)]
         simp only [DirectedMultigraph.Crosses, hne, iff_false]
         tauto
       · have hc := hT' ⟨f, hf⟩
@@ -413,7 +413,7 @@ theorem lsaPlus_not_hasCutSplit_empty (hN : IsBinaryNetwork N) (hX : Nontrivial 
           exact hb (by rw [(hS f).mp (Or.inl ⟨ih, hbS⟩)])
       exact hnot x (hmem _ hp)
     have hr := lsaPlus_reaches_root_of_isStableAncestor hN hX hst
-    exact target_ne_root hM e (eq_of_reaches_of_reaches hM.acyclic hr (hM.root_reaches _))
+    exact hM.target_ne_root e (eq_of_reaches_of_reaches hM.acyclic hr (hM.root_reaches _))
   · -- a node of the side reaches a taxon, and is reached from the root
     obtain ⟨p, hp⟩ : ∃ p, p ∈ S := by
       rcases (hS e).mpr rfl with ⟨h, -⟩ | ⟨h, -⟩ <;> exact ⟨_, h⟩

@@ -324,8 +324,8 @@ theorem astralLength_semidirected (hN : IsBinaryNetwork N) (hX : Nontrivial X) (
   obtain ⟨a, b, c, d, h, hF⟩ := TrivialEdges.semidirected_length_eq hN hX e hs ht hls hlt
   refine ⟨a, b, c, d, h, fun θ hθ => astralLength_of_eq ?_ (hF θ hθ)⟩
   have hw := hθ.isWeakMetric.1
-  unfold semidirectedMetric
-  simp only
+  change 0 ≤ if (lsaPlus hN hX).graph.source e.1 = (lsaPlus hN hX).root then
+    θ.length e.1.1 + θ.length (rootTreeArc hN hX).1 else θ.length e.1.1
   split_ifs
   · exact add_nonneg (hw _) (hw _)
   · exact hw _

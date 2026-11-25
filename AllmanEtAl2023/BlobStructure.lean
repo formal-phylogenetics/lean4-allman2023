@@ -209,7 +209,7 @@ theorem eq_of_target_eq_lsaNode {f f' : E} (hf : N.graph.target f = lsaNode hN h
   have hP := hN.isPhylogenetic
   have : Finite E := hP.finite_arcs
   have h2 := two_le_outdegree_lsaNode hN hX
-  have hne : lsaNode hN hX ≠ N.root := hf ▸ target_ne_root hP f
+  have hne : lsaNode hN hX ≠ N.root := hf ▸ hP.target_ne_root f
   have h3 := hN.isBinary.2 _ hne (by omega)
   have hle : N.graph.indegree (lsaNode hN hX) ≤ 1 := by omega
   exact (Set.ncard_le_one (Set.toFinite _)).mp hle f hf f' hf'

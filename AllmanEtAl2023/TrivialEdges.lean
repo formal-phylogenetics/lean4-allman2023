@@ -491,7 +491,7 @@ theorem edge_length_eq (hN : IsBinaryNetwork N) (hX : Nontrivial X) {e : E} (hu 
   have hr : N.graph.source e ≠ N.root := fun h => hne (eq_of_reaches_of_reaches hP.acyclic hbelow (h ▸ hP.root_reaches _)).symm
   have hlv : ∀ x, N.leaf x ≠ N.graph.source e := fun x h =>
     (N.graph.outdegree_eq_zero_iff _).mp ((hP.leaves _).mpr ⟨x, rfl⟩) e h.symm
-  obtain ⟨p₀, g₁, g₂, -, hup, hg₁, hg₂, hneg, hallg⟩ := exists_edges_of_isTrivialBlob hN hu (target_ne_root hP e) hl
+  obtain ⟨p₀, g₁, g₂, -, hup, hg₁, hg₂, hneg, hallg⟩ := exists_edges_of_isTrivialBlob hN hu (hP.target_ne_root e) hl
   obtain ⟨p, h₁, h₂, hpt, -, hs₁, hs₂, hne₁, -⟩ := exists_edges_of_isTrivialBlob hN hv hr hlv
   have hu' : ∀ f, N.graph.target f = N.graph.target e → f = e := fun f hf => (hup f hf).trans (hup e rfl).symm
   obtain ⟨f, hfe, hsf⟩ : ∃ f, f ≠ e ∧ N.graph.source f = N.graph.source e := by
@@ -550,8 +550,8 @@ theorem root_length_eq (hN : IsBinaryNetwork N) {e₀ e₁ : E} (hs : N.graph.so
     (hl₀ : ∀ x, N.leaf x ≠ N.graph.target e₀) (hl₁ : ∀ x, N.leaf x ≠ N.graph.target e₁) :
     ∃ (a b c d : X) (h : ({a, b, c, d} : Finset X).card = 4), ∀ θ : MetricData E, N.IsMetric θ → θ.length e₀ + θ.length e₁ = -Real.log (3 / 2 * (1 - nmscCF N θ 0 (quartetTree a b c d h))) := by
   have hP := hN.isPhylogenetic
-  obtain ⟨p₀, g₁, g₂, -, hup₀, hg₁, hg₂, hneg, hallg⟩ := exists_edges_of_isTrivialBlob hN h₀ (target_ne_root hP e₀) hl₀
-  obtain ⟨p₁, k₁, k₂, -, hup₁, hk₁, hk₂, hnek, hallk⟩ := exists_edges_of_isTrivialBlob hN h₁ (target_ne_root hP e₁) hl₁
+  obtain ⟨p₀, g₁, g₂, -, hup₀, hg₁, hg₂, hneg, hallg⟩ := exists_edges_of_isTrivialBlob hN h₀ (hP.target_ne_root e₀) hl₀
+  obtain ⟨p₁, k₁, k₂, -, hup₁, hk₁, hk₂, hnek, hallk⟩ := exists_edges_of_isTrivialBlob hN h₁ (hP.target_ne_root e₁) hl₁
   have hu₀ : ∀ f, N.graph.target f = N.graph.target e₀ → f = e₀ := fun f hf => (hup₀ f hf).trans (hup₀ e₀ rfl).symm
   have hu₁ : ∀ f, N.graph.target f = N.graph.target e₁ → f = e₁ := fun f hf => (hup₁ f hf).trans (hup₁ e₁ rfl).symm
   have hb₀ := isBridge_of_isTrivialBlob hP h₀ (Or.inr rfl)
@@ -703,7 +703,7 @@ theorem semidirected_length_eq (e : SemiE hN hX) (hs : IsTrivialBlob (semidirect
   have hlt' : ∀ x, N.leaf x ≠ N.graph.target e.1.1 := fun x hx => hlt x (hval hx)
   by_cases hsrc : (lsaPlus hN hX).graph.source e.1 = (lsaPlus hN hX).root
   · -- the edge the root becomes
-    have hsv : (semidirected hN hX).graph.source e = ⟨(lsaPlus hN hX).graph.target (rootTreeArc hN hX), target_ne_root hPp _⟩ := source_unrootAt_of_eq hPp hsrc
+    have hsv : (semidirected hN hX).graph.source e = ⟨(lsaPlus hN hX).graph.target (rootTreeArc hN hX), hPp.target_ne_root _⟩ := source_unrootAt_of_eq hPp hsrc
     have hs' := isTrivialBlob_of_semidirected hN hX _ hs
     rw [hsv] at hs'
     have hls' : ∀ x, N.leaf x ≠ N.graph.target (rootTreeArc hN hX).1 := fun x hx => hls x (by
