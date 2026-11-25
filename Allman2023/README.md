@@ -5,42 +5,52 @@ identifiability under the coalescent*, J. Math. Biol. 86 (2023), 10,
 <https://doi.org/10.1007/s00285-022-01838-9>. Read in the PMC author manuscript NIHMS1884071 (PMC10062380) and the arXiv TeX. The journal's text wasn't
 reachable, so "the PMC manuscript" is what is meant below and in the docstrings.
 
-"Line 149" and "the PMC text, line 149" in the docstrings mean line 149 of the plain text of the PMC page, one line per paragraph. The labels `a:thm:…`, `a:lem:…`, `a:cor:…`, `a:prop:…`, `a:def::…` are those of the arXiv TeX; the routes of the proofs are in `docs/paper_routes.tsv`, and their differences from the paper's in `docs/route_differences.tsv`.
+"Line 149" and "the PMC text, line 149" in the docstrings mean line 149 of the plain text of the PMC page, one line per paragraph. The labels `a:thm:…`, `a:lem:…`, `a:cor:…`, `a:prop:…`, `a:def::…` are those of the arXiv TeX; the routes of the proofs are in `docs/Allman2023/paper_routes.tsv`, and their differences from the paper's in `docs/Allman2023/route_differences.tsv`.
 
-All names are in the namespace `AllmanEtAl2023`. No module here imports `ECToBlob`, `TOBQMC` or `TINNiK`. The bridge from the outline of an algorithm in Section 5 to the later paper is `TINNiK.AllmanOutline`, in `lean4-tinnik/TINNiK/`. There is no `sorry`.
+The paper's library is in the namespace `Allman2023`; the general lemmas of `Basic/` are in Mathlib's namespaces, the cited results of `External/` in `External.<Source>`, and the definitions of the Challenge, in `Defs.lean`, in `Allman2023.Model`. No module here imports `ECToBlob`, `TOBQMC` or `TINNiK`. The bridge from the outline of an algorithm in Section 5 to the later paper is `TINNiK.AllmanOutline`, in `lean4-tinnik/TINNiK/`. There is no `sorry`.
 
 ## Results
 
 | Result of the paper | Lean | Module | Proof |
 | --- | --- | --- | --- |
-| Lemma 1 | `lemma1` | `Lemma1`, `TrdFour` | the paper omits the proof; ours, by the count of the degrees of `T(𝒩⁻)` |
-| Theorem 1 | `theorem1`, with `theorem1_a`, `theorem1_b`, `theorem1_cut` | `Theorem1`, `Theorem1a`, `Theorem1b` | the paper's: statement (a) on the edge of the rooted form, (b) by induction, with the 2-blob step, Lemma 1, the deleted networks and the mixture |
-| Corollary 1 | `corollary1` | `Corollary1` | the paper's: Theorem 1 on each induced network, `isGenericNull_inducedParams`, `nmscCF_induced` |
-| Proposition 1 | `proposition1`, `proposition1_converse` | `Proposition1`, `GenericDense`, `NetworkNk`, `NetworkNkGraph`, `NetworkNkCF`, `NetworkNkSpecies`, `NetworkNkMixture`, `KernelBounds` | the paper's: `α` exact, `CF = α CF₁ + (1 - α) CF₂`, `CF₁` from the two species trees |
-| Lemma 2 | `lemma2` | `Lemma2`, from `determines_of_subnetwork` in `SubgraphBlobs` | the paper's. `M` is connected, and the labels are distinct on nodes of degree 1: what the proof and its uses need (`lemma2_needs_connected`, in `Lemma2Counterexample`) |
-| Corollary 2 | `corollary2` | `Corollary2`, `BlobsPass` | the paper's: blobs pass to blobs and cut edges to cut edges, then Lemma 2 |
-| Theorem 2 | `theorem2` | `Theorem2`, from `rule_core` in `Basic` | the paper's |
-| Lemma 3 | `lemma3` | `Lemma3`, from `lemma3_blob` in `CycleLemma` | the paper's cycle; its gaps are listed at the head of `CycleLemma` and `Lemma3` |
-| Theorem 3 | `theorem3`, `theorem3_core` | `Theorem3` | the paper's induction, on networks |
-| Theorem 4 | `theorem4`, `theorem4_treeFromCF`, `theorem4_two_networks`, `theorem4_iso` | `Theorem4` | the paper's: the quartets displayed, then "the collection of displayed quartets determine the tree" |
-| Definitions 1 to 15 | see the docstrings, each with its label | `Definitions`, `InducedNetwork`, `BlobDefinitions`, `Concordance` | |
+| Lemma 1 | `lemma1` | `FourTaxa/Lemma1`, `Networks/TrdFour` | the paper omits the proof; ours, by the count of the degrees of `T(𝒩⁻)` |
+| Theorem 1 | `theorem1`, with `theorem1_a`, `theorem1_b`, `theorem1_cut` | `FourTaxa/Theorem1`, `Theorem1a`, `Theorem1b` | the paper's: statement (a) on the edge of the rooted form, (b) by induction, with the 2-blob step, Lemma 1, the deleted networks and the mixture |
+| Corollary 1 | `corollary1` | `FourTaxa/Corollary1` | the paper's: Theorem 1 on each induced network, `isGenericNull_inducedParams`, `nmscCF_induced` |
+| Proposition 1 | `proposition1`, `proposition1_converse` | `FourTaxa/Proposition1`, `GenericDense`, `NetworkNk`, `NetworkNkGraph`, `NetworkNkCF`, `NetworkNkSpecies`, `NetworkNkMixture`, `KernelBounds` | the paper's: `α` exact, `CF = α CF₁ + (1 - α) CF₂`, `CF₁` from the two species trees |
+| Lemma 2 | `lemma2` | `LargeNetworks/Lemma2`, from `determines_of_subnetwork` in `SubgraphBlobs` | the paper's. `M` is connected, and the labels are distinct on nodes of degree 1: what the proof and its uses need (`lemma2_needs_connected`, in `Lemma2Counterexample`) |
+| Corollary 2 | `corollary2` | `LargeNetworks/Corollary2`, `Networks/BlobsPass` | the paper's: blobs pass to blobs and cut edges to cut edges, then Lemma 2 |
+| Theorem 2 | `theorem2` | `LargeNetworks/Theorem2`, from `rule_core` in `Rule` | the paper's |
+| Lemma 3 | `lemma3` | `LargeNetworks/Lemma3`, from `lemma3_blob` in `CycleLemma` | the paper's cycle; its gaps are listed at the head of `CycleLemma` and `Lemma3` |
+| Theorem 3 | `theorem3`, `theorem3_core` | `LargeNetworks/Theorem3` | the paper's induction, on networks |
+| Theorem 4 | `theorem4`, `theorem4_treeFromCF`, `theorem4_two_networks`, `theorem4_iso` | `MainResult/Theorem4` | the paper's: the quartets displayed, then "the collection of displayed quartets determine the tree" |
+| Definitions 1 to 15 | see the docstrings, each with its label | `Networks/Definitions`, `InducedNetwork`, `BlobDefinitions`, `Concordance` | |
+
+The statements of record are those of the Challenge, `palomar/Allman2023/Challenge.lean`, on the definitions of `Defs.lean`; `Bridge/Model.lean` proves that these are the library's, and `Bridge/Statements.lean` proves the Challenge's theorems from the results above.
 
 ## Modules
 
-| Modules | Content |
-| --- | --- |
-| `Definitions`, `InducedNetwork`, `BlobDefinitions`, `Concordance`, `NetworkNk` | the paper's definitions, on its objects |
-| `SubgraphBlobs`, `CutOrder`, `CycleLemma`, `Reduction`, `Basic` | the subgraph language: blobs of a set of arcs of a fixed network, cuts by domination. Lemma 2, the cycle of Lemma 3 and the rule live here, and the later papers use them |
-| `Bridges`, `InducedTransfer`, `BlobsPass` | from the paper's objects to that language; blobs and cut-edge splits through the steps of Definition 6 |
-| `TreeSuppression`, `TrdTree`, `TreeIso`, `TrdFour` | suppressing nodes of degree 2 of a tree; `T_rd` on four taxa; a bridge to the library's `Phylogenetics.SplitsEquivalence.xTree_unique` for labelled graphs (`LabelledGraph.isIso_of_splits_eq`) |
-| `InducedCF`, `SuppressStem`, `ClaimsTheorem1`, `KernelBounds`, `Theorem1a` | `CF`s through Definition 6; statement (a) of the proof of Theorem 1, and the bounds it uses. `SuppressStem` is what induced, deleted and contracted networks share |
-| `DeletedNetwork`, `ContractBlob`, `Theorem1b`, `GenericCF`, `GenericParams`, `GenericDense` | statement (b): the networks `𝒩ᵢ⁺`, the 2-blob step, the choice of parameters; generic parameters exist and are dense |
-| `Theorem1`, `Corollary1`, `Lemma1`, `Proposition1`, `Lemma2`, `Lemma2Counterexample`, `Corollary2`, `Theorem2`, `Lemma3`, `Theorem3`, `Theorem4`, `Claims` | the numbered results, and the claims their proofs use |
-| `InPassing`, `BlobDistance`, `NetworkNkExact`, `NetworkOne`, `TwoBlobs`, `BlobStructure`, `LSABlob`, `TreeBlobs`, `CycleFamily`, `CFGeometry`, `FourCycle`, `TrivialEdges`, `Figures`, `Figure1`, `Figure2`, `FigureCheck` | what the paper says in passing, below. `FigureCheck` checks claims about a numbered network by computation, in the kernel, and `Figure1` adds certificates for a large one. `NetworkNkExact` is the first entry of `CF_abcd` on `𝒩(k)⁺`, exactly, and `NetworkOne` the same on `𝒩(1)⁺` for all parameters |
-| `Algorithm` | the outline of an algorithm in Section 5: its steps, its consistency for a test right on four taxa, and the estimate of edge lengths it cites. The bridge to TINNiK is `TINNiK.AllmanOutline` |
-| `CFDetectable` | for the later papers: `cfDetectable_generic`, `isGenericNull_not_isNonCut` on `CFDetectable`. TINNiK's Theorem 1 is `cfDetectable_generic` |
+The library follows the paper's sections.
 
-For the later papers, besides `CFDetectable`: `closure_complete`, `closure_sound` (`Basic`), the closure at any degree, which `ECToBlob.remark83_tinnik` needs; `exists_reduction_aux`, `exists_reduction`, `exists_reduction_of_blobDegree` (`Reduction`), which ECToBlob's Section 5, TOB-QMC's Lemma 1 and `InPassing.isTreelike_iff_forall_displays` use, on non-binary networks too. `TreeOfBlobs.NMSCChain`, in lean4-tob, has the chain of the NMSC on a concrete network, which `FourCycle` and `TrivialEdges` use.
+| Directory | Modules | Content |
+| --- | --- | --- |
+| `Networks/` (Section 2) | `Definitions`, `InducedNetwork`, `BlobDefinitions`, `Concordance` | the paper's definitions, on its objects |
+| | `Bridges`, `InducedTransfer`, `BlobsPass` | from the paper's objects to the language of subgraphs of `LargeNetworks/`; blobs and cut-edge splits through the steps of Definition 6 |
+| | `TreeSuppression`, `TrdTree`, `TreeIso`, `TrdFour` | suppressing nodes of degree 2 of a tree; `T_rd` on four taxa; a bridge to the library's `Phylogenetics.SplitsEquivalence.xTree_unique` for labelled graphs (`LabelledGraph.isIso_of_splits_eq`) |
+| | `InducedCF`, `SuppressStem` | `CF`s through Definition 6. `SuppressStem` is what induced, deleted and contracted networks share |
+| | `InPassing`, `BlobStructure`, `LSABlob`, `TreeBlobs`, `CycleFamily` | what Section 2 says in passing on blobs, below |
+| `FourTaxa/` (Section 3) | `Lemma1`, `TwoBlobs`, `ClaimsTheorem1`, `KernelBounds`, `Theorem1a` | Lemma 1; statement (a) of the proof of Theorem 1, and the bounds it uses |
+| | `DeletedNetwork`, `ContractBlob`, `Theorem1b`, `GenericCF`, `GenericParams`, `GenericDense`, `Theorem1` | statement (b): the networks `𝒩ᵢ⁺`, the 2-blob step, the choice of parameters; generic parameters exist and are dense; Theorem 1 |
+| | `Corollary1`, `CFDetectable` | Corollary 1, and its form for the later papers: `cfDetectable_generic`, `isGenericNull_not_isNonCut` on `CFDetectable`. TINNiK's Theorem 1 is `cfDetectable_generic` |
+| | `NetworkNk`, `NetworkNkGraph`, `NetworkNkCF`, `NetworkNkSpecies`, `NetworkNkMixture`, `Proposition1` | the networks `𝒩(k)⁺` and Proposition 1 |
+| | `NetworkNkExact`, `NetworkOne`, `CFGeometry`, `FourCycle` | what Section 3 says in passing: `NetworkNkExact` is the first entry of `CF_abcd` on `𝒩(k)⁺`, exactly, and `NetworkOne` the same on `𝒩(1)⁺` for all parameters |
+| `LargeNetworks/` (Section 4) | `SubgraphBlobs`, `CutOrder`, `CycleLemma`, `Reduction`, `Rule` | the language of subgraphs of a fixed network and cuts by domination. Lemma 2, the cycle of Lemma 3 and the rule live here, and the later papers use them |
+| | `Lemma2`, `Lemma2Counterexample`, `Corollary2`, `Theorem2`, `Lemma3`, `Claims`, `Theorem3` | the numbered results of Section 4, and the claims that the proofs of Theorems 3 and 4 use |
+| `MainResult/` (Section 5) | `Theorem4` | Theorem 4 |
+| | `Algorithm`, `BlobDistance`, `TrivialEdges` | the outline of an algorithm in Section 5: its steps, its consistency for a test right on four taxa, and the estimate of edge lengths it cites (the bridge to TINNiK is `TINNiK.AllmanOutline`); the distance between blobs; the lengths of edges between trivial blobs |
+| `Figures/` | `Examples`, `Figure1`, `Figure2`, `Check` | the examples of Figures 1, 2, 3 and 9. `Check` checks claims about a numbered network by computation, in the kernel, and `Figure1` adds certificates for a large one |
+| `Bridge/` | `Model`, `Statements` | the Challenge's definitions are the library's, and its theorems |
+
+For the later papers, besides `CFDetectable`: `closure_complete`, `closure_sound` (`Rule`), the closure at any degree, which `ECToBlob.remark83_tinnik` needs; `exists_reduction_aux`, `exists_reduction`, `exists_reduction_of_blobDegree` (`Reduction`), which ECToBlob's Section 5, TOB-QMC's Lemma 1 and `InPassing.isTreelike_iff_forall_displays` use, on non-binary networks too. `TreeOfBlobs.NMSCChain`, in lean4-tob, has the chain of the NMSC on a concrete network, which `FourCycle` and `TrivialEdges` use. The names under which lean4-tinnik, lean4-tob-qmc, lean4-nanuq and lean4-ectoblob use these declarations, in the namespace `AllmanEtAl2023`, are deprecated aliases or exports, at the end of each module.
 
 ## Departures that remain
 
