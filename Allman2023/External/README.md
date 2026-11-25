@@ -8,7 +8,7 @@ assumed. These modules import Mathlib, `Allman2023/Basic/` and the libraries thi
 requires, never the paper's library.
 
 A source that another repository of the collection already formalizes (lean4-phylogenetics, the
-hubs lean4-phylo-network and lean4-tob, or the repository of a paper) is not formalized again: its statement here is proved
+hubs lean4-phylo-network and lean4-phylo-tree-of-blobs, or the repository of a paper) is not formalized again: its statement here is proved
 from that repository's theorem (lean4-phylogenetics, docs/CONVENTIONS.md, Sections 4 and 6).
 
 | Source | Where | What the paper uses |

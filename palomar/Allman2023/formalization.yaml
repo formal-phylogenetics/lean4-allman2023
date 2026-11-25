@@ -61,7 +61,7 @@ sources:
 related_formalizations:
   - id: "https://github.com/vltanh/lean4-phylogenetics"
     relationship: "adapts"
-    note: "This repository imports this library, pinned at commit 3fcabfd, for its definitions and general results, so the Solution imports it too; the Challenge imports only Mathlib. Finite Kingman coalescent and hierarchy modules were adapted from commit 06f684e5 under Apache-2.0 before that, in lean4-tob (lean4-tob/docs/ADAPTED_SOURCES.md, lean4-tob/docs/COALESCENT_SOURCES.md, at commit 05a024a). The network coalescent on arbitrary networks was first written in lean4-tob and has moved to the library; the library's term-based level-1 network coalescent is not used."
+    note: "This repository imports this library, pinned at commit 3fcabfd, for its definitions and general results, so the Solution imports it too; the Challenge imports only Mathlib. Finite Kingman coalescent and hierarchy modules were adapted from commit 06f684e5 under Apache-2.0 before that, in lean4-phylo-tree-of-blobs (lean4-phylo-tree-of-blobs/docs/ADAPTED_SOURCES.md, lean4-phylo-tree-of-blobs/docs/COALESCENT_SOURCES.md, at commit 05a024a). The network coalescent on arbitrary networks was first written in lean4-phylo-tree-of-blobs and has moved to the library; the library's term-based level-1 network coalescent is not used."
   - id: "https://github.com/vltanh/lean4-camus"
     relationship: "independent"
     note: "Surveyed; no code used."
@@ -99,7 +99,7 @@ automation:
       prompting_notes: "Slash command with the three paper links, continuing from the earlier handoff; later the user asked to match the sources closely, to formalize what the report listed as not formalized, to add Gusfield et al. 2007 and Allman et al. 2023 as primary papers on the library lean4-phylogenetics, and to finish what remained, leaving only empirical claims and wrong statements."
   spend_usd: "not tracked"
   notes: >-
-    The user chose the papers and the versions of the first three, agreed to the statement corrections of ECToBlob and TOB-QMC, and decided the library's boundary, the layout, the kernels and publication. AI systems wrote the code, the statements, the audit and the documents. The automation above is for the whole project in lean4-tob, which until 2026-11-04 also had Gusfield et al. 2007, since moved to its own repository, lean4-gusfield2007; on 2026-11-21 each of its four papers moved, with its entry, to a repository of its own. Allman2023/ has the paper's library, and palomar/Allman2023/ the Challenge and the Solution; the audit checks every declaration of this repository and of the libraries it requires, 14,812 in all, on the standard axioms; Comparator accepts the 7 theorems of the Challenge under Lean's kernel and NanoDa. See docs/Allman2023/CREDITS.md and lean4-tob/docs/CREDITS.md at commit 05a024a.
+    The user chose the papers and the versions of the first three, agreed to the statement corrections of ECToBlob and TOB-QMC, and decided the library's boundary, the layout, the kernels and publication. AI systems wrote the code, the statements, the audit and the documents. The automation above is for the whole project in lean4-phylo-tree-of-blobs, which until 2026-11-04 also had Gusfield et al. 2007, since moved to its own repository, lean4-gusfield2007; on 2026-11-21 each of its four papers moved, with its entry, to a repository of its own. Allman2023/ has the paper's library, and palomar/Allman2023/ the Challenge and the Solution; the audit checks every declaration of this repository and of the libraries it requires, 14,812 in all, on the standard axioms; Comparator accepts the 7 theorems of the Challenge under Lean's kernel and NanoDa. See docs/Allman2023/CREDITS.md and lean4-phylo-tree-of-blobs/docs/CREDITS.md at commit 05a024a.
 
 fidelity:
   divergences: >-
@@ -129,7 +129,7 @@ review:
     - "none (no human review)"
   notes: >-
     Independent AI agents reviewed the statements against the sources and compared the formal proofs with the papers'; a
-    separate agent checked the findings. The route check and, in lean4-tob before the split, the three kernels (scripts/check_kernels.sh: Lean's kernel, NanoDa, con-ron) ran locally; Comparator checks that the Solution proves exactly the statements of the Challenge, palomar/Allman2023/Challenge.lean, which imports only Mathlib and holds a copy of the definitions of Allman2023/Defs.lean.
+    separate agent checked the findings. The route check and, in lean4-phylo-tree-of-blobs before the split, the three kernels (scripts/check_kernels.sh: Lean's kernel, NanoDa, con-ron) ran locally; Comparator checks that the Solution proves exactly the statements of the Challenge, palomar/Allman2023/Challenge.lean, which imports only Mathlib and holds a copy of the definitions of Allman2023/Defs.lean.
 
 alignment:
   namespace: "Allman2023Challenge"

@@ -6,7 +6,7 @@ A Lean 4 formalization of E. S. Allman, H. Baños, J. D. Mitchell, J. A. Rhodes,
 
 Every numbered result is proved, by the paper's arguments except the departures that [Section 7 of the report](docs/Allman2023/REPORT.md#7-departures-from-the-papers-proofs) lists. The formalization is unconditional: no result of the literature is assumed, and there is no `sorry` or `axiom` outside the Challenge's statements. Lemma 2 is proved for a connected subnetwork, which its proof and all its uses assume (E55). No person has reviewed the proofs.
 
-This paper is one of the four of the hub [lean4-tob](https://github.com/vltanh/lean4-tob), a sub-hub of [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), which presents them; TINNiK, TOB-QMC and ECToBlob build on it.
+This paper is one of the four of the hub [lean4-phylo-tree-of-blobs](https://github.com/vltanh/lean4-phylo-tree-of-blobs), a sub-hub of [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), which presents them; TINNiK, TOB-QMC and ECToBlob build on it.
 
 ## Status
 
@@ -85,7 +85,7 @@ The statements of record are the theorems of the Challenge, [`palomar/Allman2023
 - [Mathlib](https://github.com/leanprover-community/mathlib4), at `v4.37.0-rc1`.
 - [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics), the library of the collection, pinned by commit in [`lakefile.toml`](lakefile.toml): networks, blobs and their contraction, the semidirected network, trees and quartets, Kingman's coalescent and the network multispecies coalescent, null sets of parameters and the analytic argument behind generic parameters.
 - [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), the library of the hub of network estimation, pinned by commit: the theorem of Rhodes 2020, the chain of the coalescent on explicit networks, and independent samples.
-- [lean4-tob](https://github.com/vltanh/lean4-tob), the library of this paper's hub, pinned by commit: the definitions of the algorithms of the later papers, among them the closure under the B-quartet Inference Rule (`BInferred`), which the outline of Section 5 uses.
+- [lean4-phylo-tree-of-blobs](https://github.com/vltanh/lean4-phylo-tree-of-blobs), the library of this paper's hub, pinned by commit: the definitions of the algorithms of the later papers, among them the closure under the B-quartet Inference Rule (`BInferred`), which the outline of Section 5 uses.
 
 ## Palomar
 
@@ -107,7 +107,7 @@ python3 scripts/linkify_docs.py                                      # the docum
 
 - Toolchain: Lean and Mathlib `v4.37.0-rc1` ([`lean-toolchain`](lean-toolchain), [`lake-manifest.json`](lake-manifest.json)).
 - `lake comparator`, `leanexport` and `con-ron` come from the toolchain, under `lake env`. The kernels' replays need much memory.
-- [lean4-tob's `docs/CONFIGURATION.md`](https://github.com/vltanh/lean4-tob/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CONFIGURATION.md) records the versions, the decisions, and what "line N" means.
+- [lean4-phylo-tree-of-blobs's `docs/CONFIGURATION.md`](https://github.com/vltanh/lean4-phylo-tree-of-blobs/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CONFIGURATION.md) records the versions, the decisions, and what "line N" means.
 
 ## Layout
 
@@ -128,7 +128,7 @@ From [Section 10 of the report](docs/Allman2023/REPORT.md#10-the-paper-in-the-li
 
 - No other formalization of this paper was found. [lean4-allman2011](https://github.com/vltanh/lean4-allman2011), by the same owner, formalizes Allman, Degnan, Rhodes 2011, which the paper cites, and isn't used here.
 - Before: the paper's own account cites level-1 work (SNaQ, Baños 2019, NANUQ) and takes the tree of blobs from Gusfield et al. 2007, which is formalized separately, in [lean4-gusfield2007](https://github.com/vltanh/lean4-gusfield2007).
-- Since: TINNiK (2024) made the outline of Section 5 an algorithm with a consistency theorem, and TOB-QMC and ECToBlob build on the paper's results; all three are papers of the hub lean4-tob. "Beyond level-1" (2025) extends tree of blobs identifiability to common inheritance and the displayed tree model. Huber et al. 2025 and Frohn et al. 2025 give the tree of blobs from exact quarnets. Allman et al. 2024 settle the identifiability of edge lengths at level 1.
+- Since: TINNiK (2024) made the outline of Section 5 an algorithm with a consistency theorem, and TOB-QMC and ECToBlob build on the paper's results; all three are papers of the hub lean4-phylo-tree-of-blobs. "Beyond level-1" (2025) extends tree of blobs identifiability to common inheritance and the displayed tree model. Huber et al. 2025 and Frohn et al. 2025 give the tree of blobs from exact quarnets. Allman et al. 2024 settle the identifiability of edge lengths at level 1.
 - No erratum, correction or counterexample to the paper was found, and no later work that restates Lemma 2.
 
 ## What's next
@@ -139,7 +139,7 @@ The natural next steps are to extend the generic results beyond independent inhe
 
 - Requested and supervised by The-Anh Vu-Le, who chose the papers, decided the library's boundary and the project's layout, and published the repository. **No person has reviewed the proofs.** Independent agents reviewed the statements and compared the proofs with the paper.
 - Codex made the source audit and first foundations of the collection, on 2026-10-27. Claude (Opus 5.5) in Claude Code, with sub-agents, wrote the statements, proofs, audit and documents, following the [formalize-math-paper](https://github.com/vltanh/formalize-math-paper) procedure.
-- Made in lean4-tob from 2026-10-31 to 2026-11-01, with the rest of the collection. [`docs/Allman2023/CREDITS.md`](docs/Allman2023/CREDITS.md) and lean4-tob's [`docs/CREDITS.md`](https://github.com/vltanh/lean4-tob/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CREDITS.md) have the details.
+- Made in lean4-phylo-tree-of-blobs from 2026-10-31 to 2026-11-01, with the rest of the collection. [`docs/Allman2023/CREDITS.md`](docs/Allman2023/CREDITS.md) and lean4-phylo-tree-of-blobs's [`docs/CREDITS.md`](https://github.com/vltanh/lean4-phylo-tree-of-blobs/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CREDITS.md) have the details.
 
 ## License
 
