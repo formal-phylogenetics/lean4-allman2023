@@ -1,19 +1,14 @@
 {
-  "challenge_module": "AllmanEtAl2023.MainResults",
-  "solution_module": "AllmanEtAl2023.MainResults",
+  "challenge_module": "Allman2023.Challenge",
+  "solution_module": "Allman2023.Solution",
   "theorem_names": [
-    "TreeOfBlobs.allman_lemma1",
-    "TreeOfBlobs.allman_theorem1",
-    "TreeOfBlobs.allman_corollary1",
-    "TreeOfBlobs.allman_proposition1",
-    "TreeOfBlobs.allman_proposition1_converse",
-    "TreeOfBlobs.allman_lemma2_needs_connected",
-    "TreeOfBlobs.allman_theorem2",
-    "TreeOfBlobs.allman_theorem3",
-    "TreeOfBlobs.allman_theorem4",
-    "TreeOfBlobs.allman_blobDistance_not_identifiable",
-    "TreeOfBlobs.allman_banos_range",
-    "TreeOfBlobs.allman_outline_consistent"
+    "Allman2023Challenge.theorem1",
+    "Allman2023Challenge.corollary1",
+    "Allman2023Challenge.proposition1",
+    "Allman2023Challenge.proposition1_converse",
+    "Allman2023Challenge.theorem2",
+    "Allman2023Challenge.theorem3",
+    "Allman2023Challenge.theorem4"
   ],
   "definition_names": [],
   "permitted_axioms": [

@@ -17,6 +17,9 @@ import all Allman2023.Basic.Analysis.SpecialFunctions.Exp
 import all Allman2023.Basic.Data.Finset.Card
 import all Allman2023.Basic.Data.Finset.Iterate
 import all Allman2023.Basic.Data.Set.Subtype
+import all Allman2023.Bridge.Model
+import all Allman2023.Bridge.Statements
+import all Allman2023.Defs
 import all Allman2023.External.SempleSteel2005.Quartets
 import all Allman2023.Figures.Check
 import all Allman2023.Figures.Examples
@@ -449,7 +452,13 @@ meta def paperResults : List (String × Name) :=
 /-- The theorems that Palomar's comparator checks (`theorem_names` of
 `palomar/Allman2023/comparator.json`), as the Solution restates them. -/
 meta def solutionResults : List Name :=
-  []
+  [`Allman2023Challenge.theorem1,
+   `Allman2023Challenge.corollary1,
+   `Allman2023Challenge.proposition1,
+   `Allman2023Challenge.proposition1_converse,
+   `Allman2023Challenge.theorem2,
+   `Allman2023Challenge.theorem3,
+   `Allman2023Challenge.theorem4]
 
 /-- Lean's standard axioms. -/
 meta def standardAxioms : List Name := [``propext, ``Classical.choice, ``Quot.sound]
