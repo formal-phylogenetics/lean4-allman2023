@@ -24,21 +24,23 @@ jobs:
       # `lake build` builds only the modules of the required libraries that this repository imports;
       # the audit reads all of them.
       - name: Build the libraries that the audit reads
-        run: lake build Phylogenetics TreeOfBlobs
+        run: lake build Phylogenetics PhyloNetwork TreeOfBlobs
       # The audit sees a module's proofs only through its own `import all` line: every module of
       # Allman2023/ (Basic/, External/ and the paper's library), the paper's Solution in palomar/,
-      # and every module of the required libraries Phylogenetics and TreeOfBlobs, but not the
-      # Challenge, which holds a copy of the definitions of Allman2023/Defs.lean.
+      # and every module of the required libraries Phylogenetics, PhyloNetwork and TreeOfBlobs, but
+      # not the Challenge, which holds a copy of the definitions of Allman2023/Defs.lean.
       - name: Check that the audit imports every module of the libraries
         run: >-
           diff <({ find Allman2023 -name '*.lean'; cd palomar && find . -name Solution.lean;
           cd ../.lake/packages/Phylogenetics && find Phylogenetics -name '*.lean';
+          cd ../PhyloNetwork && find PhyloNetwork -name '*.lean';
           cd ../TreeOfBlobs && find TreeOfBlobs -name '*.lean'; }
           | sed 's#^\./##; s/\.lean$//; s#/#.#g' | sort)
-          <(grep -E '^import all (Allman2023|Phylogenetics|TreeOfBlobs)\.' scripts/Audit.lean
+          <(grep -E '^import all (Allman2023|Phylogenetics|PhyloNetwork|TreeOfBlobs)\.' scripts/Audit.lean
           | sed 's/^import all //' | sort)
+      # It imports the deprecated modules of TreeOfBlobs too, whose import warns.
       - name: Audit axioms and dependencies
-        run: lake env lean scripts/Audit.lean
+        run: lake env lean -Dlinter.deprecated.module=false scripts/Audit.lean
       # The routes of the paper's proofs (docs/Allman2023/paper_routes.tsv) and the reviewed
       # differences (docs/Allman2023/route_differences.tsv).
       - name: Check that the proofs follow the routes of the paper's proofs

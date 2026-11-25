@@ -13,13 +13,19 @@ maxSynthPendingDepth = 3
 [[require]]
 name = "Phylogenetics"
 git = "https://github.com/vltanh/lean4-phylogenetics"
-rev = "b56ce531644230622f069aaa8aa51a5143c1411e"
+rev = "3fcabfd7d191990dda268b0b3968d945b65eb59a"
 
-# The hub of the tree-of-blobs papers: what they share.
+# The hub above this paper's: what the papers on network estimation share.
+[[require]]
+name = "PhyloNetwork"
+git = "https://github.com/vltanh/lean4-phylo-network"
+rev = "4ed2bb0f7085acbf1326f43e2a5c582ba4566125"
+
+# The hub of the tree-of-blobs papers: what only they share.
 [[require]]
 name = "TreeOfBlobs"
 git = "https://github.com/vltanh/lean4-tob"
-rev = "f3e570dec6a32e57ae5b189806d3d02a8658fd32"
+rev = "31465cd5dd0b4c173b8bcb49bb5f5dfeb8c99241"
 
 [[require]]
 name = "mathlib"

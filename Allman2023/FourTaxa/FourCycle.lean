@@ -2,7 +2,7 @@ module
 
 public import Allman2023.FourTaxa.CFGeometry
 public import Allman2023.Networks.BlobStructure
-public import TreeOfBlobs.NMSCChain
+public import PhyloNetwork.NMSCChain
 
 /-!
 # Allman, Baños, Mitchell, Rhodes 2023: "all points off the line segments arise from level-1 networks with 4-cycles"

@@ -5,11 +5,12 @@ public meta import Lean.DocString
 -- One `import all` line per module of the libraries, so that proofs are visible to the dependency
 -- traversal (the module system hides them from a plain `import`): every module of `Allman2023/`
 -- (`Basic/`, `External/` and the paper's library), the paper's Solution in `palomar/`, and every
--- module of the libraries `Phylogenetics` and `TreeOfBlobs` that this repository requires, but no
--- Challenge, which holds a copy of the paper's definitions. Generate the lines with
+-- module of the libraries `Phylogenetics`, `PhyloNetwork` and `TreeOfBlobs` that this repository
+-- requires, but no Challenge, which holds a copy of the paper's definitions. Generate the lines with
 --   { find Allman2023 -name '*.lean'; cd palomar && find . -name Solution.lean; } |
 --     sed 's#^\./##; s/\.lean$//; s#/#.#g; s/^/import all /' | sort
--- and the same `find` in `.lake/packages/Phylogenetics` and `.lake/packages/TreeOfBlobs`.
+-- and the same `find` in `.lake/packages/Phylogenetics`, `.lake/packages/PhyloNetwork` and
+-- `.lake/packages/TreeOfBlobs`.
 import all Allman2023.Basic.Algebra.BigOperators.Intervals
 import all Allman2023.Basic.Algebra.BigOperators.Pi
 import all Allman2023.Basic.Analysis.Convex.Segment
@@ -84,6 +85,37 @@ import all Allman2023.Networks.TreeBlobs
 import all Allman2023.Networks.TreeIso
 import all Allman2023.Networks.TreeSuppression
 import all Allman2023.Solution
+import all PhyloNetwork.External.HuberEtAl2025.Theorem51
+import all PhyloNetwork.External.MitchellAllmanRhodes2019.CutModel
+import all PhyloNetwork.External.MitchellAllmanRhodes2019.T1Limit
+import all PhyloNetwork.External.MitchellAllmanRhodes2019.T3Density
+import all PhyloNetwork.External.MitchellAllmanRhodes2019.T3Limit
+import all PhyloNetwork.External.MitchellAllmanRhodes2019.T3Test
+import all PhyloNetwork.External.Rhodes2020.Theorem2
+import all PhyloNetwork.ForMathlib.Analysis.SpecialFunctions.EntropyExcess
+import all PhyloNetwork.ForMathlib.Analysis.SpecialFunctions.Erf
+import all PhyloNetwork.ForMathlib.Probability.GaussianPlane
+import all PhyloNetwork.ForMathlib.Probability.GaussianStrip
+import all PhyloNetwork.ForMathlib.Probability.GaussianTail
+import all PhyloNetwork.ForMathlib.Probability.Transfer
+import all PhyloNetwork.InducedSplits
+import all PhyloNetwork.Level1Blobs
+import all PhyloNetwork.Level1Blocks
+import all PhyloNetwork.Level1CF
+import all PhyloNetwork.NMSCChain
+import all PhyloNetwork.Testing.Combining
+import all PhyloNetwork.Testing.Defs
+import all PhyloNetwork.Testing.IID
+import all PhyloNetwork.Testing.Limits
+import all PhyloNetwork.Testing.MissingTaxa
+import all PhyloNetwork.Testing.Tails
+import all PhyloNetwork.Testing.Trinomial.Bridge
+import all PhyloNetwork.Testing.Trinomial.CLT
+import all PhyloNetwork.Testing.Trinomial.Gaussian
+import all PhyloNetwork.Testing.Trinomial.Statistics
+import all PhyloNetwork.Testing.Trinomial.Tests
+import all PhyloNetwork.Testing.Trinomial.Whiten
+import all PhyloNetwork.Wedge
 import all Phylogenetics.Coalescent.Absorption
 import all Phylogenetics.Coalescent.BinaryForest
 import all Phylogenetics.Coalescent.Defs
@@ -102,6 +134,7 @@ import all Phylogenetics.Computation.FiveTaxa
 import all Phylogenetics.Computation.FourTaxa
 import all Phylogenetics.Computation.ThreeTaxa
 import all Phylogenetics.Computation.Toolkit
+import all Phylogenetics.ForMathlib.Analysis.AnalyticZeroSet
 import all Phylogenetics.ForMathlib.Analysis.MatrixExponential
 import all Phylogenetics.ForMathlib.MeasureTheory.HaarPreimage
 import all Phylogenetics.Graph.Basic
@@ -130,10 +163,12 @@ import all Phylogenetics.MSC.Shapes
 import all Phylogenetics.MSC.Small
 import all Phylogenetics.NMSC.Analytic
 import all Phylogenetics.NMSC.Basic
+import all Phylogenetics.NMSC.ChoiceMetric
 import all Phylogenetics.NMSC.Defs
 import all Phylogenetics.NMSC.DisplayedTreeModel
 import all Phylogenetics.NMSC.Exchangeability
 import all Phylogenetics.NMSC.Factor
+import all Phylogenetics.NMSC.Generic
 import all Phylogenetics.NMSC.Glue
 import all Phylogenetics.NMSC.History
 import all Phylogenetics.NMSC.Induced
@@ -257,12 +292,13 @@ import all TreeOfBlobs.Wedge
 /-!
 # Axiom and dependency audit
 
-Run with `lake env lean scripts/Audit.lean` after `lake build` and `lake build Phylogenetics TreeOfBlobs`.
+Run with `lake env lean scripts/Audit.lean` after `lake build` and
+`lake build Phylogenetics PhyloNetwork TreeOfBlobs`.
 
 For every numbered result of the paper, this prints the axioms it depends on and the results from
 prior work that it uses (`External/`, and the cited results that the libraries prove), whether proved there or, in a conditional formalization,
 assumed as hypotheses of its statement. It then checks every declaration of the library, those of
-the libraries `Phylogenetics` and `TreeOfBlobs` included, and the theorems that Palomar's comparator
+the libraries `Phylogenetics`, `PhyloNetwork` and `TreeOfBlobs` included, and the theorems that Palomar's comparator
 checks. The run fails if any of them depends on an axiom other
 than Lean's standard `propext`, `Classical.choice` and `Quot.sound` (a `sorry` shows up as the
 axiom `sorryAx`). Its table of results is the source of the report's dependency table.
@@ -464,11 +500,11 @@ meta def solutionResults : List Name :=
 meta def standardAxioms : List Name := [``propext, ``Classical.choice, ``Quot.sound]
 
 /-- Whether `m` is a module of the libraries: under the root `Allman2023` (`Basic/`, `External/`,
-the paper's library and the Solution), but not the Challenge, or of the libraries `Phylogenetics` and
-`TreeOfBlobs`, which the audit reads too. -/
+the paper's library and the Solution), but not the Challenge, or of the libraries `Phylogenetics`,
+`PhyloNetwork` and `TreeOfBlobs`, which the audit reads too. -/
 meta def isLibraryModule (m : Name) : Bool :=
   ((`Allman2023).isPrefixOf m && m != `Allman2023.Challenge) ||
-    (`Phylogenetics).isPrefixOf m || (`TreeOfBlobs).isPrefixOf m
+    (`Phylogenetics).isPrefixOf m || (`PhyloNetwork).isPrefixOf m || (`TreeOfBlobs).isPrefixOf m
 
 /-- The constants declared in the library. -/
 meta def libraryConstants (env : Environment) : NameSet := Id.run do

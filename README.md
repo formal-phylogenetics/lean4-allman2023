@@ -6,7 +6,7 @@ A Lean 4 formalization of E. S. Allman, H. Baños, J. D. Mitchell, J. A. Rhodes,
 
 Every numbered result is proved, by the paper's arguments except the departures that [Section 7 of the report](docs/Allman2023/REPORT.md#7-departures-from-the-papers-proofs) lists. The formalization is unconditional: no result of the literature is assumed, and there is no `sorry` or `axiom` outside the Challenge's statements. Lemma 2 is proved for a connected subnetwork, which its proof and all its uses assume (E55). No person has reviewed the proofs.
 
-This paper is one of the four of the hub [lean4-tob](https://github.com/vltanh/lean4-tob), which presents them; TINNiK, TOB-QMC and ECToBlob build on it.
+This paper is one of the four of the hub [lean4-tob](https://github.com/vltanh/lean4-tob), a sub-hub of [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), which presents them; TINNiK, TOB-QMC and ECToBlob build on it.
 
 ## Status
 
@@ -18,7 +18,7 @@ This paper is one of the four of the hub [lean4-tob](https://github.com/vltanh/l
 | §5: Theorem 4 | proved, and with the trees isomorphic as labelled graphs |
 | §5: the outline of an algorithm, the distance between blobs, the lengths of edges between trivial blobs | proved; the last for internal edges (E64) |
 | Figures 1, 2, 3 and 9 | their claims proved |
-| Cited results: Semple, Steel 2005 and Rhodes 2020 (Theorem 4); Rhodes 2020, Theorem 2 (the outline) | proved, in lean4-phylogenetics and lean4-tob, and stated in [`Allman2023/External/`](Allman2023/External) |
+| Cited results: Semple, Steel 2005 and Rhodes 2020 (Theorem 4); Rhodes 2020, Theorem 2 (the outline) | proved, in lean4-phylogenetics and lean4-phylo-network, and stated in [`Allman2023/External/`](Allman2023/External) |
 | Baños's bound on the concordance factors of all level-1 networks, quoted before Proposition 1 | not formalized; nothing uses it |
 
 [Section 9 of the report](docs/Allman2023/REPORT.md#9-not-formalized) lists what is not formalized, and [`Allman2023/README.md`](Allman2023/README.md) what the paper says in passing and where it is proved.
@@ -55,9 +55,9 @@ The statements of record are the theorems of the Challenge, [`palomar/Allman2023
 
 | Source | Lean | Statement |
 | --- | --- | --- |
-| Semple, Steel 2005; Rhodes 2020, in the proof of Theorem 4 | [`External.SempleSteel2005.mem_of_forall_displays`](Allman2023/External/SempleSteel2005/Quartets.lean#L27) | an unrooted tree that displays every quartet tree across a split with two taxa on each side has that split; proved in lean4-phylogenetics, [`Phylogenetics.mem_of_forall_displays`](https://github.com/vltanh/lean4-phylogenetics/blob/b56ce531644230622f069aaa8aa51a5143c1411e/Phylogenetics/Tree/Splits.lean#L638) |
-| Rhodes 2020, Theorem 2, in step 4 of the outline | [`External.Rhodes2020.theorem2`](https://github.com/vltanh/lean4-tob/blob/f3e570dec6a32e57ae5b189806d3d02a8658fd32/TreeOfBlobs/External/Rhodes2020/Theorem2.lean#L777) | the quartet intertaxon distance is a tree metric on the tree; proved in lean4-tob |
-| Semple, Steel 2003, Theorem 3.1.4 (not cited by the paper) | [`Phylogenetics.SplitsEquivalence.xTree_unique`](https://github.com/vltanh/lean4-phylogenetics/blob/b56ce531644230622f069aaa8aa51a5143c1411e/Phylogenetics/Tree/SplitsEquivalence.lean#L604) | a tree is determined by its splits, up to isomorphism, for [`Allman2023.theorem4_iso`](Allman2023/MainResult/Theorem4.lean#L134); proved in lean4-phylogenetics |
+| Semple, Steel 2005; Rhodes 2020, in the proof of Theorem 4 | [`External.SempleSteel2005.mem_of_forall_displays`](Allman2023/External/SempleSteel2005/Quartets.lean#L27) | an unrooted tree that displays every quartet tree across a split with two taxa on each side has that split; proved in lean4-phylogenetics, [`Phylogenetics.mem_of_forall_displays`](https://github.com/vltanh/lean4-phylogenetics/blob/3fcabfd7d191990dda268b0b3968d945b65eb59a/Phylogenetics/Tree/Splits.lean#L638) |
+| Rhodes 2020, Theorem 2, in step 4 of the outline | [`External.Rhodes2020.theorem2`](https://github.com/vltanh/lean4-phylo-network/blob/4ed2bb0f7085acbf1326f43e2a5c582ba4566125/PhyloNetwork/External/Rhodes2020/Theorem2.lean#L777) | the quartet intertaxon distance is a tree metric on the tree; proved in lean4-phylo-network |
+| Semple, Steel 2003, Theorem 3.1.4 (not cited by the paper) | [`Phylogenetics.SplitsEquivalence.xTree_unique`](https://github.com/vltanh/lean4-phylogenetics/blob/3fcabfd7d191990dda268b0b3968d945b65eb59a/Phylogenetics/Tree/SplitsEquivalence.lean#L604) | a tree is determined by its splits, up to isomorphism, for [`Allman2023.theorem4_iso`](Allman2023/MainResult/Theorem4.lean#L134); proved in lean4-phylogenetics |
 
 ## What the audit found
 
@@ -75,7 +75,7 @@ The statements of record are the theorems of the Challenge, [`palomar/Allman2023
 ## Trust
 
 - `lake build` passes; the only warnings are the `sorry`s of the Challenge's statements. There is no `sorry`, `axiom`, `native_decide` or `implemented_by` in [`Allman2023/`](Allman2023) or in the Solution.
-- [`scripts/Audit.lean`](scripts/Audit.lean) checks every declaration of this repository and of the libraries it requires, `Phylogenetics` and `TreeOfBlobs`, including private and generated ones, against [`propext`](https://leanprover-community.github.io/mathlib4_docs/Init/Core.html#propext), [`Classical.choice`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Classical.choice) and [`Quot.sound`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Quot.sound), and writes the routes of the proofs.
+- [`scripts/Audit.lean`](scripts/Audit.lean) checks every declaration of this repository and of the libraries it requires, `Phylogenetics`, `PhyloNetwork` and `TreeOfBlobs`, including private and generated ones, against [`propext`](https://leanprover-community.github.io/mathlib4_docs/Init/Core.html#propext), [`Classical.choice`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Classical.choice) and [`Quot.sound`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Quot.sound), and writes the routes of the proofs.
 - [`scripts/route_check.py`](scripts/route_check.py) compares those routes with the paper's, in [`docs/Allman2023/paper_routes.tsv`](docs/Allman2023/paper_routes.tsv); [`docs/Allman2023/route_differences.tsv`](docs/Allman2023/route_differences.tsv) records every difference, with its reason.
 - Comparator checks that the Solution proves exactly the Challenge's statements, under Lean's kernel and NanoDa; [`scripts/check_kernels.sh`](scripts/check_kernels.sh) runs it, and con-ron on an export of the same theorems.
 - **No person has reviewed the proofs.** Independent agents reviewed the statements against the paper, compared the proofs with the paper's, and checked the findings.
@@ -83,8 +83,9 @@ The statements of record are the theorems of the Challenge, [`palomar/Allman2023
 ## Dependencies
 
 - [Mathlib](https://github.com/leanprover-community/mathlib4), at `v4.37.0-rc1`.
-- [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics), the library of the collection, pinned by commit in [`lakefile.toml`](lakefile.toml): networks, blobs and their contraction, the semidirected network, trees and quartets, Kingman's coalescent and the network multispecies coalescent.
-- [lean4-tob](https://github.com/vltanh/lean4-tob), the library of the hub, pinned by commit: the theorem of Rhodes 2020, the analytic zero sets behind generic parameters, the chain of the coalescent on explicit networks, and independent samples.
+- [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics), the library of the collection, pinned by commit in [`lakefile.toml`](lakefile.toml): networks, blobs and their contraction, the semidirected network, trees and quartets, Kingman's coalescent and the network multispecies coalescent, null sets of parameters and the analytic argument behind generic parameters.
+- [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), the library of the hub of network estimation, pinned by commit: the theorem of Rhodes 2020, the chain of the coalescent on explicit networks, and independent samples.
+- [lean4-tob](https://github.com/vltanh/lean4-tob), the library of this paper's hub, pinned by commit: the definitions of the algorithms of the later papers, among them the closure under the B-quartet Inference Rule (`BInferred`), which the outline of Section 5 uses.
 
 ## Palomar
 
@@ -97,7 +98,7 @@ From the root of the repository:
 ```sh
 lake exe cache get
 lake build
-lake build Phylogenetics TreeOfBlobs                                 # the libraries that the audit reads
+lake build Phylogenetics PhyloNetwork TreeOfBlobs                    # the libraries that the audit reads
 lake env lean scripts/Audit.lean                                     # axioms and dependencies
 python3 scripts/route_check.py check docs/Allman2023/paper_routes.tsv --accept docs/Allman2023/route_differences.tsv
 scripts/check_kernels.sh                                             # Comparator: Lean's kernel, NanoDa; con-ron
@@ -106,7 +107,7 @@ python3 scripts/linkify_docs.py                                      # the docum
 
 - Toolchain: Lean and Mathlib `v4.37.0-rc1` ([`lean-toolchain`](lean-toolchain), [`lake-manifest.json`](lake-manifest.json)).
 - `lake comparator`, `leanexport` and `con-ron` come from the toolchain, under `lake env`. The kernels' replays need much memory.
-- [lean4-tob's `docs/CONFIGURATION.md`](https://github.com/vltanh/lean4-tob/blob/main/docs/CONFIGURATION.md) records the versions, the decisions, and what "line N" means.
+- [lean4-tob's `docs/CONFIGURATION.md`](https://github.com/vltanh/lean4-tob/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CONFIGURATION.md) records the versions, the decisions, and what "line N" means.
 
 ## Layout
 
@@ -138,7 +139,7 @@ The natural next steps are to extend the generic results beyond independent inhe
 
 - Requested and supervised by The-Anh Vu-Le, who chose the papers, decided the library's boundary and the project's layout, and published the repository. **No person has reviewed the proofs.** Independent agents reviewed the statements and compared the proofs with the paper.
 - Codex made the source audit and first foundations of the collection, on 2026-10-27. Claude (Opus 5.5) in Claude Code, with sub-agents, wrote the statements, proofs, audit and documents, following the [formalize-math-paper](https://github.com/vltanh/formalize-math-paper) procedure.
-- Made in lean4-tob from 2026-10-31 to 2026-11-01, with the rest of the collection. [`docs/Allman2023/CREDITS.md`](docs/Allman2023/CREDITS.md) and lean4-tob's [`docs/CREDITS.md`](https://github.com/vltanh/lean4-tob/blob/main/docs/CREDITS.md) have the details.
+- Made in lean4-tob from 2026-10-31 to 2026-11-01, with the rest of the collection. [`docs/Allman2023/CREDITS.md`](docs/Allman2023/CREDITS.md) and lean4-tob's [`docs/CREDITS.md`](https://github.com/vltanh/lean4-tob/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CREDITS.md) have the details.
 
 ## License
 

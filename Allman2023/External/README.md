@@ -8,13 +8,13 @@ assumed. These modules import Mathlib, `Allman2023/Basic/` and the libraries thi
 requires, never the paper's library.
 
 A source that another repository of the collection already formalizes (lean4-phylogenetics, the
-hub lean4-tob, or the repository of a paper) is not formalized again: its statement here is proved
+hubs lean4-phylo-network and lean4-tob, or the repository of a paper) is not formalized again: its statement here is proved
 from that repository's theorem (lean4-phylogenetics, docs/CONVENTIONS.md, Sections 4 and 6).
 
 | Source | Where | What the paper uses |
 | --- | --- | --- |
 | Semple, Steel 2005 | [`SempleSteel2005/`](SempleSteel2005) | the displayed quartets determine the tree, in the proof of Theorem 4; proved in lean4-phylogenetics (`Phylogenetics.mem_of_forall_displays`) and restated here |
-| Rhodes 2020 | lean4-tob, `TreeOfBlobs/External/Rhodes2020/`, in the namespace `External.Rhodes2020` | the quartet intertaxon distance and its Theorem 2, cited with Semple and Steel in the proof of Theorem 4 and used in step 4 of the outline of an algorithm in Section 5 (`External.Rhodes2020.theorem2`, `External.Rhodes2020.exists_isExactBuilder`) |
+| Rhodes 2020 | lean4-phylo-network, `PhyloNetwork/External/Rhodes2020/`, in the namespace `External.Rhodes2020` | the quartet intertaxon distance and its Theorem 2, cited with Semple and Steel in the proof of Theorem 4 and used in step 4 of the outline of an algorithm in Section 5 (`External.Rhodes2020.theorem2`, `External.Rhodes2020.exists_isExactBuilder`) |
 
 The paper cites other works for definitions (Steel 2016 for the LSA, Gusfield et al. 2007 for the
 tree of blobs, Baños 2019 for the semidirected network) and, in passing, for statements that no

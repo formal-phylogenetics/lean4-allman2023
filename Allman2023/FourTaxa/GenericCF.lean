@@ -1,7 +1,6 @@
 module
 
-public import TreeOfBlobs.ForMathlib.Analysis.AnalyticZeroSet
-public import TreeOfBlobs.General
+public import Phylogenetics.NMSC.Generic
 public import Phylogenetics.NMSC.Analytic
 public import Phylogenetics.NMSC.Exchangeability
 public import Phylogenetics.Network.CutHierarchy
@@ -23,12 +22,15 @@ This file holds the tools those proofs use, and that ECToBlob and TINNiK use on 
 ## Main results
 
 * `deletionMetric`, `isWeakMetric_deletionMetric`: boundary parameters off a deletion.
-* `coordMetric_self`: every normalized parameter is in the image of `coordMetric`, for every parent choice.
 * `exists_leftOutParent`: the parents left out of the coordinates.
-* `isGenericNull_of_analyticOnNhd`, `isGenericNull_nmscCF_eq`: null sets of parameters, from analyticity.
 * `three_quarters_lt_nmscCF`, `nmscCF_lt_nmscCF_of_splitOffAt`: long cut arcs make the CF of a split large.
 * `exists_isStochasticCoords_notMem`, `Real.exists_mem_Ioo_forall_ne`: the choices of the parameters in (b).
 * `CFDetectable.inducedCutSplit_iff`, `CFDetectable.not_isTreelike_iff`: the paper's last step, from (a) and (b) to the iff.
+
+The analytic argument, that a function of the parameters analytic in the coordinates and nonzero at some
+normalized parameters vanishes only on a null set (`RootedNetwork.isGenericNull_of_analyticOnNhd`,
+`RootedNetwork.isGenericNull_nmscCF_eq`, with `coordMetric_self`), is in the library `Phylogenetics`
+(`Phylogenetics.NMSC.Generic`), as are the closure properties of null sets of parameters.
 -/
 
 @[expose] public noncomputable section
@@ -112,43 +114,6 @@ theorem isWeakMetric_deletionMetric (hN : N.IsPhylogenetic) {D : Set E} (hD : N.
   · positivity
 
 omit [Fintype V] [Fintype X] [DecidableEq X] in
-/-- A sum over the arcs with the target of `e`, split at `e`. -/
-private theorem sum_target_eq_add (γ : E → ℝ) (e : E) :
-    (∑ f, if N.graph.target f = N.graph.target e then γ f else 0) =
-      γ e + ∑ f ∈ univ.filter (fun f => N.graph.target f = N.graph.target e ∧ f ≠ e), γ f := by
-  rw [← sum_filter, ← add_sum_erase _ _
-    (mem_filter.2 ⟨mem_univ e, rfl⟩ : e ∈ univ.filter (fun f => N.graph.target f = N.graph.target e))]
-  congr 1
-  refine sum_congr ?_ fun _ _ => rfl
-  ext f
-  simp only [mem_erase, mem_filter, mem_univ, true_and]
-  tauto
-
-omit [Fintype V] [Fintype X] [DecidableEq X] in
-/-- **Every normalized parameter is reached by the coordinates**, for every choice `d` of the left-out
-coordinates: at the coordinates given by its own lengths and inheritance. So a witness on the boundary
-is a point of the coordinates of `IsGenericNull`. -/
-theorem coordMetric_self {θ : MetricData E} (hθ : N.IsNormalized θ) (d : V → E) :
-    coordMetric N d θ.length θ.inheritance = θ := by
-  have hinh : (coordMetric N d θ.length θ.inheritance).inheritance = θ.inheritance := by
-    funext e
-    by_cases he : N.IsHybridArc e
-    · by_cases hde : e = d (N.graph.target e)
-      · rw [coordMetric_inheritance_of_eq he hde]
-        have hs := hθ.2 _ he
-        rw [sum_target_eq_add θ.inheritance e] at hs
-        linarith
-      · exact coordMetric_inheritance_of_ne he hde
-    · rw [coordMetric_inheritance_of_not_isHybridArc he]
-      refine (hθ.1 e ?_).symm
-      have hpos : 0 < N.graph.indegree (N.graph.target e) :=
-        (Set.ncard_pos (Set.toFinite _)).2 ⟨e, rfl⟩
-      unfold IsHybridArc at he
-      unfold IsTreeArc
-      omega
-  exact congrArg₂ MetricData.mk rfl hinh
-
-omit [Fintype V] [Fintype X] [DecidableEq X] in
 /-- **The parents left out of the coordinates**: at each hybrid node, one of its parents. -/
 theorem exists_leftOutParent (e₀ : E) : ∃ d : V → E, ∀ v, 2 ≤ N.graph.indegree v → N.graph.target (d v) = v := by
   have hex : ∀ v, ∃ f : E, 2 ≤ N.graph.indegree v → N.graph.target f = v := fun v => by
@@ -158,34 +123,6 @@ theorem exists_leftOutParent (e₀ : E) : ∃ d : V → E, ∀ v, 2 ≤ N.graph.
     · exact ⟨e₀, fun h => absurd h hv⟩
   choose d hd using hex
   exact ⟨d, hd⟩
-
-/-! ### Null sets of parameters -/
-
-omit [Fintype V] [Fintype X] [DecidableEq X] in
-/-- **The analytic argument.** A function of the parameters that is analytic in the coordinates, for every
-choice of the left-out coordinates, and nonzero at some normalized parameters (which may be on the
-boundary), vanishes only on a null set of valid parameters. -/
-theorem isGenericNull_of_analyticOnNhd {F : MetricData E → ℝ}
-    (hF : ∀ d : V → E, AnalyticOnNhd ℝ (fun x : (E → ℝ) × (E → ℝ) => F (coordMetric N d x.1 x.2))
-      Set.univ) {θ₀ : MetricData E} (hθ₀ : N.IsNormalized θ₀) (h : F θ₀ ≠ 0) :
-    IsGenericNull N {θ | N.IsMetric θ ∧ F θ = 0} := by
-  intro d _
-  have hw : F (coordMetric N d θ₀.length θ₀.inheritance) ≠ 0 := by
-    rwa [coordMetric_self hθ₀ d]
-  refine measure_mono_null ?_
-    (AnalyticOnNhd.prod_pi_volume_setOf_eq_zero (hF d) ⟨(θ₀.length, θ₀.inheritance), hw⟩)
-  rintro x ⟨θ, ⟨-, hzero⟩, hθ, hℓ, hg⟩
-  rw [Set.mem_ofPred_eq, ← eq_coordMetric hθ hℓ hg]
-  exact hzero
-
-/-- Two concordance factors that differ at some normalized parameters differ at generic parameters. -/
-theorem isGenericNull_nmscCF_eq {r r' : QuartetTree X} {θ₀ : MetricData E}
-    (hθ₀ : N.IsNormalized θ₀) (h : nmscCF N θ₀ 0 r ≠ nmscCF N θ₀ 0 r') :
-    IsGenericNull N {θ | N.IsMetric θ ∧ nmscCF N θ 0 r = nmscCF N θ 0 r'} :=
-  (isGenericNull_of_analyticOnNhd (F := fun θ => nmscCF N θ 0 r - nmscCF N θ 0 r')
-    (fun d => (analyticOnNhd_nmscCF_coordMetric N d 0 r).sub
-      (analyticOnNhd_nmscCF_coordMetric N d 0 r')) hθ₀ (sub_ne_zero.2 h)).mono
-    fun _ hθ => ⟨hθ.1, sub_eq_zero.2 hθ.2⟩
 
 /-! ### A long cut arc -/
 
@@ -319,7 +256,7 @@ definitions exported under their former namespace, so that dot notation on their
 lemmas of the new namespace. -/
 
 @[deprecated (since := "2026-11-24")]
-alias AllmanEtAl2023.coordMetric_self := Allman2023.coordMetric_self
+alias AllmanEtAl2023.coordMetric_self := Phylogenetics.coordMetric_self
 
 @[deprecated (since := "2026-11-24")]
 alias AllmanEtAl2023.eq_of_mem_treesOn_of_ne := Allman2023.eq_of_mem_treesOn_of_ne
@@ -331,7 +268,8 @@ alias AllmanEtAl2023.exists_isStochasticCoords_notMem := Allman2023.exists_isSto
 alias AllmanEtAl2023.exists_mem_Ioo_forall_ne := Real.exists_mem_Ioo_forall_ne
 
 @[deprecated (since := "2026-11-24")]
-alias AllmanEtAl2023.isGenericNull_of_analyticOnNhd := Allman2023.isGenericNull_of_analyticOnNhd
+alias AllmanEtAl2023.isGenericNull_of_analyticOnNhd :=
+  Phylogenetics.RootedNetwork.isGenericNull_of_analyticOnNhd
 
 @[deprecated (since := "2026-11-24")]
 alias AllmanEtAl2023.isNormalized_deletionMetric := Allman2023.isNormalized_deletionMetric

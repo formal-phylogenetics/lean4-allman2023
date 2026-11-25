@@ -2,8 +2,8 @@ module
 
 public import Allman2023.MainResult.TrivialEdges
 public import TreeOfBlobs.Defs
-public import TreeOfBlobs.Testing.IID
-public import TreeOfBlobs.External.Rhodes2020.Theorem2
+public import PhyloNetwork.Testing.IID
+public import PhyloNetwork.External.Rhodes2020.Theorem2
 
 /-!
 # Allman, Baños, Mitchell, Rhodes 2023: the outline of an algorithm, in Section 5
