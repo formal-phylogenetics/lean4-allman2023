@@ -111,6 +111,6 @@
    "inputRev": "v4.37.0-rc1",
    "inherited": true,
    "configFile": "lakefile.toml"}],
- "name": "AllmanEtAl2023",
+ "name": "Allman2023",
  "lakeDir": ".lake",
  "fixedToolchain": false}

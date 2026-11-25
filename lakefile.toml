@@ -1,8 +1,8 @@
-name = "AllmanEtAl2023"
+name = "Allman2023"
 version = "0.1.0"
 keywords = ["math", "phylogenetics"]
-description = "A Lean 4 formalization of Allman, Baños, Mitchell, Rhodes 2023"
-defaultTargets = ["AllmanEtAl2023"]
+description = "A Lean 4 formalization of Allman, Baños, Mitchell, Rhodes 2023, The tree of blobs of a species network: identifiability under the coalescent"
+defaultTargets = ["Allman2023", "Palomar"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -26,7 +26,22 @@ name = "mathlib"
 scope = "leanprover-community"
 rev = "v4.37.0-rc1"
 
-# Every module of this repository is under AllmanEtAl2023/ (lean4-phylogenetics, docs/CONVENTIONS.md).
+# Every module of the project is in Allman2023/, but its Challenge and its Solution, which are in
+# palomar/ (lean4-phylogenetics, docs/CONVENTIONS.md, Sections 2 and 3). Lake fails on a glob whose
+# directory, or a root whose file, does not exist.
+
+# The paper's library, in the namespace Allman2023: general mathematics in Allman2023/Basic/, the
+# results the paper cites in Allman2023/External/, the definitions of the Challenge in
+# Allman2023/Defs.lean, and the paper's sections.
 [[lean_lib]]
-name = "AllmanEtAl2023"
-globs = ["AllmanEtAl2023.+"]
+name = "Allman2023"
+globs = ["Allman2023.+"]
+
+# The paper's Challenge and Solution, the modules Allman2023.Challenge and Allman2023.Solution of
+# the source directory palomar/ (Comparator: palomar/Allman2023/comparator.json). Declared last:
+# Lake gives a module to the last library whose patterns match it, and the glob above matches
+# these names when the paper's name is the root.
+[[lean_lib]]
+name = "Palomar"
+srcDir = "palomar"
+roots = ["Allman2023.Challenge", "Allman2023.Solution"]
