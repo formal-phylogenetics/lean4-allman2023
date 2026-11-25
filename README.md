@@ -2,11 +2,11 @@
 
 [![CI](https://github.com/vltanh/lean4-allman2023/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/vltanh/lean4-allman2023/actions/workflows/lean_action_ci.yml)
 
-A Lean 4 formalization of E. S. Allman, H. Baños, J. D. Mitchell, J. A. Rhodes, *The tree of blobs of a species network: identifiability under the coalescent*, [J. Math. Biol. 86 (2023), 10](https://doi.org/10.1007/s00285-022-01838-9), read in the PMC author manuscript and the [arXiv TeX](https://arxiv.org/abs/2205.03466). The tree of blobs of a phylogenetic network is what remains when its reticulate parts, the blobs, are contracted. The paper proves that under the network multispecies coalescent, for generic parameters, the reduced unrooted tree of blobs of a binary species network is identifiable from the distribution of gene quartet topologies, with no assumption on the level of the network. On four taxa, the concordance factor detects a 4-blob (Theorem 1). On more taxa, the B-quartet Inference Rule (Theorem 2) finds all B-quartets from the concordance factors (Theorem 3), and from these the tree is recovered (Theorem 4).
+A Lean 4 formalization of Elizabeth S. Allman, Hector Baños, Jonathan D. Mitchell and John A. Rhodes (2023), "The tree of blobs of a species network: identifiability under the coalescent", [J. Math. Biol. 86 (2023), 10](https://doi.org/10.1007/s00285-022-01838-9), read in the PMC author manuscript and the [arXiv TeX](https://arxiv.org/abs/2205.03466). The tree of blobs of a phylogenetic network is what remains when its reticulate parts, the blobs, are contracted. The paper proves that under the network multispecies coalescent, for generic parameters, the reduced unrooted tree of blobs of a binary species network is identifiable from the distribution of gene quartet topologies, with no assumption on the level of the network. On four taxa, the concordance factor detects a 4-blob (Theorem 1). On more taxa, the B-quartet Inference Rule (Theorem 2) finds all B-quartets from the concordance factors (Theorem 3), and from these the tree is recovered (Theorem 4).
 
 Every numbered result is proved, by the paper's arguments except the departures that [Section 7 of the report](docs/Allman2023/REPORT.md#7-departures-from-the-papers-proofs) lists. The formalization is unconditional: no result of the literature is assumed, and there is no `sorry` or `axiom` outside the Challenge's statements. Lemma 2 is proved for a connected subnetwork, which its proof and all its uses assume (E55). No person has reviewed the proofs.
 
-This paper is one of the four of the hub [lean4-phylo-tree-of-blobs](https://github.com/vltanh/lean4-phylo-tree-of-blobs), a sub-hub of [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), which presents them; TINNiK, TOB-QMC and ECToBlob build on it.
+This paper is one of the hub [lean4-phylo-tree-of-blobs](https://github.com/vltanh/lean4-phylo-tree-of-blobs), on the tree of blobs of a phylogenetic network, a sub-hub of [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), in the collection rooted at [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics). TINNiK, TOB-QMC and ECToBlob build on it.
 
 ## Status
 
@@ -78,7 +78,7 @@ The statements of record are the theorems of the Challenge, [`palomar/Allman2023
 - [`scripts/Audit.lean`](scripts/Audit.lean) checks every declaration of this repository and of the libraries it requires, `Phylogenetics`, `PhyloNetwork` and `TreeOfBlobs`, including private and generated ones, against [`propext`](https://leanprover-community.github.io/mathlib4_docs/Init/Core.html#propext), [`Classical.choice`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Classical.choice) and [`Quot.sound`](https://leanprover-community.github.io/mathlib4_docs/Init/Prelude.html#Quot.sound), and writes the routes of the proofs.
 - [`scripts/route_check.py`](scripts/route_check.py) compares those routes with the paper's, in [`docs/Allman2023/paper_routes.tsv`](docs/Allman2023/paper_routes.tsv); [`docs/Allman2023/route_differences.tsv`](docs/Allman2023/route_differences.tsv) records every difference, with its reason.
 - Comparator checks that the Solution proves exactly the Challenge's statements, under Lean's kernel and NanoDa; [`scripts/check_kernels.sh`](scripts/check_kernels.sh) runs it, and con-ron on an export of the same theorems.
-- **No person has reviewed the proofs.** Independent agents reviewed the statements against the paper, compared the proofs with the paper's, and checked the findings.
+- No person has reviewed the proofs. Independent agents reviewed the statements against the paper, compared the proofs with the paper's, and checked the findings.
 
 ## Dependencies
 
@@ -89,7 +89,7 @@ The statements of record are the theorems of the Challenge, [`palomar/Allman2023
 
 ## Palomar
 
-No submission to Palomar is planned. [`palomar/Allman2023/`](palomar/Allman2023) has the files of an entry: the Challenge, which imports only Mathlib, the Solution, [`comparator.json`](palomar/Allman2023/comparator.json), which names them and the 7 theorems, and [`formalization.yaml`](palomar/Allman2023/formalization.yaml), the entry's metadata, with the statements aligned to the Challenge's theorems and every divergence from the paper. From the repository root, after `lake build`, run [`scripts/check_kernels.sh`](scripts/check_kernels.sh). CI checks that the Challenge's copy of the definitions is the block of [`Allman2023/Defs.lean`](Allman2023/Defs.lean) (`python3 scripts/sync_challenge_defs.py --check`).
+No submission to Palomar is planned. [`palomar/Allman2023/`](palomar/Allman2023) has the files of an entry: the Challenge, which imports only Mathlib, the Solution, [`comparator.json`](palomar/Allman2023/comparator.json), which names them and the theorems, and [`formalization.yaml`](palomar/Allman2023/formalization.yaml), the entry's metadata, with the statements aligned to the Challenge's theorems and every divergence from the paper. From the repository root, after `lake build`, run [`scripts/check_kernels.sh`](scripts/check_kernels.sh). CI checks that the Challenge's copy of the definitions is the block of [`Allman2023/Defs.lean`](Allman2023/Defs.lean) (`python3 scripts/sync_challenge_defs.py --check`).
 
 ## Building
 
@@ -137,10 +137,10 @@ The natural next steps are to extend the generic results beyond independent inhe
 
 ## Credits
 
-- Requested and supervised by The-Anh Vu-Le, who chose the papers, decided the library's boundary and the project's layout, and published the repository. **No person has reviewed the proofs.** Independent agents reviewed the statements and compared the proofs with the paper.
-- Codex made the source audit and first foundations of the collection, on 2026-10-27. Claude (Opus 5.5) in Claude Code, with sub-agents, wrote the statements, proofs, audit and documents, following the [formalize-math-paper](https://github.com/vltanh/formalize-math-paper) procedure.
-- Made in lean4-phylo-tree-of-blobs from 2026-10-31 to 2026-11-01, with the rest of the collection. [`docs/Allman2023/CREDITS.md`](docs/Allman2023/CREDITS.md) and lean4-phylo-tree-of-blobs's [`docs/CREDITS.md`](https://github.com/vltanh/lean4-phylo-tree-of-blobs/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CREDITS.md) have the details.
+- Maintainer: The-Anh Vu-Le, who requested and supervised the formalization, chose the papers, decided the library's boundary and the project's layout, and published the repository.
+- Formalization: Codex made the source audit and first foundations of the collection on 2026-10-27. Claude (Opus 5.5) in Claude Code, with sub-agents, wrote the statements, proofs, audit and documents in lean4-phylo-tree-of-blobs, with the rest of the collection, from 2026-10-31 to 2026-11-01, following the [formalize-math-paper](https://github.com/vltanh/formalize-math-paper) procedure. [`docs/Allman2023/CREDITS.md`](docs/Allman2023/CREDITS.md) and lean4-phylo-tree-of-blobs's [`docs/CREDITS.md`](https://github.com/vltanh/lean4-phylo-tree-of-blobs/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CREDITS.md) have the details.
+- Review: no person has reviewed the proofs; Lean's kernel checks them. Independent agents reviewed the statements and compared the proofs with the paper.
 
 ## License
 
-[Apache-2.0](LICENSE).
+Apache-2.0: [LICENSE](LICENSE).
