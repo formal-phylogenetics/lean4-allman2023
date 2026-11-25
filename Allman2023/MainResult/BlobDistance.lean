@@ -12,7 +12,7 @@ of `CF`s for a nearby value `ε′ ≈ ε`. Thus the distance between blobs cann
 The edge between the blobs of `𝒩(k)⁺` is the stem, of length `ε`. On one topological network `𝒩(k)⁺`, so with one tree of blobs, of topology `ab|cd`, for every `k ≥ 1` and every `ε > 0`:
 
 * the first entry of the `CF` is continuous in `M` (`continuous_cf_first_M`), and the `CF` is on the line `(v, (1 - v)/2, (1 - v)/2)` (`cfTriple_eq_of_first`). This is the segment (`isPreconnected_cf_first`).
-* its limits at `M → 0⁺` and `M → ∞` are `cfZero k ε` and `cfInfty k ε`, and differ (`NetworkNk.cfInfty_lt_cfZero`), by the exact formula of `Allman2023.NetworkNkExact`. So every value between them arises (`exists_M_of_value`).
+* its limits at `M → 0⁺` and `M → ∞` are `cfZero k ε` and `cfInfty k ε`, and differ (`NetworkNk.cfInfty_lt_cfZero`), by the exact formula of `Allman2023.FourTaxa.NetworkNkExact`. So every value between them arises (`exists_M_of_value`).
 * the limits are continuous in `ε`, so the segments of `ε₀` and of all `ε′` near it share a nondegenerate segment: `blobDistance_not_identifiable`.
 
 "`k` or `M` varied" is loose, since `k` is discrete: with `M` fixed, `k` gives only points. Two readings hold: `M` varied at a fixed `k`, as above, and `k` and `M` varied together: `isPreconnected_iUnion_cf_first`, the union of the segments of all `k ≥ 1` at one `ε` is a segment.

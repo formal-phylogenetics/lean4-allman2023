@@ -15,8 +15,8 @@ public import Allman2023.Basic.Analysis.Convex.Segment
 # Allman, Baños, Mitchell, Rhodes 2023: tools for concordance factors at generic parameters
 
 The paper's Theorem 1 (the PMC text, lines 129-152) is `theorem1` in
-`Allman2023.Theorem1`, through `Allman2023.Theorem1a` (statement (a)) and
-`Allman2023.Theorem1b` (statement (b)).
+`Allman2023.FourTaxa.Theorem1`, through `Allman2023.FourTaxa.Theorem1a` (statement (a)) and
+`Allman2023.FourTaxa.Theorem1b` (statement (b)).
 
 This file holds the tools those proofs use, and that ECToBlob and TINNiK use on their own.
 
@@ -27,7 +27,7 @@ This file holds the tools those proofs use, and that ECToBlob and TINNiK use on 
 * `exists_leftOutParent`: the parents left out of the coordinates.
 * `isGenericNull_of_analyticOnNhd`, `isGenericNull_nmscCF_eq`: null sets of parameters, from analyticity.
 * `three_quarters_lt_nmscCF`, `nmscCF_lt_nmscCF_of_splitOffAt`: long cut arcs make the CF of a split large.
-* `exists_isStochasticCoords_notMem`, `exists_mem_Ioo_forall_ne`: the choices of the parameters in (b).
+* `exists_isStochasticCoords_notMem`, `Real.exists_mem_Ioo_forall_ne`: the choices of the parameters in (b).
 * `CFDetectable.inducedCutSplit_iff`, `CFDetectable.not_isTreelike_iff`: the paper's last step, from (a) and (b) to the iff.
 -/
 
@@ -310,3 +310,43 @@ theorem CFDetectable.not_isTreelike_iff {p : QuartetTree X → ℝ} (h : CFDetec
     ((h.cut s hc).2 r hr r' hr')
 
 end Allman2023
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.coordMetric_self := Allman2023.coordMetric_self
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.eq_of_mem_treesOn_of_ne := Allman2023.eq_of_mem_treesOn_of_ne
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.exists_isStochasticCoords_notMem := Allman2023.exists_isStochasticCoords_notMem
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.exists_mem_Ioo_forall_ne := Real.exists_mem_Ioo_forall_ne
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.isGenericNull_of_analyticOnNhd := Allman2023.isGenericNull_of_analyticOnNhd
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.isNormalized_deletionMetric := Allman2023.isNormalized_deletionMetric
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.isWeakMetric_deletionMetric := Allman2023.isWeakMetric_deletionMetric
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.nmscCF_lt_nmscCF_of_splitOffAt := Allman2023.nmscCF_lt_nmscCF_of_splitOffAt
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.three_quarters_lt_nmscCF := Allman2023.three_quarters_lt_nmscCF
+
+namespace AllmanEtAl2023
+
+export Allman2023 (IsStochasticCoords coordVolume deletionMetric)
+
+end AllmanEtAl2023

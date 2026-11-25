@@ -410,3 +410,25 @@ theorem hasSide_iff [Finite W] [Finite F] (hG : G.IsTree) (ℓ : X → {w // nod
     exact (reachable_iff hG hT hends hx hq (u := ⟨u, hdu⟩) (w := ⟨w, hdw⟩) hu hw (ℓ y)).symm
 
 end Allman2023.TreeSuppression
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.TreeSuppression.ChainLink.symm := Allman2023.TreeSuppression.ChainLink.symm
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.TreeSuppression.IsSideOf.crosses := Allman2023.TreeSuppression.IsSideOf.crosses
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.TreeSuppression.hasSide_iff := Allman2023.TreeSuppression.hasSide_iff
+
+namespace AllmanEtAl2023.TreeSuppression
+
+export Allman2023.TreeSuppression (Enter IsSideOf)
+
+end AllmanEtAl2023.TreeSuppression

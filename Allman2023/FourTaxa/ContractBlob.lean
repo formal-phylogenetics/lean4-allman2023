@@ -16,7 +16,7 @@ The paper gives no reason. Here, for a set `S` of nodes with a top `r` (`IsContr
 * `contracted_isBinaryNetwork`, `nmscCF_contracted`, `exists_contracted_lift`, `inducedCutSplit_of_contracted`: it is a network of Definition 1, with the same `CF`s, parameters that lift at length `0` on `S`, and no new cut-edge split;
 * `exists_isContractible_of_cutDegree_two`: a 2-blob of `𝒩⁻` gives such a set. Either it is below the LSA, with one arc in at its top and one arc out (`exists_isContractible_of_not_top`), or the LSA is its top, which `𝒩⁻` suppresses, and two arcs leave it (`isContractible_of_top`).
 
-The paper removes all 2-blobs at once. Here it is one at a time, in the induction of `Allman2023.Theorem1b`.
+The paper removes all 2-blobs at once. Here it is one at a time, in the induction of `Allman2023.FourTaxa.Theorem1b`.
 -/
 
 @[expose] public noncomputable section

@@ -7,8 +7,8 @@ public import Allman2023.External.SempleSteel2005.Quartets
 /-!
 # Allman, Baños, Mitchell, Rhodes 2023: the unnumbered claims that Theorems 3 and 4 use
 
-Each has a label of our own, `a:claim:…`, in `docs/paper_routes.tsv`. The paper says each of these in passing, and proves none of them except by a
-sentence. Those proved here are short, from the bridges. The claims for Theorem 1 and Corollary 1 are in `Allman2023.ClaimsTheorem1`.
+Each has a label of our own, `a:claim:…`, in `docs/Allman2023/paper_routes.tsv`. The paper says each of these in passing, and proves none of them except by a
+sentence. Those proved here are short, from the bridges. The claims for Theorem 1 and Corollary 1 are in `Allman2023.FourTaxa.ClaimsTheorem1`.
 
 * `a:claim:three-taxa`: "On a network `𝒩⁺` every subset of 3 taxa determines a blob": `Bridges.exists_isDeterminedBy_three` (proved).
 * `a:claim:b-unresolved`: "the unresolved quartet `abcd` is displayed on the tree of blobs": `isBlobQuartet_iff_displaysUnresolved`.
@@ -24,9 +24,9 @@ sentence. Those proved here are short, from the bridges. The claims for Theorem 
   `exists_representatives_induced`.
 * `a:claim:displayed-determine`: "the collection of displayed quartets determine the tree" (Semple and Steel 2005; Rhodes 2020):
   `treeFromQuartets_displays` (proved, from Steel's quartet theorem, `External.SempleSteel2005.mem_of_forall_displays`).
-* `a:claim:thm4-displayed`: "we thus can identify the topology of every displayed quartet tree on `T_rd(𝒩⁻)`": `displayedFromCF_eq`, in `Allman2023.Theorem4`, since it uses Theorem 3.
+* `a:claim:thm4-displayed`: "we thus can identify the topology of every displayed quartet tree on `T_rd(𝒩⁻)`": `displayedFromCF_eq`, in `Allman2023.MainResult.Theorem4`, since it uses Theorem 3.
 
-The geometric statements after Proposition 1 are used by no proof, so they are not stated here. What the paper says in passing, and no proof uses, is in `Allman2023.InPassing` and the modules beside it.
+The geometric statements after Proposition 1 are used by no proof, so they are not stated here. What the paper says in passing, and no proof uses, is in `Allman2023.Networks.InPassing` and the modules beside it.
 -/
 
 @[expose] public noncomputable section

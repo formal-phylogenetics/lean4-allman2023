@@ -355,3 +355,28 @@ def treeFromQuartets (D : Set (QuartetTree X)) : Finset (Finset X) :=
 def treeFromCF (p : QuartetTree X → ℝ) : Finset (Finset X) := treeFromQuartets (displayedFromCF p)
 
 end Allman2023
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.card_acbd := Allman2023.card_acbd
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.card_adbc := Allman2023.card_adbc
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.quartetTree_ne_acbd := Allman2023.quartetTree_ne_acbd
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.quartetTree_ne_adbc := Allman2023.quartetTree_ne_adbc
+
+namespace AllmanEtAl2023
+
+export Allman2023 (ForGenericParams)
+
+end AllmanEtAl2023

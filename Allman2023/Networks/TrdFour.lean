@@ -254,3 +254,16 @@ theorem trd_cases (hN : IsBinaryNetwork N) (hcard : Fintype.card X = 4) :
     · exact ⟨a, d, b, c, card_adbc h, hS⟩
 
 end Allman2023
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.TreeSuppression.card_arcs_add_one := Allman2023.TreeSuppression.card_arcs_add_one
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.TreeSuppression.sum_nodeDegree := Allman2023.TreeSuppression.sum_nodeDegree

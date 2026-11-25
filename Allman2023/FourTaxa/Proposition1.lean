@@ -15,10 +15,10 @@ and `CF`s are continuous, so the citation is good: `proposition1` follows it, wi
 network is `𝒩(k)⁺` for all sufficiently large `k`, with lengths `metricNk k ε M` for some `ε, M > 0`, and hybridization parameters `1/2` (`NetworkNk.exists_params`). The proof is the paper's:
 
 * `α` is the probability that the lineages of `a`, `b` are on different edges at height `1 + (k + 1)ε`, the union of `k` disjoint events of probabilities `(p/2)^ℓ` (`stageMass_divLevel`, `divAt_iff_exists_splitAt`, `eq_of_splitAt_of_splitAt`, `fullMass_divAt`,
-  in `Allman2023.NetworkNkCF` and `Allman2023.NetworkNkMixture`).
+  in `Allman2023.FourTaxa.NetworkNkCF` and `Allman2023.FourTaxa.NetworkNkMixture`).
 * `CF_abcd = α CF₁ + (1 - α) CF₂` for the conditional masses `cfOne`, `cfTwo` (`nmscCF_eq_mixture`).
-* `α CF₁` is the mean of the concordance factors on the species trees `(((c, a), b), d)` and `(((c, b), a), d)`, of equal probability, with edge `mM` (`mul_cfOne_eq_species`, `alpha_eq_sum_leafProb`, `fullMass_arrAt`, in `Allman2023.NetworkNkSpecies` and
-  `Allman2023.NetworkNkMixture`). So `CF₁` is near `(0, 1/2, 1/2)` (`cfOne_first_le`, `cfOne_second_eq_third`, `cfOne_second_bounds`), and the entries of `CF₂` are bounded (`cfTwo_le_one`).
+* `α CF₁` is the mean of the concordance factors on the species trees `(((c, a), b), d)` and `(((c, b), a), d)`, of equal probability, with edge `mM` (`mul_cfOne_eq_species`, `alpha_eq_sum_leafProb`, `fullMass_arrAt`, in `Allman2023.FourTaxa.NetworkNkSpecies` and
+  `Allman2023.FourTaxa.NetworkNkMixture`). So `CF₁` is near `(0, 1/2, 1/2)` (`cfOne_first_le`, `cfOne_second_eq_third`, `cfOne_second_bounds`), and the entries of `CF₂` are bounded (`cfTwo_le_one`).
 * `cf_first_le` is the bound that gives; then `ε ≫ 0` gives a first entry near 1, and the intermediate value theorem, on the segment of `ε` at fixed `k` and `M`, all those between.
 
 There is no departure from the paper in this proof.
@@ -27,7 +27,7 @@ There is no departure from the paper in this proof.
 * "Note that by Theorem 1, `CF_abcd` is strictly `(ab|cd)`-cut for `ε > 0`" is wrong as a claim on all `ε > 0`, since Theorem 1 is generic and the converse itself makes `(1/3, 1/3, 1/3)` arise
   (`NetworkNk.exists_not_isStrictlyCutAtFirst`). The sentence isn't used.
 * The letter `p` is both `exp (-ε)` and the entry of the triple; the last paragraph writes `(q, p, p)`, `q + 2p = 1`, for the triple that the statement writes `(p, q, q)`.
-* The PMC manuscript prints the lengths of the pendant edges as "`1, 1, 1 + (k + 1)ε + (2^k - 1)M`": three lengths for four edges. See `Allman2023.NetworkNk`.
+* The PMC manuscript prints the lengths of the pendant edges as "`1, 1, 1 + (k + 1)ε + (2^k - 1)M`": three lengths for four edges. See `Allman2023.FourTaxa.NetworkNk`.
 -/
 
 @[expose] public noncomputable section

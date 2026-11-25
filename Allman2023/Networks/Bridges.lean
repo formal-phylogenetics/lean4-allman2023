@@ -18,7 +18,7 @@ families and cut-edge splits on ancestral subgraphs. These are the bridges:
 * `isBlobQuartet_iff_exists_determines`, `exists_isDeterminedBy_three` (proved).
 * `removeStem_hasCutSplit_iff`, `induced_hasCutSplit_iff` (proved): the cut-edge splits of the paper's induced network are
   `RootedNetwork.HasCutSplitOn` of the library, with both sides nonempty.
-* `isBlobQuartetOnInduced_iff` (proved, in `Allman2023.BlobsPass`, as the paper says, by blobs and cut edges through the steps of Definition 6), `isBlobQuartetOnInduced_self_iff`, `isTreelike_iff_resolves` (proved): a
+* `isBlobQuartetOnInduced_iff` (proved, in `Allman2023.Networks.BlobsPass`, as the paper says, by blobs and cut edges through the steps of Definition 6), `isBlobQuartetOnInduced_self_iff`, `isTreelike_iff_resolves` (proved): a
   B-quartet on the induced network, in the subgraph language.
 * `inducedHasQuartetTopology_iff`: the resolved topology on the induced network is `InducedCutSplit`, from `hasQuartetTopology_iff_displays`.
 * `unrootAt_cut_iff`, `lsaPlus_hasCutSplit_iff`, `splits_Trd` (proved): the splits of the graph `T_rd(𝒩⁻)` are `Phylogenetics.treeOfBlobs`.
@@ -625,7 +625,7 @@ end TrdShape
 section InducedQuartets
 
 /-- **"Under this operation, blobs pass to blobs, and cut edges to cut edges"** (`a:claim:suppress-blobs`, before Corollary 2): a B-quartet on the induced network is a set that
-determines a blob of the subnetwork of the edges ancestral to `Y`. The proof is in `Allman2023.BlobsPass`. -/
+determines a blob of the subnetwork of the edges ancestral to `Y`. The proof is in `Allman2023.Networks.BlobsPass`. -/
 theorem isBlobQuartetOnInduced_iff (hN : IsBinaryNetwork N) (Y : Set X) (hY : Y.Nontrivial) {Q : Finset X}
     (hQ : (Q : Set X) ⊆ Y) (h4 : Q.card = 4) :
     IsBlobQuartetOnInduced hN Y hY Q ↔ ∃ v ∈ N.ancestralVertices Y, Determines N.graph (N.ancestralArcs Y) v N.leaf Q :=
@@ -789,3 +789,13 @@ theorem inducedHasQuartetTopology_iff [Fintype X] [DecidableEq X] (hN : IsBinary
 end InducedQuartets
 
 end Allman2023.Bridges
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.Bridges.splits_Trd := Allman2023.Bridges.splits_Trd

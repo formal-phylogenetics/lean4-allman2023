@@ -437,3 +437,69 @@ abbrev semidirected (hN : IsBinaryNetwork N) (hX : Nontrivial X) :
 end Semidirected
 
 end Allman2023
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.IsBinaryNetwork.isBinary := Allman2023.IsBinaryNetwork.isBinary
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.IsBinaryNetwork.isPhylogenetic := Allman2023.IsBinaryNetwork.isPhylogenetic
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.mem_belowArcs_univ_iff := Allman2023.mem_belowArcs_univ_iff
+
+namespace AllmanEtAl2023
+
+export Allman2023 (IsBinaryNetwork lsaNode lsaPlus semidirected)
+
+end AllmanEtAl2023
+
+
+namespace AllmanEtAl2023
+
+open Phylogenetics Phylogenetics.RootedNetwork
+
+variable {V E X : Type*} {N : RootedNetwork V E X}
+
+export Phylogenetics (SemidirectedNetwork)
+
+/-- The nodes of `𝒩⁻`. -/
+@[deprecated RootedNetwork.SemidirectedVertex +typeChanged (since := "2026-11-24")]
+abbrev SemiV (hN : Allman2023.IsBinaryNetwork N) (hX : Nontrivial X) :=
+  SemidirectedVertex hN.isPhylogenetic hX
+
+/-- The edges of `𝒩⁻`. -/
+@[deprecated RootedNetwork.SemidirectedArc +typeChanged (since := "2026-11-24")]
+abbrev SemiE (hN : Allman2023.IsBinaryNetwork N) (hX : Nontrivial X) :=
+  SemidirectedArc hN.isPhylogenetic hN.isBinary hX
+
+/-- The edge out of the root of `𝒩⊕` that is merged into the other. -/
+@[deprecated RootedNetwork.rootTreeArc +typeChanged (since := "2026-11-24")]
+abbrev rootTreeArc (hN : Allman2023.IsBinaryNetwork N) (hX : Nontrivial X) :
+    N.belowArcs (Allman2023.lsaNode hN hX) Set.univ :=
+  RootedNetwork.rootTreeArc hN.isPhylogenetic hN.isBinary hX
+
+set_option linter.deprecated false in
+@[deprecated RootedNetwork.rootTreeArc_spec +typeChanged (since := "2026-11-24")]
+theorem rootTreeArc_spec (hN : Allman2023.IsBinaryNetwork N) (hX : Nontrivial X) :
+    (Allman2023.lsaPlus hN hX).graph.source (rootTreeArc hN hX) = (Allman2023.lsaPlus hN hX).root ∧
+      (Allman2023.lsaPlus hN hX).IsTreeArc (rootTreeArc hN hX) :=
+  RootedNetwork.rootTreeArc_spec hN.isPhylogenetic hN.isBinary hX
+
+@[deprecated RootedNetwork.lsaPlus_isPhylogenetic +typeChanged (since := "2026-11-24")]
+theorem lsaPlus_isPhylogenetic (hN : Allman2023.IsBinaryNetwork N) (hX : Nontrivial X) :
+    (Allman2023.lsaPlus hN hX).IsPhylogenetic :=
+  RootedNetwork.lsaPlus_isPhylogenetic hN.isPhylogenetic hX
+
+@[deprecated RootedNetwork.mem_ancestralVertices_univ +typeChanged (since := "2026-11-24")]
+theorem mem_ancestralVertices_univ (hN : Allman2023.IsBinaryNetwork N) (v : V) :
+    v ∈ N.ancestralVertices Set.univ :=
+  RootedNetwork.mem_ancestralVertices_univ hN.isPhylogenetic v
+
+end AllmanEtAl2023

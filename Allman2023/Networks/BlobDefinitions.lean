@@ -516,3 +516,22 @@ def IsBlobQuartetOnInduced (hN : IsBinaryNetwork N) (Y : Set X) (hY : Y.Nontrivi
 end InducedQuartets
 
 end Allman2023
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+namespace AllmanEtAl2023
+
+export Allman2023 (ChainLink LabelledGraph Trd nodeDegree suppressDegreeTwo)
+
+end AllmanEtAl2023
+
+namespace AllmanEtAl2023.LabelledGraph
+
+export Allman2023.LabelledGraph (HasQuartetTopology HasSide HasStarTopology graph leaf splits)
+
+end AllmanEtAl2023.LabelledGraph

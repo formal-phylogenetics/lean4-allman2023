@@ -13,14 +13,14 @@ If `T_rd(𝒩⁻)` has the unresolved topology, then `CF_abcd` is non-cut, for g
 * "If `v` is the lowest hybrid node on `𝒩⁺`, then the subnetwork below `v` must be a tree. But since `𝒩⁻` has no 3-blobs, this tree can only have one leaf, and hence there is only a single edge below `v`": `exists_child_eq_leaf`.
 * "Moreover, the semidirected unrooted networks each have exactly two 3-blobs, and possibly 2-blobs": Lemma 1 on `deleted`.
 * "For the sake of contradiction, suppose `𝒩₂⁺`'s reduced unrooted tree of blobs also has topology `ab|cd`": `IsLowPair.exists_splitOffAt`.
-* "By (a) we have that `𝒩₁⁺` is strictly `(ab|cd)`-cut and `𝒩₂⁺` is strictly `(ac|bd)`-cut for generic parameters. Thus by first choosing the numerical parameters other than `γ₁`, `γ₂` on `𝒩⁺` to yield such generic parameters on the `𝒩ᵢ⁺` ... so that `CF_abcd(𝒩⁺)` is non-cut": `theorem1_a` on `deleted`, `measure_deleted_preimage`, `nmscCF_withPair_mixture`, `exists_mem_Ioo_forall_ne`.
+* "By (a) we have that `𝒩₁⁺` is strictly `(ab|cd)`-cut and `𝒩₂⁺` is strictly `(ac|bd)`-cut for generic parameters. Thus by first choosing the numerical parameters other than `γ₁`, `γ₂` on `𝒩⁺` to yield such generic parameters on the `𝒩ᵢ⁺` ... so that `CF_abcd(𝒩⁺)` is non-cut": `theorem1_a` on `deleted`, `measure_deleted_preimage`, `nmscCF_withPair_mixture`, `Real.exists_mem_Ioo_forall_ne`.
 
 ## Notes on the paper
 
 The text here is the PMC manuscript, not the journal's version.
 
 * **The labels of the mixture.** Fig. 5's caption and the figure disagree with `CF = γ₁ CF(𝒩₂⁺) + γ₂ CF(𝒩₁⁺)`, which fits `𝒩ᵢ` removing `hᵢ`. In Lean the two networks are named by the arc deleted, and `θ.withPair k₁ k₂ γ` puts `γ` on `k₁` (`exists_isNonCut_of_deleted`).
-* **Implicit in the paper.** The passage from generic parameters of the `𝒩ᵢ⁺` to parameters of `𝒩⁺` (`measure_deleted_preimage`): the preimage of a null set under the map of parameters is null. That a lowest hybrid node exists: a network with none is a tree, and then has a resolved `T` (the last branch of `exists_isNonCut_of_not_isTreelike`). The stem removal in `𝒩ᵢ⁺` (see `Allman2023.DeletedNetwork`).
+* **Implicit in the paper.** The passage from generic parameters of the `𝒩ᵢ⁺` to parameters of `𝒩⁺` (`measure_deleted_preimage`): the preimage of a null set under the map of parameters is null. That a lowest hybrid node exists: a network with none is a tree, and then has a resolved `T` (the last branch of `exists_isNonCut_of_not_isTreelike`). The stem removal in `𝒩ᵢ⁺` (see `Allman2023.FourTaxa.DeletedNetwork`).
 * **"Now `e` must be a cut edge in both `N₁` and `N₂`"** has no reason in the paper: see `IsLowPair.ends_mem_far`.
 -/
 
@@ -270,7 +270,7 @@ theorem exists_isNonCut_of_deleted (hN : IsBinaryNetwork N) (hcard : Fintype.car
       exact Or.inr (hc₂.1 r (htaxa r hr r' hr' hne))
     · exact absurd (eq_of_mem_treesOn_of_ne hq hs₁ hs₂ hss hr hr' h₁ h₃ h₂ h₄) hne
   -- the choice of `γ`
-  obtain ⟨γ, hγ, hne⟩ := exists_mem_Ioo_forall_ne (treesOn (Finset.univ : Finset X)) (fun r => nmscCF N (θ₀.withPair k₁ k₂ 1) 0 r) (fun r => nmscCF N (θ₀.withPair k₁ k₂ 0) 0 r) hsep
+  obtain ⟨γ, hγ, hne⟩ := Real.exists_mem_Ioo_forall_ne (treesOn (Finset.univ : Finset X)) (fun r => nmscCF N (θ₀.withPair k₁ k₂ 1) 0 r) (fun r => nmscCF N (θ₀.withPair k₁ k₂ 0) 0 r) hsep
   have hmix : ∀ t : QuartetTree X, nmscCF N (θ₀.withPair k₁ k₂ γ) 0 t = γ * nmscCF N (θ₀.withPair k₁ k₂ 1) 0 t + (1 - γ) * nmscCF N (θ₀.withPair k₁ k₂ 0) 0 t := fun t =>
     nmscCF_withPair_mixture hP hn₀ hk ht' hpar t a (fun y _ hya => honly y hya) γ
   refine ⟨θ₀.withPair k₁ k₂ γ, isWeakMetric_withPair hw₀ hk ht' h0 ⟨hγ.1.le, hγ.2.le⟩, fun r hr r' hr' hrr => ?_⟩
@@ -575,7 +575,7 @@ theorem exists_cutDegree_four_iff {V : Type u} {E : Type v} {N : RootedNetwork V
 
 /-- **The choice of parameters of (b), for every network**: "there is a single choice of numerical parameters that gives a non-cut `CF`", on the boundary of the stochastic parameter space. By induction on the number of edges, "after repeatedly 'removing' 2-blobs and one of the lowest hybrid edges in the 4-blob by setting certain parameters to 0, we arrive at a network" for which removing either lowest hybrid edge gives no 4-blob.
 
-The 2-blob step is `contracted` (`Allman2023.ContractBlob`), one blob at a time; the deletion step is `deleted`. Once no 2-blob is left, "by Lemma 1, the only non-leaf blob in `𝒩⁻` is a 4-blob" (`hfour`), which is what `exists_child_eq_leaf` uses. -/
+The 2-blob step is `contracted` (`Allman2023.FourTaxa.ContractBlob`), one blob at a time; the deletion step is `deleted`. Once no 2-blob is left, "by Lemma 1, the only non-leaf blob in `𝒩⁻` is a 4-blob" (`hfour`), which is what `exists_child_eq_leaf` uses. -/
 theorem exists_isNonCut_of_not_isTreelike (hcard : Fintype.card X = 4) (n : ℕ) : ∀ {V : Type u} {E : Type v} [Fintype V] [Fintype E] {N : RootedNetwork V E X} (_ : IsBinaryNetwork N),
     Fintype.card E = n → ¬ IsTreelike N Finset.univ → ∃ θ, N.IsWeakMetric θ ∧ IsNonCut (nmscCF N θ 0) Finset.univ := by
   induction n using Nat.strong_induction_on with

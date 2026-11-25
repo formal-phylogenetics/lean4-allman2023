@@ -17,7 +17,7 @@ public import Allman2023.FourTaxa.Proposition1
 * "Points in the simplex off these line segments arise as CFs only for networks whose unrooted reduced trees of blobs are unresolved": `hasStarTopology_of_isNonCutCF`.
 * "This cannot happen for generic parameters by Theorem 1": `theorem1_b`.
 
-"By Baños (2019), all points off the line segments arise from level-1 networks with 4-cycles" is in `Allman2023.FourCycle`.
+"By Baños (2019), all points off the line segments arise from level-1 networks with 4-cycles" is in `Allman2023.FourTaxa.FourCycle`.
 -/
 
 @[expose] public noncomputable section

@@ -16,6 +16,8 @@ vectors: each difference is a nonzero affine function of `γ`.
 
 @[expose] public section
 
+namespace Real
+
 /-- If any two entries differ in one of two vectors `p₁`, `p₀`, then some `γ ∈ (0, 1)` makes all the
 entries of `γ p₁ + (1 - γ) p₀` distinct: for each two entries, the difference is a nonzero affine
 function of `γ`, with at most one zero. -/
@@ -44,4 +46,4 @@ theorem exists_mem_Ioo_forall_ne {ι : Type*} (T : Finset ι) (p₁ p₀ : ι �
   refine ⟨γ, hγ, fun r hr r' hr' hne heq => hnot ?_⟩
   exact Set.mem_biUnion hr (Set.mem_biUnion hr' ⟨hne, heq⟩)
 
-/-! ### From (a) and (b) to the iff -/
+end Real

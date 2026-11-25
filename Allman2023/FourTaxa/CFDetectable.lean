@@ -5,7 +5,7 @@ public import Allman2023.FourTaxa.Corollary1
 /-!
 # Allman, Baños, Mitchell, Rhodes 2023: CF-detectability for the later papers
 
-The paper's Corollary 1 (the PMC text, lines 154-157) is `corollary1` in `Allman2023.Corollary1`. This file holds what the later papers use: the same content on quartet trees and cut-edge splits,
+The paper's Corollary 1 (the PMC text, lines 154-157) is `corollary1` in `Allman2023.FourTaxa.Corollary1`. This file holds what the later papers use: the same content on quartet trees and cut-edge splits,
 as `CFDetectable`. TINNiK's Theorem 1 is `cfDetectable_generic`.
 -/
 
@@ -48,3 +48,16 @@ theorem isGenericNull_not_isNonCut (hN : N.IsPhylogenetic) (hBin : N.IsBinary) {
   (cfDetectable_generic hN hBin).mono fun _ hθ => ⟨hθ.1, fun hd => hθ.2 (hd.blob q hq hnt)⟩
 
 end Allman2023
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.cfDetectable_generic := Allman2023.cfDetectable_generic
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.isGenericNull_not_isNonCut := Allman2023.isGenericNull_not_isNonCut

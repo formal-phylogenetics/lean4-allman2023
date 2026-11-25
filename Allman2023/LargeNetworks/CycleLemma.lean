@@ -1042,3 +1042,31 @@ theorem lemma3_blob (hN : N.IsPhylogenetic) (h4 : ({a, b, c, d} : Finset X).card
 end Setup
 
 end Allman2023
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.eq_of_leaf_reaches := Allman2023.eq_of_leaf_reaches
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.exists_determines_three := Allman2023.exists_determines_three
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.exists_leaf_arc := Allman2023.exists_leaf_arc
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.isPendantIn_leaf := Allman2023.isPendantIn_leaf
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.mem_ancestralVertices_of_walks := Allman2023.mem_ancestralVertices_of_walks
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.walks_ancestral := Allman2023.walks_ancestral
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.walks_of_reaches := Allman2023.walks_of_reaches

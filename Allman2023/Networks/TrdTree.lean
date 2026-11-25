@@ -761,3 +761,25 @@ theorem HasStarTopology.card_of_mem_splits [Fintype X] [DecidableEq X] {T : Labe
     simp
 
 end Allman2023.LabelledGraph
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.LabelledGraph.HasQuartetTopology.pair_mem_splits := Allman2023.LabelledGraph.HasQuartetTopology.pair_mem_splits
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.LabelledGraph.HasStarTopology.card_of_mem_splits := Allman2023.LabelledGraph.HasStarTopology.card_of_mem_splits
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.LabelledGraph.hasStar_or_hasQuartet := Allman2023.LabelledGraph.hasStar_or_hasQuartet
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.TreeSuppression.isTree_suppressDegreeTwo := Allman2023.TreeSuppression.isTree_suppressDegreeTwo
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.TreeSuppression.ncard_neighborSet_suppressDegreeTwo := Allman2023.TreeSuppression.ncard_neighborSet_suppressDegreeTwo

@@ -18,10 +18,10 @@ Statements of Section 2 that the paper doesn't prove, or proves in a sentence.
 * "`T_rd(𝒩⁻)`" is a tree (Definition 11): `Bridges.isTree_Trd`.
 * "Equivalently, every tree displayed on the 4-taxon network has the same resolved quartet topology" (after Definition 13): `isTreelike_iff_forall_displays`, `isTreeQuartet_iff_forall_displays`. The trees
   displayed are the library's `displayedSides`, one for each choice of parents.
-* "`𝒩⁻` may have any number of 2-blobs" (Lemma 1): `exists_network_star`, `exists_network_resolved`, in `Allman2023.TwoBlobs`.
-* "The distance between blobs cannot be identified" (Section 5): `blobDistance_not_identifiable`, in `Allman2023.BlobDistance`.
+* "`𝒩⁻` may have any number of 2-blobs" (Lemma 1): `exists_network_star`, `exists_network_resolved`, in `Allman2023.FourTaxa.TwoBlobs`.
+* "The distance between blobs cannot be identified" (Section 5): `blobDistance_not_identifiable`, in `Allman2023.MainResult.BlobDistance`.
 * The mixture formula in the proof of Theorem 1 (b), `CF(𝒩⁺) = γ₁ CF(𝒩₂⁺) + γ₂ CF(𝒩₁⁺)`: `cf_mixture`, on the networks `deleted`. It is `nmscCF_withPair_mixture`, which the proof of Theorem 1 uses.
-* `CF_abcd = α CF₁ + (1 - α) CF₂` in the proof of Proposition 1: `NetworkNk.nmscCF_eq_mixture`, in `Allman2023.NetworkNkMixture`.
+* `CF_abcd = α CF₁ + (1 - α) CF₂` in the proof of Proposition 1: `NetworkNk.nmscCF_eq_mixture`, in `Allman2023.FourTaxa.NetworkNkMixture`.
 -/
 
 @[expose] public noncomputable section

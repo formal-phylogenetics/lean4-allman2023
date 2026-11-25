@@ -6,7 +6,7 @@ public import Allman2023.Networks.TrdFour
 # Allman, Baños, Mitchell, Rhodes 2023: Lemma 1
 
 The paper omits the proof ("A basic combinatorial observation, whose proof we omit"), and cites nothing for it. The proof here is our own, by the count of the degrees of
-the tree `T(𝒩⁻)`: see `Allman2023.TrdFour`.
+the tree `T(𝒩⁻)`: see `Allman2023.Networks.TrdFour`.
 -/
 
 @[expose] public noncomputable section

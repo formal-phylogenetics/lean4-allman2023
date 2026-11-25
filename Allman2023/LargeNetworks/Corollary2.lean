@@ -6,7 +6,7 @@ public import Allman2023.Networks.Bridges
 # Allman, Baños, Mitchell, Rhodes 2023: Corollary 2
 
 "To apply this to induced phylogenetic networks on subsets of taxa, observe that induced networks are obtained from subnetworks by suppressing degree-2 nodes. Under this operation, blobs pass to blobs, and cut edges to cut
-edges. Thus we have the following." The sentence on suppression is `Bridges.isBlobQuartetOnInduced_iff`, from `Allman2023.BlobsPass`, and the proof applies Lemma 2 to the subnetwork of the edges ancestral to `Y`. That
+edges. Thus we have the following." The sentence on suppression is `Bridges.isBlobQuartetOnInduced_iff`, from `Allman2023.Networks.BlobsPass`, and the proof applies Lemma 2 to the subnetwork of the edges ancestral to `Y`. That
 subnetwork is connected, as Lemma 2 needs (`isConnectedSubnetwork_ancestralArcs`).
 -/
 

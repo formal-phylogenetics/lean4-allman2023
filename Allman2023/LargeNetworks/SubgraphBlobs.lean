@@ -1108,3 +1108,106 @@ theorem Determines.sameBlobIn (hdet : Determines G F v ℓ S) (hdet' : Determine
 end DeterminesUnique
 
 end Allman2023
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.Determines.eq_of_mem_side := Allman2023.Determines.eq_of_mem_side
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.Determines.ne_of_isPendantIn := Allman2023.Determines.ne_of_isPendantIn
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.Determines.sameBlobIn := Allman2023.Determines.sameBlobIn
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.IsPendantIn.eq_of_sameBlobIn := Allman2023.IsPendantIn.eq_of_sameBlobIn
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.LeadsTo.unique := Allman2023.LeadsTo.unique
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.Links.crosses := Allman2023.Links.crosses
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.Links.symm := Allman2023.Links.symm
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.OnlyCrosses.compl := Allman2023.OnlyCrosses.compl
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.OnlyCrosses.isCutIn := Allman2023.OnlyCrosses.isCutIn
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.OnlyCrosses.mem_iff_of_walks_diff := Allman2023.OnlyCrosses.mem_iff_of_walks_diff
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.OnlyCrosses.not_crossing := Allman2023.OnlyCrosses.not_crossing
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.SameBlobIn.mem_iff := Allman2023.SameBlobIn.mem_iff
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.SameBlobIn.symm := Allman2023.SameBlobIn.symm
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.SameBlobIn.walks := Allman2023.SameBlobIn.walks
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.SameBlobIn.walks_diff := Allman2023.SameBlobIn.walks_diff
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.compOff_subset_or_subset := Allman2023.compOff_subset_or_subset
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.determines_of_median := Allman2023.determines_of_median
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.exists_compOff_eq := Allman2023.exists_compOff_eq
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.exists_ends_of_mem_incidentCuts := Allman2023.exists_ends_of_mem_incidentCuts
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.exists_leadsTo := Allman2023.exists_leadsTo
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.exists_links_of_walks := Allman2023.exists_links_of_walks
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.insideArcs_subset_diff := Allman2023.insideArcs_subset_diff
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.isCutIn_of_subset := Allman2023.isCutIn_of_subset
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.mem_compOff_or_mem_compOff := Allman2023.mem_compOff_or_mem_compOff
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.not_mem_far_self := Allman2023.not_mem_far_self
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.onlyCrosses_compOff := Allman2023.onlyCrosses_compOff
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.onlyCrosses_far := Allman2023.onlyCrosses_far
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.walks_diff_of_mem_side := Allman2023.walks_diff_of_mem_side
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.walks_insideArcs_of_mem := Allman2023.walks_insideArcs_of_mem
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.walks_of_links := Allman2023.walks_of_links
+
+namespace AllmanEtAl2023
+
+export Allman2023 (Determines IsCutIn LeadsTo Links OnlyCrosses SameBlobIn arcVertices compOff far incidentCuts insideArcs)
+
+end AllmanEtAl2023

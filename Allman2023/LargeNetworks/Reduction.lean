@@ -35,7 +35,7 @@ two uses of the degrees differ, and they are the hypotheses of `exists_reduction
 
 ## The paper's proof and this form
 
-`exists_reduction_aux` is the form for the later papers, on one network and a set `D` of deleted arcs, with the non-binary variant that ECToBlob's adaptation needs. The paper's statement (b), on networks of their own, with the 2-blob step and Lemma 1, is `Allman2023.Theorem1b`, which uses the lemmas of this file on the tree below a lowest reticulation and the contradiction.
+`exists_reduction_aux` is the form for the later papers, on one network and a set `D` of deleted arcs, with the non-binary variant that ECToBlob's adaptation needs. The paper's statement (b), on networks of their own, with the 2-blob step and Lemma 1, is `Allman2023.FourTaxa.Theorem1b`, which uses the lemmas of this file on the tree below a lowest reticulation and the contradiction.
 
 **Gap of the paper.** It says, with no reason, that the cut edge `e` of `N₃` is a cut edge of `N₁` and `N₂`. Its reason is `IsLowPair.ends_mem_far`: a cut edge `f` of `Nᵢ` with split `ab|cd` lies in `N₃` between `ℬ` and `b`, so the attachments of `a` lie beyond `f`, hence beyond `e`. With this,
 `IsLowPair.exists_splitOffAt` follows the paper's order.
@@ -976,3 +976,37 @@ theorem exists_reduction_of_blobDegree (hN : N.IsPhylogenetic)
     hsp₁', hsp₂', he₁', he₂'⟩
 
 end Allman2023
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.StarOff.four_le_degree := Allman2023.StarOff.four_le_degree
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.dominatesOff_of_uniqueParents := Allman2023.dominatesOff_of_uniqueParents
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.exists_reduction := Allman2023.exists_reduction
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.exists_reduction_of_blobDegree := Allman2023.exists_reduction_of_blobDegree
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.isTreelikeOff_empty_iff := Allman2023.isTreelikeOff_empty_iff
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.isTreelikeOff_or_starOff := Allman2023.isTreelikeOff_or_starOff
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.mem_taxaBelowOff := Allman2023.mem_taxaBelowOff
+
+namespace AllmanEtAl2023
+
+export Allman2023 (HasUniqueParentsBelow taxaBelowOff)
+
+end AllmanEtAl2023

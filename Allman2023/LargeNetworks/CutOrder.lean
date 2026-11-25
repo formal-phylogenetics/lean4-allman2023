@@ -236,3 +236,16 @@ theorem inducedCutSplit_iff_exists_splitOffAt (hN : N.IsPhylogenetic) (s : Quart
     exact ⟨Finset.card_pos.mp (by rw [s.card_of_mem hP]; norm_num), separatesOff_empty_iff.mp hsp⟩
 
 end Allman2023
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.inducedCutSplit_iff_exists_splitOffAt := Allman2023.inducedCutSplit_iff_exists_splitOffAt
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.inducedCutSplit_unique := Allman2023.inducedCutSplit_unique

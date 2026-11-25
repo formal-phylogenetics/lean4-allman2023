@@ -383,3 +383,22 @@ theorem astralLength_semidirected_consistent (hN : IsBinaryNetwork N) (hX : Nont
 end Lengths
 
 end Allman2023.Algorithm
+
+/-! ### Former names
+
+The names under which the repositories that require this one, lean4-tinnik, lean4-tob-qmc,
+lean4-nanuq and lean4-ectoblob, use these declarations: deprecated aliases of the theorems, and the
+definitions exported under their former namespace, so that dot notation on their values finds the
+lemmas of the new namespace. -/
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.Algorithm.card_of_bInferred := Allman2023.Algorithm.card_of_bInferred
+
+@[deprecated (since := "2026-11-24")]
+alias AllmanEtAl2023.Algorithm.quartetDistance_congr := Allman2023.Algorithm.quartetDistance_congr
+
+namespace AllmanEtAl2023.Algorithm
+
+export Allman2023.Algorithm (outline stepThree stepTwoB stepTwoT)
+
+end AllmanEtAl2023.Algorithm
