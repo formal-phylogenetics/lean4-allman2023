@@ -133,7 +133,7 @@ From [Section 10 of the report](docs/Allman2023/REPORT.md#10-the-paper-in-the-li
 
 ## What's next
 
-The natural next steps are to extend the generic results beyond independent inheritance, `ρ = 0`, where "Beyond level-1" has reached `ρ = 1` for binary networks, and to ask which lengths of cut edges are identifiable above level 1, which line 252 leaves to future work. [Section 11 of the report](docs/Allman2023/REPORT.md#11-whats-next) has these and the simpler arguments that the formalization found. A private `NEXT.md` holds the candidate follow-up papers.
+The natural next steps are to extend the generic results beyond independent inheritance, `ρ = 0`, where "Beyond level-1" has reached `ρ = 1` for binary networks, and to ask which lengths of cut edges are identifiable above level 1, which line 252 leaves to future work. [Section 11 of the report](docs/Allman2023/REPORT.md#11-whats-next) has these and the simpler arguments that the formalization found.
 
 ## Credits
 
