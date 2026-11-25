@@ -25,7 +25,7 @@ rev = "4ed2bb0f7085acbf1326f43e2a5c582ba4566125"
 [[require]]
 name = "TreeOfBlobs"
 git = "https://github.com/vltanh/lean4-tob"
-rev = "31465cd5dd0b4c173b8bcb49bb5f5dfeb8c99241"
+rev = "265ba443cb147a33ff2478cbc311a5597db1c1c7"
 
 [[require]]
 name = "mathlib"
