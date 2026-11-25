@@ -62,7 +62,7 @@ PATH_BASES = {'': ['.github/workflows', 'docs/Allman2023', 'palomar/Allman2023']
 PRIVATE = ('notes',)
 # The library that this project requires, and where its source is published.
 LIBRARY = 'Phylogenetics'
-LIBRARY_URL = 'https://github.com/vltanh/lean4-phylogenetics/blob/'
+LIBRARY_URL = 'https://github.com/formal-phylogenetics/lean4-phylogenetics/blob/'
 # ---------------------------------------------------------------------------------------------
 
 ROOT = Path(__file__).resolve().parent.parent

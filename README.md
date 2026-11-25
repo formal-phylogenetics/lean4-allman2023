@@ -1,12 +1,12 @@
 # Allman et al. 2023: the tree of blobs of a species network, identifiability, in Lean
 
-[![CI](https://github.com/vltanh/lean4-allman2023/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/vltanh/lean4-allman2023/actions/workflows/lean_action_ci.yml)
+[![CI](https://github.com/formal-phylogenetics/lean4-allman2023/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/formal-phylogenetics/lean4-allman2023/actions/workflows/lean_action_ci.yml)
 
 A Lean 4 formalization of Elizabeth S. Allman, Hector Baños, Jonathan D. Mitchell and John A. Rhodes (2023), "The tree of blobs of a species network: identifiability under the coalescent", [J. Math. Biol. 86 (2023), 10](https://doi.org/10.1007/s00285-022-01838-9), read in the PMC author manuscript and the [arXiv TeX](https://arxiv.org/abs/2205.03466). The tree of blobs of a phylogenetic network is what remains when its reticulate parts, the blobs, are contracted. The paper proves that under the network multispecies coalescent, for generic parameters, the reduced unrooted tree of blobs of a binary species network is identifiable from the distribution of gene quartet topologies, with no assumption on the level of the network. On four taxa, the concordance factor detects a 4-blob (Theorem 1). On more taxa, the B-quartet Inference Rule (Theorem 2) finds all B-quartets from the concordance factors (Theorem 3), and from these the tree is recovered (Theorem 4).
 
 Every numbered result is proved, by the paper's arguments except the departures that [Section 7 of the report](docs/Allman2023/REPORT.md#7-departures-from-the-papers-proofs) lists. The formalization is unconditional: no result of the literature is assumed, and there is no `sorry` or `axiom` outside the Challenge's statements. Lemma 2 is proved for a connected subnetwork, which its proof and all its uses assume (E55). No person has reviewed the proofs.
 
-This paper belongs to the hub [lean4-phylo-tree-of-blobs](https://github.com/vltanh/lean4-phylo-tree-of-blobs), on the tree of blobs of a phylogenetic network, a sub-hub of [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), in the collection rooted at [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics). TINNiK, TOB-QMC and ECToBlob build on it.
+This paper belongs to the hub [lean4-phylo-tree-of-blobs](https://github.com/formal-phylogenetics/lean4-phylo-tree-of-blobs), on the tree of blobs of a phylogenetic network, a sub-hub of [lean4-phylo-network](https://github.com/formal-phylogenetics/lean4-phylo-network), in the collection rooted at [lean4-phylogenetics](https://github.com/formal-phylogenetics/lean4-phylogenetics). TINNiK, TOB-QMC and ECToBlob build on it.
 
 ## Status
 
@@ -55,9 +55,9 @@ The statements of record are the theorems of the Challenge, [`palomar/Allman2023
 
 | Source | Lean | Statement |
 | --- | --- | --- |
-| Semple, Steel 2005; Rhodes 2020, in the proof of Theorem 4 | [`External.SempleSteel2005.mem_of_forall_displays`](Allman2023/External/SempleSteel2005/Quartets.lean#L27) | an unrooted tree that displays every quartet tree across a split with two taxa on each side has that split; proved in lean4-phylogenetics, [`Phylogenetics.mem_of_forall_displays`](https://github.com/vltanh/lean4-phylogenetics/blob/3fcabfd7d191990dda268b0b3968d945b65eb59a/Phylogenetics/Tree/Splits.lean#L638) |
-| Rhodes 2020, Theorem 2, in step 4 of the outline | [`External.Rhodes2020.theorem2`](https://github.com/vltanh/lean4-phylo-network/blob/4ed2bb0f7085acbf1326f43e2a5c582ba4566125/PhyloNetwork/External/Rhodes2020/Theorem2.lean#L777) | the quartet intertaxon distance is a tree metric on the tree; proved in lean4-phylo-network |
-| Semple, Steel 2003, Theorem 3.1.4 (not cited by the paper) | [`Phylogenetics.SplitsEquivalence.xTree_unique`](https://github.com/vltanh/lean4-phylogenetics/blob/3fcabfd7d191990dda268b0b3968d945b65eb59a/Phylogenetics/Tree/SplitsEquivalence.lean#L604) | a tree is determined by its splits, up to isomorphism, for [`Allman2023.theorem4_iso`](Allman2023/MainResult/Theorem4.lean#L134); proved in lean4-phylogenetics |
+| Semple, Steel 2005; Rhodes 2020, in the proof of Theorem 4 | [`External.SempleSteel2005.mem_of_forall_displays`](Allman2023/External/SempleSteel2005/Quartets.lean#L27) | an unrooted tree that displays every quartet tree across a split with two taxa on each side has that split; proved in lean4-phylogenetics, [`Phylogenetics.mem_of_forall_displays`](https://github.com/formal-phylogenetics/lean4-phylogenetics/blob/3fcabfd7d191990dda268b0b3968d945b65eb59a/Phylogenetics/Tree/Splits.lean#L638) |
+| Rhodes 2020, Theorem 2, in step 4 of the outline | [`External.Rhodes2020.theorem2`](https://github.com/formal-phylogenetics/lean4-phylo-network/blob/4ed2bb0f7085acbf1326f43e2a5c582ba4566125/PhyloNetwork/External/Rhodes2020/Theorem2.lean#L777) | the quartet intertaxon distance is a tree metric on the tree; proved in lean4-phylo-network |
+| Semple, Steel 2003, Theorem 3.1.4 (not cited by the paper) | [`Phylogenetics.SplitsEquivalence.xTree_unique`](https://github.com/formal-phylogenetics/lean4-phylogenetics/blob/3fcabfd7d191990dda268b0b3968d945b65eb59a/Phylogenetics/Tree/SplitsEquivalence.lean#L604) | a tree is determined by its splits, up to isomorphism, for [`Allman2023.theorem4_iso`](Allman2023/MainResult/Theorem4.lean#L134); proved in lean4-phylogenetics |
 
 ## What the audit found
 
@@ -83,9 +83,9 @@ The statements of record are the theorems of the Challenge, [`palomar/Allman2023
 ## Dependencies
 
 - [Mathlib](https://github.com/leanprover-community/mathlib4), at `v4.37.0-rc1`.
-- [lean4-phylogenetics](https://github.com/vltanh/lean4-phylogenetics), the library of the collection, pinned by commit in [`lakefile.toml`](lakefile.toml): networks, blobs and their contraction, the semidirected network, trees and quartets, Kingman's coalescent and the network multispecies coalescent, null sets of parameters and the analytic argument behind generic parameters.
-- [lean4-phylo-network](https://github.com/vltanh/lean4-phylo-network), the library of the hub of network estimation, pinned by commit: the theorem of Rhodes 2020, the chain of the coalescent on explicit networks, and independent samples.
-- [lean4-phylo-tree-of-blobs](https://github.com/vltanh/lean4-phylo-tree-of-blobs), the library of this paper's hub, pinned by commit: the definitions of the algorithms of the later papers, among them the closure under the B-quartet Inference Rule (`BInferred`), which the outline of Section 5 uses.
+- [lean4-phylogenetics](https://github.com/formal-phylogenetics/lean4-phylogenetics), the library of the collection, pinned by commit in [`lakefile.toml`](lakefile.toml): networks, blobs and their contraction, the semidirected network, trees and quartets, Kingman's coalescent and the network multispecies coalescent, null sets of parameters and the analytic argument behind generic parameters.
+- [lean4-phylo-network](https://github.com/formal-phylogenetics/lean4-phylo-network), the library of the hub of network estimation, pinned by commit: the theorem of Rhodes 2020, the chain of the coalescent on explicit networks, and independent samples.
+- [lean4-phylo-tree-of-blobs](https://github.com/formal-phylogenetics/lean4-phylo-tree-of-blobs), the library of this paper's hub, pinned by commit: the definitions of the algorithms of the later papers, among them the closure under the B-quartet Inference Rule (`BInferred`), which the outline of Section 5 uses.
 
 ## Palomar
 
@@ -107,7 +107,7 @@ python3 scripts/linkify_docs.py                                      # the docum
 
 - Toolchain: Lean and Mathlib `v4.37.0-rc1` ([`lean-toolchain`](lean-toolchain), [`lake-manifest.json`](lake-manifest.json)).
 - `lake comparator`, `leanexport` and `con-ron` come from the toolchain, under `lake env`. The kernels' replays need much memory.
-- [lean4-phylo-tree-of-blobs's `docs/CONFIGURATION.md`](https://github.com/vltanh/lean4-phylo-tree-of-blobs/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CONFIGURATION.md) records the versions, the decisions, and what "line N" means.
+- [lean4-phylo-tree-of-blobs's `docs/CONFIGURATION.md`](https://github.com/formal-phylogenetics/lean4-phylo-tree-of-blobs/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CONFIGURATION.md) records the versions, the decisions, and what "line N" means.
 
 ## Layout
 
@@ -126,8 +126,8 @@ python3 scripts/linkify_docs.py                                      # the docum
 
 From [Section 10 of the report](docs/Allman2023/REPORT.md#10-the-paper-in-the-literature).
 
-- No other formalization of this paper was found. [lean4-allman2011](https://github.com/vltanh/lean4-allman2011), by the same owner, formalizes Allman, Degnan, Rhodes 2011, which the paper cites, and isn't used here.
-- Before: the paper's own account cites level-1 work (SNaQ, Baños 2019, NANUQ) and takes the tree of blobs from Gusfield et al. 2007, which is formalized separately, in [lean4-gusfield2007](https://github.com/vltanh/lean4-gusfield2007).
+- No other formalization of this paper was found. [lean4-allman2011](https://github.com/formal-phylogenetics/lean4-allman2011), by the same owner, formalizes Allman, Degnan, Rhodes 2011, which the paper cites, and isn't used here.
+- Before: the paper's own account cites level-1 work (SNaQ, Baños 2019, NANUQ) and takes the tree of blobs from Gusfield et al. 2007, which is formalized separately, in [lean4-gusfield2007](https://github.com/formal-phylogenetics/lean4-gusfield2007).
 - Since: TINNiK (2024) made the outline of Section 5 an algorithm with a consistency theorem, and TOB-QMC and ECToBlob build on the paper's results; all three are papers of the hub lean4-phylo-tree-of-blobs. "Beyond level-1" (2025) extends tree of blobs identifiability to common inheritance and the displayed tree model. Huber et al. 2025 and Frohn et al. 2025 give the tree of blobs from exact quarnets. Allman et al. 2024 settle the identifiability of edge lengths at level 1.
 - No erratum, correction or counterexample to the paper was found, and no later work that restates Lemma 2.
 
@@ -138,7 +138,7 @@ The natural next steps are to extend the generic results beyond independent inhe
 ## Credits
 
 - Maintainer: The-Anh Vu-Le, who requested and supervised the formalization, chose the papers, decided the library's boundary and the project's layout, and published the repository.
-- Formalization: Codex made the source audit and first foundations of the collection on 2026-10-27. Claude (Opus 5.5) in Claude Code, with sub-agents, wrote the statements, proofs, audit and documents in lean4-phylo-tree-of-blobs, with the rest of the collection, from 2026-10-31 to 2026-11-01, following the [formalize-math-paper](https://github.com/vltanh/formalize-math-paper) procedure. [`docs/Allman2023/CREDITS.md`](docs/Allman2023/CREDITS.md) and lean4-phylo-tree-of-blobs's [`docs/CREDITS.md`](https://github.com/vltanh/lean4-phylo-tree-of-blobs/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CREDITS.md) have the details.
+- Formalization: Codex made the source audit and first foundations of the collection on 2026-10-27. Claude (Opus 5.5) in Claude Code, with sub-agents, wrote the statements, proofs, audit and documents in lean4-phylo-tree-of-blobs, with the rest of the collection, from 2026-10-31 to 2026-11-01, following the [formalize-math-paper](https://github.com/vltanh/formalize-math-paper) procedure. [`docs/Allman2023/CREDITS.md`](docs/Allman2023/CREDITS.md) and lean4-phylo-tree-of-blobs's [`docs/CREDITS.md`](https://github.com/formal-phylogenetics/lean4-phylo-tree-of-blobs/blob/05a024a837076455c700e5d0f88637aa22432b45/docs/CREDITS.md) have the details.
 - Review: no person has reviewed the proofs; Lean's kernel checks them. Independent agents reviewed the statements and compared the proofs with the paper.
 
 ## License
