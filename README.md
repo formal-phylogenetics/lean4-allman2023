@@ -6,7 +6,7 @@ A Lean 4 formalization of Elizabeth S. Allman, Hector Baños, Jonathan D. Mitche
 
 Every numbered result is proved, by the paper's arguments except the departures that [Section 7 of the report](docs/Allman2023/REPORT.md#7-departures-from-the-papers-proofs) lists. The formalization is unconditional: no result of the literature is assumed, and there is no `sorry` or `axiom` outside the Challenge's statements. Lemma 2 is proved for a connected subnetwork, which its proof and all its uses assume (E55). No person has reviewed the proofs.
 
-This paper belongs to the hub [lean4-phylo-tree-of-blobs](https://github.com/formal-phylogenetics/lean4-phylo-tree-of-blobs), on the tree of blobs of a phylogenetic network, a sub-hub of [lean4-phylo-network](https://github.com/formal-phylogenetics/lean4-phylo-network), in the collection rooted at [lean4-phylogenetics](https://github.com/formal-phylogenetics/lean4-phylogenetics). TINNiK, TOB-QMC and ECToBlob build on it.
+This paper belongs to the hub [lean4-phylo-network](https://github.com/formal-phylogenetics/lean4-phylo-network), with the papers on the tree of blobs of a phylogenetic network, which share the library of [lean4-phylo-tree-of-blobs](https://github.com/formal-phylogenetics/lean4-phylo-tree-of-blobs), in the collection rooted at [lean4-phylogenetics](https://github.com/formal-phylogenetics/lean4-phylogenetics). TINNiK, TOB-QMC and ECToBlob build on it.
 
 ## Status
 
@@ -128,7 +128,7 @@ From [Section 10 of the report](docs/Allman2023/REPORT.md#10-the-paper-in-the-li
 
 - No other formalization of this paper was found. [lean4-allman2011](https://github.com/formal-phylogenetics/lean4-allman2011), by the same owner, formalizes Allman, Degnan, Rhodes 2011, which the paper cites, and isn't used here.
 - Before: the paper's own account cites level-1 work (SNaQ, Baños 2019, NANUQ) and takes the tree of blobs from Gusfield et al. 2007, which is formalized separately, in [lean4-gusfield2007](https://github.com/formal-phylogenetics/lean4-gusfield2007).
-- Since: TINNiK (2024) made the outline of Section 5 an algorithm with a consistency theorem, and TOB-QMC and ECToBlob build on the paper's results; all three are papers of the hub lean4-phylo-tree-of-blobs. "Beyond level-1" (2025) extends tree of blobs identifiability to common inheritance and the displayed tree model. Huber et al. 2025 and Frohn et al. 2025 give the tree of blobs from exact quarnets. Allman et al. 2024 settle the identifiability of edge lengths at level 1.
+- Since: TINNiK (2024) made the outline of Section 5 an algorithm with a consistency theorem, and TOB-QMC and ECToBlob build on the paper's results; all three are papers on the tree of blobs of the hub lean4-phylo-network. "Beyond level-1" (2025) extends tree of blobs identifiability to common inheritance and the displayed tree model. Huber et al. 2025 and Frohn et al. 2025 give the tree of blobs from exact quarnets. Allman et al. 2024 settle the identifiability of edge lengths at level 1.
 - No erratum, correction or counterexample to the paper was found, and no later work that restates Lemma 2.
 
 ## What's next
